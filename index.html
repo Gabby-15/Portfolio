@@ -5,11 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Gabb Salvacion</title>
+  
+  <title>Mark Gabriel S. Salvacion — Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-
-
-  /*STYLE CSS*/
   <style>
     /* ─── RESET & BASE ─────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -182,57 +180,111 @@
     }
     .btn-outline:hover { border-color: var(--fire); color: var(--fire); transform: translateY(-2px); }
 
-    /* Hero right — animated terminal card */
+    /* Hero right — profile photo */
     .hero-right {
       display: flex; justify-content: center; align-items: center;
       animation: fadeUp 0.7s 0.3s ease both;
     }
 
-    .terminal {
-      width: 100%;
-      max-width: 420px;
+    .profile-wrapper {
+      position: relative;
+      width: 300px; height: 360px;
+      margin-bottom: 28px;
+    }
+
+    /* Rotating fire conic ring */
+    .profile-ring {
+      position: absolute;
+      inset: -12px;
+      border-radius: 12px 30px 12px 30px;
+      background: conic-gradient(
+        var(--fire) 0deg,
+        var(--ember) 80deg,
+        var(--gold) 160deg,
+        var(--ember) 240deg,
+        var(--fire) 300deg,
+        transparent 340deg,
+        var(--fire) 360deg
+      );
+      animation: spin-ring 5s linear infinite;
+      z-index: 0;
+    }
+
+    /* Mask to cut the middle out of the ring */
+    .profile-ring::after {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      background: var(--bg);
+      border-radius: 8px 26px 8px 26px;
+    }
+
+    /* Corner accent brackets */
+    .profile-bracket {
+      position: absolute;
+      width: 20px; height: 20px;
+      z-index: 4;
+    }
+    .profile-bracket.tl { top: -2px;  left: -2px;  border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+    .profile-bracket.tr { top: -2px;  right: -2px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+    .profile-bracket.bl { bottom: -2px; left: -2px;  border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+    .profile-bracket.br { bottom: -2px; right: -2px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+
+    /* Glow at the bottom */
+    .profile-glow {
+      position: absolute;
+      inset: 0;
+      border-radius: 8px;
+      background: radial-gradient(ellipse at 50% 100%, rgba(255,77,26,0.35) 0%, transparent 60%);
+      z-index: 3;
+      animation: glow-pulse 2.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .profile-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 8px;
+      z-index: 2;
+      display: block;
+    }
+
+
+
+    /* Status badge below photo */
+    .profile-badge {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      display: flex; align-items: center; gap: 8px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
+      padding: 6px 18px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
     }
 
-    .terminal-bar {
-      display: flex; align-items: center; gap: 8px;
-      padding: 10px 14px;
-      background: var(--border);
-    }
-    .terminal-dot {
-      width: 10px; height: 10px; border-radius: 50%;
-    }
-    .dot-red   { background: #ff5f57; }
-    .dot-yellow{ background: #ffbd2e; }
-    .dot-green { background: #28ca41; }
-
-    .terminal-title {
-      font-size: 11px; color: var(--muted);
-      margin-left: 8px; letter-spacing: 0.05em;
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-dot 1.5s ease-in-out infinite;
     }
 
-    .terminal-body {
-      padding: 20px 18px;
-      font-size: 12px;
-      line-height: 2;
+    @keyframes spin-ring {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
     }
-
-    .t-comment { color: #4b5563; }
-    .t-key     { color: var(--ember); }
-    .t-val     { color: #86efac; }
-    .t-str     { color: #93c5fd; }
-    .t-num     { color: var(--gold); }
-    .t-fire    { color: var(--fire); }
-
-    .cursor {
-      display: inline-block;
-      width: 8px; height: 14px;
-      background: var(--fire);
-      vertical-align: middle;
-      animation: blink 1s step-end infinite;
+    @keyframes glow-pulse {
+      0%, 100% { opacity: 0.6; }
+      50%       { opacity: 1; }
     }
 
     /* ─── SECTION COMMON ──────────────────────────── */
@@ -641,8 +693,9 @@
     @media (max-width: 900px) {
       nav { padding: 16px 24px; }
       .nav-links { gap: 20px; }
-      .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 48px; }
-      .hero-right { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 100px 24px 80px; gap: 60px; }
+      .hero-right { display: flex; }
+      .profile-wrapper { width: 220px; height: 270px; }
       section { padding: 72px 24px; }
       .projects-grid { grid-template-columns: 1fr; }
       .project-card.featured { grid-column: 1; grid-template-columns: 1fr; }
@@ -675,7 +728,7 @@
     <div class="hero-left">
       <div class="hero-tag">Computer Engineering Graduate · 2026</div>
       <h1 class="hero-name">Mark<br/>Gabriel <em>S.</em><br/>Salvacion</h1>
-      <p class="hero-role">Front-End Developer</p>
+      <p class="hero-role">Front-End Developer & Network Engineer</p>
       <p class="hero-desc">
         Building intelligent interfaces and IoT systems that solve real-world problems. 
         Creator of F.L.A.M.E.S. — an AI-powered fire safety platform deployed for the 
@@ -688,27 +741,24 @@
     </div>
 
     <div class="hero-right">
-      <div class="terminal">
-        <div class="terminal-bar">
-          <div class="terminal-dot dot-red"></div>
-          <div class="terminal-dot dot-yellow"></div>
-          <div class="terminal-dot dot-green"></div>
-          <span class="terminal-title">profile.json</span>
-        </div>
-        <div class="terminal-body">
-          <div class="t-comment">// mark gabriel salvacion</div>
-          <div>{</div>
-          <div>&nbsp;&nbsp;<span class="t-key">"role"</span>: <span class="t-str">"Front-End / Network Eng."</span>,</div>
-          <div>&nbsp;&nbsp;<span class="t-key">"location"</span>: <span class="t-str">"Pangasinan, PH"</span>,</div>
-          <div>&nbsp;&nbsp;<span class="t-key">"degree"</span>: <span class="t-str">"BS CpE · 2026"</span>,</div>
-          <div>&nbsp;&nbsp;<span class="t-key">"stack"</span>: [</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"Python"</span>, <span class="t-str">"JS"</span>, <span class="t-str">"FastAPI"</span>,</div>
-          <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-str">"React"</span>, <span class="t-str">"C++"</span>, <span class="t-str">"MySQL"</span></div>
-          <div>&nbsp;&nbsp;],</div>
-          <div>&nbsp;&nbsp;<span class="t-key">"hardware"</span>: [<span class="t-str">"ESP32"</span>, <span class="t-str">"RaspPi 5"</span>],</div>
-          <div>&nbsp;&nbsp;<span class="t-key">"thesis_award"</span>: <span class="t-val">true</span>,</div>
-          <div>&nbsp;&nbsp;<span class="t-key">"open_to_work"</span>: <span class="t-fire">true</span></div>
-          <div>} <span class="cursor"></span></div>
+      <div class="profile-wrapper">
+        <!-- Rotating fire ring -->
+        <div class="profile-ring"></div>
+        <!-- Corner brackets -->
+        <div class="profile-bracket tl"></div>
+        <div class="profile-bracket tr"></div>
+        <div class="profile-bracket bl"></div>
+        <div class="profile-bracket br"></div>
+
+        <!-- Photo -->
+        <img src="images/Gabb.png" alt="Mark Gabriel S. Salvacion" class="profile-photo" />
+        <!-- Overlays -->
+        <div class="profile-scanlines"></div>
+        <div class="profile-glow"></div>
+        <!-- Status badge -->
+        <div class="profile-badge">
+          <div class="badge-dot"></div>
+          Open to Work
         </div>
       </div>
     </div>
@@ -1015,4 +1065,3 @@
 
 </body>
 </html>
-
