@@ -26,7 +26,15 @@
       --ff-head:  Arial, sans-serif;
     }
 
-    html { scroll-behavior: smooth; }
+    /* Hide scrollbar but keep scrolling */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
 
     body {
       background: var(--bg);
