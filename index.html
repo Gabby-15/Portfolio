@@ -15,32 +15,35 @@
   <!-- ===== Animated node/pixel network background ===== -->
   <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
+  <!-- ----- Navbar (moved outside .hero-card so its fixed z-index isn't
+       trapped inside that element's stacking context — otherwise later
+       sections like #academic, which also create their own stacking
+       context, could render on top of it) ----- -->
+  <header class="navbar">
+
+    <div class="MGS-logo">
+      <img src="images/MGS.png" class="MGS-logo-img" alt="MGS logo">
+    </div>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#academic">Skills</a>
+      <a href="#service">Certifications</a>
+      <a href="#projects">Projects</a>
+      <a href="#knowmemore?">Know Me More?</a>
+    </nav>
+
+    <button class="btn btn-primary contact-btn" id="contactBtn">Contact</button>
+
+    <!-- Hamburger for mobile -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+  </header>
+
   <!-- ===== Main black card / hero section ===== -->
   <main class="hero-card" id="home">
-
-    <!-- ----- Navbar ----- -->
-    <header class="navbar">
-
-      <div class="MGS-logo">
-        <img src="images/MGS.png" class="MGS-logo-img" alt="MGS logo">
-      </div>
-
-      <nav class="nav-links" id="navLinks">
-        <a href="#home" class="active">Home</a>
-        <a href="#academic">Skills</a>
-        <a href="#service">Certifications</a>
-        <a href="#projects">Projects</a>
-        <a href="#knowmemore?">Know Me More?</a>
-      </nav>
-
-      <button class="btn btn-primary contact-btn" id="contactBtn">Contact</button>
-
-      <!-- Hamburger for mobile -->
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-
-    </header>
 
     <!-- ----- Hero content ----- -->
     <section class="hero-content">
