@@ -1,1313 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <link rel="icon" type="image/png" href="images/Gabb.png" width ="60px">
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabb Salvacion | Portfolio</title>
+  <link rel="stylesheet" href="static/front page.css" />
 
-  
-  <title>Gabb Salvacion</title>
-
-  <style>
-    /* ─── RESET & BASE ─────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:       #0a0c0f;
-      --surface:  #111418;
-      --border:   #1e242c;
-      --fire:     #ff4d1a;
-      --ember:    #ff8c42;
-      --gold:     #f5c842;
-      --text:     #e8eaf0;
-      --muted:    #6b7280;
-      --card-bg:  #13181f;
-      --ff-mono:  Arial, sans-serif;
-      --ff-head:  Arial, sans-serif;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE/Edge */
-    }
-    html::-webkit-scrollbar {
-      display: none; /* Chrome/Safari */
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--ff-mono);
-      font-size: 14px;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    ::selection { background: var(--fire); color: #fff; }
-
-    /* ─── NOISE OVERLAY ───────────────────────────── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.4;
-    }
-
-    /* ─── NAV ─────────────────────────────────────── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 48px;
-      background: rgba(10,12,15,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: var(--ff-head);
-      font-weight: 800;
-      font-size: 18px;
-      letter-spacing: -0.5px;
-      color: var(--text);
-      text-decoration: none;
-    }
-    .nav-logo span { color: var(--fire); }
-
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--fire); }
-
-    /* ─── HERO ────────────────────────────────────── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 120px 48px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-glow {
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,77,26,0.12) 0%, transparent 70%);
-      top: 50%; right: -100px;
-      transform: translateY(-50%);
-      pointer-events: none;
-    }
-
-    .hero-tag {
-      display: inline-block;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--fire);
-      border: 1px solid var(--fire);
-      padding: 4px 12px;
-      margin-bottom: 28px;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .hero-name {
-      font-family: var(--ff-head);
-      font-size: clamp(40px, 5vw, 72px);
-      font-weight: 800;
-      line-height: 1.0;
-      letter-spacing: -2px;
-      margin-bottom: 8px;
-      animation: fadeUp 0.6s 0.1s ease both;
-    }
-
-    .hero-name em {
-      font-style: normal;
-      color: var(--fire);
-    }
-
-    .hero-role {
-      font-family: var(--ff-head);
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 28px;
-      animation: fadeUp 0.6s 0.2s ease both;
-    }
-
-    .hero-desc {
-      color: var(--muted);
-      font-size: 13px;
-      max-width: 480px;
-      line-height: 1.9;
-      margin-bottom: 40px;
-      animation: fadeUp 0.6s 0.3s ease both;
-    }
-
-    .hero-cta {
-      display: flex; gap: 16px;
-      animation: fadeUp 0.6s 0.4s ease both;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 12px 28px;
-      background: var(--fire);
-      color: #fff;
-      text-decoration: none;
-      font-family: var(--ff-mono);
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .btn-primary:hover { background: var(--ember); transform: translateY(-2px); }
-
-    .btn-outline {
-      display: inline-block;
-      padding: 12px 28px;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      text-decoration: none;
-      font-family: var(--ff-mono);
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: border-color 0.2s, color 0.2s, transform 0.15s;
-    }
-    .btn-outline:hover { border-color: var(--fire); color: var(--fire); transform: translateY(-2px); }
-
-    /* Hero right — profile photo */
-    .hero-right {
-      display: flex; justify-content: center; align-items: center;
-      animation: fadeUp 0.7s 0.3s ease both;
-    }
-
-    .profile-wrapper {
-      position: relative;
-      width: 300px; height: 360px;
-      margin-bottom: 28px;
-    }
-
-    /* Rotating fire conic ring */
-    .profile-ring {
-      position: absolute;
-      inset: -12px;
-      border-radius: 12px 30px 12px 30px;
-      background: conic-gradient(
-        var(--fire) 0deg,
-        var(--ember) 80deg,
-        var(--gold) 160deg,
-        var(--ember) 240deg,
-        var(--fire) 300deg,
-        transparent 340deg,
-        var(--fire) 360deg
-      );
-      animation: spin-ring 5s linear infinite;
-      z-index: 0;
-    }
-
-    /* Mask to cut the middle out of the ring */
-    .profile-ring::after {
-      content: '';
-      position: absolute;
-      inset: 6px;
-      background: var(--bg);
-      border-radius: 8px 26px 8px 26px;
-    }
-
-    /* Corner accent brackets */
-    .profile-bracket {
-      position: absolute;
-      width: 20px; height: 20px;
-      z-index: 4;
-    }
-    .profile-bracket.tl { top: -2px;  left: -2px;  border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
-    .profile-bracket.tr { top: -2px;  right: -2px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); }
-    .profile-bracket.bl { bottom: -2px; left: -2px;  border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); }
-    .profile-bracket.br { bottom: -2px; right: -2px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
-
-    /* Glow at the bottom */
-    .profile-glow {
-      position: absolute;
-      inset: 0;
-      border-radius: 8px;
-      background: radial-gradient(ellipse at 50% 100%, rgba(255,77,26,0.35) 0%, transparent 60%);
-      z-index: 3;
-      animation: glow-pulse 2.8s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    .profile-photo {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: 8px;
-      z-index: 2;
-      display: block;
-    }
-
-
-
-    /* Status badge below photo */
-    .profile-badge {
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 5;
-      display: flex; align-items: center; gap: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 6px 18px;
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-
-    @keyframes spin-ring {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-    @keyframes glow-pulse {
-      0%, 100% { opacity: 0.6; }
-      50%       { opacity: 1; }
-    }
-
-    /* ─── SECTION COMMON ──────────────────────────── */
-    section {
-      padding: 100px 48px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--fire);
-      margin-bottom: 12px;
-      display: flex; align-items: center; gap: 12px;
-    }
-    .section-label::after {
-      content: '';
-      flex: 1; height: 1px;
-      background: var(--border);
-    }
-
-    .section-title {
-      font-family: var(--ff-head);
-      font-size: clamp(28px, 3.5vw, 48px);
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      margin-bottom: 48px;
-      line-height: 1.1;
-    }
-
-    /* ─── SKILLS ──────────────────────────────────── */
-    #skills { border-top: 1px solid var(--border); }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 2px;
-    }
-
-    .skill-category {
-      background: var(--card-bg);
-      padding: 24px;
-      border: 1px solid var(--border);
-      transition: border-color 0.2s;
-    }
-    .skill-category:hover { border-color: var(--fire); }
-
-    .skill-cat-title {
-      font-family: var(--ff-head);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--fire);
-      margin-bottom: 14px;
-      letter-spacing: 0.05em;
-    }
-
-    .skill-list { list-style: none; }
-    .skill-list li {
-      font-size: 12px;
-      color: var(--muted);
-      padding: 4px 0;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .skill-list li::before {
-      content: '▸';
-      color: var(--ember);
-      font-size: 10px;
-    }
-
-    /* ─── PROJECTS ────────────────────────────────── */
-    #projects { border-top: 1px solid var(--border); }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
-
-    .project-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      padding: 36px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.25s;
-      cursor: default;
-    }
-
-    .project-card.featured {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
-    }
-
-    .project-card:hover { border-color: var(--fire); }
-
-    .project-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--fire), var(--ember));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
-    .project-card:hover::after { transform: scaleX(1); }
-
-    .project-number {
-      font-size: 11px;
-      color: var(--fire);
-      letter-spacing: 0.15em;
-      margin-bottom: 16px;
-    }
-
-    .project-title {
-      font-family: var(--ff-head);
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 12px;
-    }
-
-    .project-title span { color: var(--fire); }
-
-    .project-desc {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.9;
-      margin-bottom: 24px;
-    }
-
-    .project-tags {
-      display: flex; flex-wrap: wrap; gap: 8px;
-    }
-
-    .tag {
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-
-    .tag.fire { border-color: var(--fire); color: var(--fire); }
-
-    /* FLAMES visual panel */
-    .flames-visual {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .flames-visual::before {
-      content: 'LIVE DASHBOARD';
-      position: absolute;
-      top: 10px; right: 12px;
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      color: var(--fire);
-    }
-
-    .flames-header {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 16px;
-    }
-    .flames-logo-text {
-      font-family: var(--ff-head);
-      font-weight: 800;
-      font-size: 15px;
-      color: var(--fire);
-    }
-    .live-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: #22c55e;
-      animation: pulse-dot 1.5s ease-in-out infinite;
-    }
-
-    .flames-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .stat-box {
-      background: var(--surface);
-      padding: 10px;
-      text-align: center;
-    }
-    .stat-num {
-      font-family: var(--ff-head);
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--fire);
-    }
-    .stat-lbl {
-      font-size: 9px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .incident-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 11px;
-    }
-    .incident-row:last-child { border-bottom: none; }
-    .i-name { color: var(--text); }
-    .i-status { padding: 2px 8px; font-size: 9px; letter-spacing: 0.1em; }
-    .s-active   { background: rgba(255,77,26,0.15); color: var(--fire); }
-    .s-contained{ background: rgba(245,200,66,0.15); color: var(--gold); }
-    .s-resolved { background: rgba(34,197,94,0.15); color: #4ade80; }
-
-    /* ─── CERTIFICATIONS ──────────────────────────── */
-    #certs { border-top: 1px solid var(--border); }
-
-    .certs-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 2px;
-    }
-
-    .cert-item {
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      padding: 24px;
-      transition: border-color 0.2s;
-    }
-    .cert-item:hover { border-color: var(--ember); }
-
-    .cert-icon {
-      font-size: 22px;
-      flex-shrink: 0;
-      line-height: 1;
-      margin-top: 2px;
-    }
-
-    .cert-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-    .cert-org {
-      font-size: 11px;
-      color: var(--muted);
-    }
-    .cert-highlight {
-      font-size: 11px;
-      color: var(--gold);
-      margin-top: 4px;
-    }
-
-    /* ─── EDUCATION ───────────────────────────────── */
-    #education { border-top: 1px solid var(--border); }
-
-    .edu-timeline {
-      position: relative;
-      padding-left: 32px;
-    }
-
-    .edu-timeline::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 8px; bottom: 8px;
-      width: 1px;
-      background: var(--border);
-    }
-
-    .edu-item {
-      position: relative;
-      margin-bottom: 40px;
-    }
-
-    .edu-item::before {
-      content: '';
-      position: absolute;
-      left: -36px; top: 6px;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--fire);
-      border: 2px solid var(--bg);
-    }
-
-    .edu-year {
-      font-size: 11px;
-      color: var(--fire);
-      letter-spacing: 0.1em;
-      margin-bottom: 4px;
-    }
-
-    .edu-degree {
-      font-family: var(--ff-head);
-      font-size: 17px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .edu-school {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .edu-award {
-      display: inline-block;
-      margin-top: 8px;
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      padding: 3px 10px;
-      background: rgba(245,200,66,0.1);
-      border: 1px solid rgba(245,200,66,0.3);
-      color: var(--gold);
-    }
-
-    /* ─── CONTACT ─────────────────────────────────── */
-    #contact {
-      border-top: 1px solid var(--border);
-      text-align: center;
-      max-width: 700px;
-    }
-
-    .contact-heading {
-      font-family: var(--ff-head);
-      font-size: clamp(32px, 5vw, 64px);
-      font-weight: 800;
-      letter-spacing: -2px;
-      margin-bottom: 20px;
-      line-height: 1.05;
-    }
-    .contact-heading span { color: var(--fire); }
-
-    .contact-sub {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 40px;
-      line-height: 1.9;
-    }
-
-    .contact-links {
-      display: flex; justify-content: center; flex-wrap: wrap; gap: 12px;
-    }
-
-    .contact-link {
-      display: flex; align-items: center; gap: 8px;
-      padding: 12px 24px;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      transition: border-color 0.2s, color 0.2s, transform 0.15s;
-    }
-    .contact-link:hover { border-color: var(--fire); color: var(--fire); transform: translateY(-2px); }
-
-    /* ─── FOOTER ──────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    /* ─── KEYFRAMES ───────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0; }
-    }
-    @keyframes pulse-dot {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50%       { transform: scale(1.4); opacity: 0.6; }
-    }
-
-    /* ─── SCROLL REVEAL ───────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ─── RESPONSIVE ──────────────────────────────── */
-    @media (max-width: 900px) {
-      nav { padding: 16px 24px; }
-      .nav-links { gap: 20px; }
-      .hero { grid-template-columns: 1fr; padding: 100px 24px 80px; gap: 60px; }
-      .hero-right { display: flex; }
-      .profile-wrapper { width: 220px; height: 270px; }
-      section { padding: 72px 24px; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .project-card.featured { grid-column: 1; grid-template-columns: 1fr; }
-      .flames-visual { display: none; }
-      footer { flex-direction: column; gap: 8px; text-align: center; }
-    }
-
-    @media (max-width: 600px) {
-      .skills-grid { grid-template-columns: 1fr; }
-      .certs-list { grid-template-columns: 1fr; }
-    }
-
-    /* ─── KNOW ME MORE ────────────────────────────── */
-    .profile-hover-hint {
-      position: absolute;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      background: rgba(10,12,15,0.90);
-      border: 1px solid var(--fire);
-      color: var(--fire);
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      padding: 7px 18px;
-      white-space: nowrap;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-      pointer-events: none;
-    }
-
-    .profile-wrapper:hover .profile-hover-hint {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .profile-hover-hint:hover {
-      background: var(--fire);
-      color: #fff;
-    }
-
-    /* ─── KMM MODAL OVERLAY ───────────────────────── */
-    .kmm-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(10,12,15,0.93);
-      z-index: 8000;
-      overflow-y: auto;
-      backdrop-filter: blur(10px);
-    }
-
-    .kmm-overlay.open { display: block; }
-
-    .kmm-modal {
-      max-width: 780px;
-      margin: 60px auto 80px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 60px 56px;
-      position: relative;
-      animation: fadeUp 0.4s ease both;
-    }
-
-    .kmm-close {
-      position: absolute;
-      top: 22px; right: 26px;
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 14px;
-      cursor: pointer;
-      padding: 6px 12px;
-      letter-spacing: 0.1em;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .kmm-close:hover { border-color: var(--fire); color: var(--fire); }
-
-    .kmm-tag {
-      display: inline-block;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--fire);
-      border: 1px solid var(--fire);
-      padding: 4px 12px;
-      margin-bottom: 24px;
-    }
-
-    .kmm-title {
-      font-family: var(--ff-head);
-      font-size: clamp(28px, 4vw, 52px);
-      font-weight: 800;
-      letter-spacing: -2px;
-      line-height: 1.0;
-      margin-bottom: 40px;
-    }
-
-    .kmm-title em { font-style: normal; color: var(--fire); }
-
-    .kmm-section {
-      margin-bottom: 36px;
-      border-top: 1px solid var(--border);
-      padding-top: 28px;
-    }
-
-    .kmm-section-label {
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--fire);
-      margin-bottom: 8px;
-    }
-
-    .kmm-section-title {
-      font-family: var(--ff-head);
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: -0.3px;
-    }
-
-    .kmm-section p {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.9;
-    }
-
-    .kmm-list {
-      list-style: none;
-      margin-top: 8px;
-    }
-    .kmm-list li {
-      font-size: 13px;
-      color: var(--muted);
-      padding: 5px 0;
-      display: flex; align-items: flex-start; gap: 10px;
-      line-height: 1.7;
-    }
-    .kmm-list li::before {
-      content: '▸';
-      color: var(--ember);
-      font-size: 10px;
-      margin-top: 4px;
-      flex-shrink: 0;
-    }
-
-    .kmm-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      margin-top: 12px;
-    }
-
-    .kmm-stat {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      padding: 18px 20px;
-    }
-
-    .kmm-stat-num {
-      font-family: var(--ff-head);
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--fire);
-      line-height: 1;
-    }
-
-    .kmm-stat-lbl {
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    @media (max-width: 600px) {
-      .kmm-modal { padding: 36px 20px; margin: 24px 12px 48px; }
-      .kmm-grid { grid-template-columns: 1fr; }
-    }
-  </style>
 </head>
+
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">MGS<span>.</span></a>
-    <ul class="nav-links">
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#certs">Certs</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- ===== Animated node/pixel network background ===== -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-left">
-      <div class="hero-tag">Computer Engineering Graduate · 2026</div>
-      <h1 class="hero-name">Mark<br/>Gabriel <em>S.</em><br/>Salvacion</h1>
-      <p class="hero-role">Front-End Developer</p>
-      <p class="hero-desc">
-        Building intelligent interfaces and IoT systems that solve real-world problems. 
-        Creator of F.L.A.M.E.S. — an AI-powered fire safety platform deployed for the 
-        Bureau of Fire Protection and local government units.
-      </p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn-primary">View Projects</a>
-        <a href="#contact" class="btn-outline">Get in Touch</a>
+  <!-- ===== Main black card / hero section ===== -->
+  <main class="hero-card" id="home">
+
+    <!-- ----- Navbar ----- -->
+    <header class="navbar">
+
+      <div class="MGS-logo">
+        <img src="images/MGS.png" class="MGS-logo-img" alt="MGS logo">
       </div>
-    </div>
 
-    <div class="hero-right">
-      <div class="profile-wrapper">
-        <!-- Rotating fire ring -->
-        <div class="profile-ring"></div>
-        <!-- Corner brackets -->
-        <div class="profile-bracket tl"></div>
-        <div class="profile-bracket tr"></div>
-        <div class="profile-bracket bl"></div>
-        <div class="profile-bracket br"></div>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="active">Home</a>
+        <a href="#academic">Skills</a>
+        <a href="#service">Certifications</a>
+        <a href="#projects">Projects</a>
+        <a href="#knowmemore?">Know Me More?</a>
+      </nav>
 
-        <!-- Photo -->
-        <img src="images/Gabb.png" alt="Mark Gabriel S. Salvacion" class="profile-photo" />
-        <!-- Overlays -->
-        <div class="profile-scanlines"></div>
-        <div class="profile-glow"></div>
-        <!-- Know Me More hover hint -->
-        <div class="profile-hover-hint" onclick="document.getElementById('kmmOverlay').classList.add('open')">
-          ✦ Know Me More
+      <button class="btn btn-primary contact-btn" id="contactBtn">Contact</button>
+
+      <!-- Hamburger for mobile -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+
+    </header>
+
+    <!-- ----- Hero content ----- -->
+    <section class="hero-content">
+
+      <div class="hero-text">
+
+        <p class="greeting">Hi, I'm <span class="script">Gabb Salvacion</span></p>
+        <h1 class="role">Computer Engineer</h1>
+        <p class="description">
+         A Computer Engineering graduate seeking an associate front-end
+        or network engineer role. Experienced in web application design
+        and networking fundamentals.
+        Developed a fire safety web application during college, applying
+        technical skills to a real-world problem. Committed to continuous
+        learning and professional growth.
+        </p>
+
+        <p class="find-me">Find Me On:</p>
+
+        <div class="cta-row">
+
+          <button class="btn btn-primary" id="resumeBtn">Resume</button>
+          <script>
+              document.getElementById("resumeBtn").addEventListener("click", () => {
+                window.open("https://drive.google.com/drive/u/0/folders/1Xj8A6G1RZzQUXxS5sB1sRiisXyDc20FA", target = "_blank");
+              });
+          </script>
+
+
+          <div class="social-icons">
+            <a href="https://www.facebook.com/gabb.salvacion.15" target="_blank"  aria-label="Facebook">
+              <img src="images/facebook.png" alt="Facebook" />
+            </a>
+
+            <a href="https://www.tiktok.com/@emzzi15" target="_blank"  aria-label="Tiktok"> 
+              <img src="images/tiktok.png" alt="Facebook" />
+            </a>
+
+            <a href="https://ph.jobstreet.com/profile/me" target="_blank"  aria-label="JobStreet">
+               <img src="images/jobstreet.png" alt="JobStreet" />
+            </a>
+
+            <a href="https://www.linkedin.com/in/gabb-salvacion-a70097360/" target="_blank"  aria-label="Linkedin">
+               <img src="images/linkedin.png" alt="JobStreet" />
+            </a>
+
+            
+            
+          </div>
+
         </div>
+
+      </div>
+
+    
+      <div class="profile-img-wrap">
+       <img src="images/Gabb.png" class="profile-img" alt="Gabb Salvacion">
+       <!-- HOVER IMAGE -->
+       <img src="images/Gabbgrad.png" class="profile-img profile-img-alt" alt="Gabb Salvacion alternate">
+      </div>
+
+      
+        
+    </section>
+
+  </main>
+
+  <!-- ===== Skills section ===== -->
+  <section id="academic" class="skills-section">
+
+    <svg class="skills-traces" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,90 H260 V220 H520" />
+      <path d="M1200,140 H900 V40" />
+      <path d="M0,520 H180 V400 H460 V520 H700" />
+      <path d="M1200,560 H860 V680" />
+      <circle cx="260" cy="90" r="4"></circle>
+      <circle cx="520" cy="220" r="4"></circle>
+      <circle cx="900" cy="140" r="4"></circle>
+      <circle cx="180" cy="520" r="4"></circle>
+      <circle cx="460" cy="400" r="4"></circle>
+      <circle cx="860" cy="560" r="4"></circle>
+    </svg>
+
+    <div class="skills-inner">
+
+      <p class="skills-eyebrow">Tech_stack</p>
+      <h2 class="skills-title">Skills</h2>
+    
+
+      <div class="skills-grid">
+
+        <article class="skill-card">
+          <header class="skill-card-head">
+            <span class="skill-card-label">// languages_&amp;_web</span>
+          </header>
+          <ul class="skill-list">
+            <li><span class="skill-led"></span>C++</li>
+            <li><span class="skill-led"></span>Python</li>
+            <li><span class="skill-led"></span>React.js</li>
+            <li><span class="skill-led"></span>HTML5</li>
+            <li><span class="skill-led"></span>CSS3 &amp; SASS</li>
+            <li><span class="skill-led"></span>JavaScript</li>
+            <li><span class="skill-led"></span>MySQL</li>
+          </ul>
+        </article>
+
+        <article class="skill-card">
+          <header class="skill-card-head">
+            <span class="skill-card-label">// networking_&amp;_security</span>
+          </header>
+          <ul class="skill-list">
+            <li><span class="skill-led"></span>IP Addressing &amp; Subnetting</li>
+            <li><span class="skill-led"></span>Cisco Networking</li>
+            <li><span class="skill-led"></span>Cybersecurity Fundamentals</li>
+          </ul>
+        </article>
+
+        <article class="skill-card">
+          <header class="skill-card-head">
+            <span class="skill-card-label">// hardware_&amp;_electronics</span>
+          </header>
+          <ul class="skill-list">
+            <li><span class="skill-led"></span>Circuit Design &amp; Simulation (Proteus)</li>
+            <li><span class="skill-led"></span>PCB Design (EasyEDA)</li>
+            <li><span class="skill-led"></span>Arduino</li>
+            <li><span class="skill-led"></span>Logic Circuit Design</li>
+          </ul>
+        </article>
+
+        <article class="skill-card">
+          <header class="skill-card-head">
+            <span class="skill-card-label">// core_strengths</span>
+          </header>
+          <ul class="skill-list">
+            <li><span class="skill-led"></span>Fast Learner</li>
+            <li><span class="skill-led"></span>Teamwork &amp; Collaboration</li>
+            <li><span class="skill-led"></span>Problem Solving</li>
+            <li><span class="skill-led"></span>Critical Thinking</li>
+          </ul>
+        </article>
+
+      </div>
+
     </div>
 
-    <div class="hero-glow"></div>
-  </div>
-
-  <!-- SKILLS -->
-  <section id="skills">
-    <div class="section-label">01 — Capabilities</div>
-    <h2 class="section-title">Skills &<br/>Expertise</h2>
-    <div class="skills-grid reveal">
-      <div class="skill-category">
-        <div class="skill-cat-title">Frontend</div>
-        <ul class="skill-list">
-          <li>HTML5 & CSS3 / SASS</li>
-          <li>JavaScript (ES6+)</li>
-          <li>React.js</li>
-          <li>Responsive Web Design</li>
-          <li>UI/UX Fundamentals</li>
-        </ul>
-      </div>
-      <div class="skill-category">
-        <div class="skill-cat-title">Backend & Data</div>
-        <ul class="skill-list">
-          <li>Python & FastAPI</li>
-          <li>WebSocket / Real-time APIs</li>
-          <li>MySQL Database</li>
-          <li>C# (Clinic System)</li>
-          <li>C++ / Arduino</li>
-        </ul>
-      </div>
-      <div class="skill-category">
-        <div class="skill-cat-title">Hardware & IoT</div>
-        <ul class="skill-list">
-          <li>ESP32 Microcontroller</li>
-          <li>Raspberry Pi 5</li>
-          <li>Arduino Development</li>
-          <li>Proteus Circuit Simulation</li>
-          <li>PCB Design (EasyEDA)</li>
-        </ul>
-      </div>
-      <div class="skill-category">
-        <div class="skill-cat-title">Networking & AI</div>
-        <ul class="skill-list">
-          <li>IP Addressing & Subnetting</li>
-          <li>Cybersecurity Fundamentals</li>
-          <li>Random Forest ML Model</li>
-          <li>TomTom / Leaflet Mapping</li>
-          <li>Logic Circuit Design</li>
-        </ul>
-      </div>
-    </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="section-label">02 — Work</div>
-    <h2 class="section-title">Featured<br/>Projects</h2>
-
-    <div class="projects-grid">
-
-      <!-- FLAMES — Featured -->
-      <div class="project-card featured reveal">
-        <div>
-          <div class="project-number">01 — THESIS · BEST PAPER 🏆</div>
-          <h3 class="project-title"><span>F.L.A.M.E.S.</span></h3>
-          <p style="font-size:12px; color: var(--muted); margin-bottom:12px; letter-spacing:0.05em;">
-            Fire Location Alert and Monitoring for Emergency Support
-          </p>
-          <p class="project-desc">
-            AI-enhanced IoT fire safety web application deployed on Vercel 
-            (f1ames.vercel.app). Integrates ESP32 & Raspberry Pi 5 hardware with a 
-            Random Forest detection model. Features live WebSocket dashboards and 
-            TomTom-powered emergency routing to streamline BFP response operations.
-            Awarded Best Thesis Paper & Abstract at SIRIB Research Colloquium 2026.
-          </p>
-          <div class="project-tags">
-            <span class="tag fire">Python</span>
-            <span class="tag fire">FastAPI</span>
-            <span class="tag fire">JavaScript</span>
-            <span class="tag">ESP32</span>
-            <span class="tag">Raspberry Pi 5</span>
-            <span class="tag">Random Forest</span>
-            <span class="tag">WebSocket</span>
-            <span class="tag">TomTom API</span>
-          </div>
-        </div>
-
-        <!-- Mini FLAMES dashboard mockup -->
-        <div class="flames-visual">
-          <div class="flames-header">
-            <div class="live-dot"></div>
-            <div class="flames-logo-text">F.L.A.M.E.S.</div>
-          </div>
-          <div class="flames-stats">
-            <div class="stat-box">
-              <div class="stat-num">5</div>
-              <div class="stat-lbl">Incidents</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-num">3</div>
-              <div class="stat-lbl">Active</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-num">12</div>
-              <div class="stat-lbl">Nodes</div>
-            </div>
-          </div>
-          <div class="incident-row">
-            <span class="i-name">A.B. Fernandez Ave</span>
-            <span class="i-status s-active">ACTIVE</span>
-          </div>
-          <div class="incident-row">
-            <span class="i-name">Perez Boulevard</span>
-            <span class="i-status s-contained">CONTAINED</span>
-          </div>
-          <div class="incident-row">
-            <span class="i-name">Tapestry (Bonuan)</span>
-            <span class="i-status s-resolved">RESOLVED</span>
-          </div>
-          <div class="incident-row">
-            <span class="i-name">Malued District</span>
-            <span class="i-status s-active">ACTIVE</span>
-          </div>
-          <div class="incident-row">
-            <span class="i-name">Bonuan Gueset</span>
-            <span class="i-status s-active">ACTIVE</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- CURELY -->
-      <div class="project-card reveal">
-        <div class="project-number">02</div>
-        <h3 class="project-title">CURELY</h3>
-        <p style="font-size:11px; color:var(--muted); margin-bottom:12px; letter-spacing:0.05em;">
-          Clinic Management System
-        </p>
-        <p class="project-desc">
-          Full-stack software system for small clinics. Streamlines patient record 
-          management with intuitive UI, appointment tracking, and data persistence 
-          built on a reliable C# and MySQL foundation.
-        </p>
-        <div class="project-tags">
-          <span class="tag">C#</span>
-          <span class="tag">MySQL</span>
-          <span class="tag">.NET</span>
-        </div>
-      </div>
-
-      <!-- Arduino Training Kit -->
-      <div class="project-card reveal">
-        <div class="project-number">03</div>
-        <h3 class="project-title">Arduino Training Kit</h3>
-        <p style="font-size:11px; color:var(--muted); margin-bottom:12px; letter-spacing:0.05em;">
-          Hardware-Software Learning Tool
-        </p>
-        <p class="project-desc">
-          Microcontroller training kit using ultrasonic & IR sensors with LED outputs. 
-          Designed as a practical lab tool for students learning hardware-software 
-          integration concepts.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Arduino</span>
-          <span class="tag">C++</span>
-          <span class="tag">Sensors</span>
-        </div>
-      </div>
-
-      <!-- Power Supply & Line Robot -->
-      <div class="project-card reveal">
-        <div class="project-number">04</div>
-        <h3 class="project-title">Electronics Projects</h3>
-        <p style="font-size:11px; color:var(--muted); margin-bottom:12px; letter-spacing:0.05em;">
-          Power Supply · Line Following Robot
-        </p>
-        <p class="project-desc">
-          Designed a 220V AC to DC variable power supply (0–30V). Engineered an 
-          autonomous line-following robot using combinational logic gates for 
-          obstacle navigation — no microcontroller required.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Proteus</span>
-          <span class="tag">Logic Gates</span>
-          <span class="tag">EasyEDA</span>
-          <span class="tag">PCB</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CERTIFICATIONS -->
-  <section id="certs">
-    <div class="section-label">03 — Recognition</div>
-    <h2 class="section-title">Seminars &<br/>Certifications</h2>
-    <div class="certs-list">
-      <div class="cert-item reveal">
-        <div class="cert-icon">🔐</div>
-        <div>
-          <div class="cert-name">CpE InfoCruise 2025 — Cybersecurity</div>
-          <div class="cert-org">PHINMA University of Pangasinan</div>
-        </div>
-      </div>
-      <div class="cert-item reveal">
-        <div class="cert-icon">⛓️</div>
-        <div>
-          <div class="cert-name">Hackathon: Hack the Chain with Viction 2025</div>
-          <div class="cert-org">AI and Cybersecurity Track</div>
-        </div>
-      </div>
-      <div class="cert-item reveal">
-        <div class="cert-icon">🌤️</div>
-        <div>
-          <div class="cert-name">On-the-Job Training Certification</div>
-          <div class="cert-org">PAGASA Baguio Station</div>
-        </div>
-      </div>
-      <div class="cert-item reveal">
-        <div class="cert-icon">🏆</div>
-        <div>
-          <div class="cert-name">SIRIB Research Colloquium 2026</div>
-          <div class="cert-org">PHINMA University of Pangasinan</div>
-          <div class="cert-highlight">SDG 11 & 13 Best Thesis Paper — F.L.A.M.E.S.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EDUCATION -->
-  <section id="education">
-    <div class="section-label">04 — Background</div>
-    <h2 class="section-title">Education</h2>
-    <div class="edu-timeline">
-      <div class="edu-item reveal">
-        <div class="edu-year">2022 – 2026</div>
-        <div class="edu-degree">BS Computer Engineering</div>
-        <div class="edu-school">PHINMA University of Pangasinan</div>
-        <span class="edu-award">Best Thesis — SIRIB 2026</span>
-      </div>
-      <div class="edu-item reveal">
-        <div class="edu-year">2020 – 2022</div>
-        <div class="edu-degree">Senior High School</div>
-        <div class="edu-school">Virgen Milagrosa University Foundation</div>
-        <span class="edu-award">Grade 12 — With High Honor</span>
-        <span class="edu-award" style="margin-left:8px;">Grade 11 — With Honor</span>
-      </div>
-      <div class="edu-item reveal">
-        <div class="edu-year">2016 – 2020</div>
-        <div class="edu-degree">High School</div>
-        <div class="edu-school">Malasiqui Catholic School</div>
-        <span class="edu-award">Dean's Lister</span>
-      </div>
-      <div class="edu-item reveal">
-        <div class="edu-year">2011 – 2016</div>
-        <div class="edu-degree">Elementary</div>
-        <div class="edu-school">Malasiqui Catholic School</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" style="max-width:700px; margin:0 auto;">
-    <div class="section-label">05 — Connect</div>
-    <h2 class="contact-heading reveal">Let's Build<br/>Something <span>Real.</span></h2>
-    <p class="contact-sub reveal">
-      Open to associate front-end or network engineer roles. 
-      I bring a rare combination of hardware, software, and AI experience — 
-      proven in a real deployed product.
-    </p>
-    <div class="contact-links reveal">
-      <a href="mailto:gabbsalvacion15@gmail.com" class="contact-link">
-        <span>✉</span> gabbsalvacion15@gmail.com
-      </a>
-      <a href="tel:+639686546940" class="contact-link">
-        <span>📞</span> +63 968 654 6940
-      </a>
-      <a href="https://f1ames.vercel.app" target="_blank" class="contact-link">
-        <span>🔥</span> f1ames.vercel.app
-      </a>
-    </div>
-  </section>
-
-  <!-- KNOW ME MORE MODAL -->
-  <div class="kmm-overlay" id="kmmOverlay" onclick="if(event.target===this)this.classList.remove('open')">
-    <div class="kmm-modal">
-      <button class="kmm-close" onclick="document.getElementById('kmmOverlay').classList.remove('open')">✕ CLOSE</button>
-
-      <div class="kmm-tag">Know Me More</div>
-      <h2 class="kmm-title">Beyond the<br/><em>Resume.</em></h2>
-
-      <!-- SECTION 1 — Who I Am -->
-      <div class="kmm-section">
-        <div class="kmm-section-label">Who I Am</div>
-        <div class="kmm-section-title">The person behind the projects</div>
-        <p>
-          [Your personal intro here — your story, where you're from, what drives you, and what makes you, you.]
-        </p>
-      </div>
-
-      <!-- SECTION 2 — Quick Stats -->
-      <div class="kmm-section">
-        <div class="kmm-section-label">At a Glance</div>
-        <div class="kmm-section-title">By the numbers</div>
-        <div class="kmm-grid">
-          <div class="kmm-stat">
-            <div class="kmm-stat-num">4+</div>
-            <div class="kmm-stat-lbl">Years of Building</div>
-          </div>
-          <div class="kmm-stat">
-            <div class="kmm-stat-num">4</div>
-            <div class="kmm-stat-lbl">Projects Completed</div>
-          </div>
-          <div class="kmm-stat">
-            <div class="kmm-stat-num">1</div>
-            <div class="kmm-stat-lbl">Live Deployed Product</div>
-          </div>
-          <div class="kmm-stat">
-            <div class="kmm-stat-num">🏆</div>
-            <div class="kmm-stat-lbl">Best Thesis Award</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SECTION 3 — Interests & Hobbies -->
-      <div class="kmm-section">
-        <div class="kmm-section-label">Interests & Hobbies</div>
-        <div class="kmm-section-title">What I do when I'm not coding</div>
-        <ul class="kmm-list">
-          <li>[Hobby or interest #1 — describe it a little]</li>
-          <li>[Hobby or interest #2 — describe it a little]</li>
-          <li>[Hobby or interest #3 — describe it a little]</li>
-        </ul>
-      </div>
-
-      <!-- SECTION 4 — Goals -->
-      <div class="kmm-section">
-        <div class="kmm-section-label">Goals</div>
-        <div class="kmm-section-title">Where I'm headed</div>
-        <p>
-          [Your career goals, dreams, and the kind of work that excites you most. What kind of impact do you want to make?]
-        </p>
-      </div>
-
-      <!-- SECTION 5 — Fun Facts -->
-      <div class="kmm-section">
-        <div class="kmm-section-label">Fun Facts</div>
-        <div class="kmm-section-title">Things you wouldn't guess</div>
-        <ul class="kmm-list">
-          <li>[Fun fact #1]</li>
-          <li>[Fun fact #2]</li>
-          <li>[Fun fact #3]</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <span>© 2026 Mark Gabriel S. Salvacion</span>
-    <span style="color: var(--border);">///</span>
-    <span>#99 Brgy. Bolaoit, Malasiqui, Pangasinan</span>
-  </footer>
-
-  <!-- SCROLL REVEAL SCRIPT -->
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
-
+  <script src="static/front page.js"></script>
 </body>
 </html>
