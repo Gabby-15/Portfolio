@@ -309,8 +309,11 @@ body.nav-open {
   line-height: 1.7;
   margin-bottom: 24px;
   text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   font-weight: 500;
-  
 }
 .find-me {
   font-family: "Space Grotesk", sans-serif;
@@ -570,9 +573,6 @@ body.nav-open {
     width: clamp(180px, 72vw, 260px);
     height: clamp(240px, 92vw, 340px);
   }
-  .description {
-    text-align: left;
-  }
 }
 
 @media (max-width: 380px) {
@@ -592,9 +592,6 @@ body.nav-open {
   }
   .hero-card {
     padding-top: 82px;
-  }
-  .description {
-    text-align: left;
   }
   .btn {
     padding: 10px 20px;
@@ -1162,6 +1159,81 @@ html::-webkit-scrollbar {
   color: var(--red);
 }
 
+.contact-modal-value-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.contact-modal-value-row .contact-modal-value {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Copy-to-clipboard button */
+.contact-copy-btn {
+  position: relative;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 31, 31, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 31, 31, 0.08);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+.contact-copy-btn:hover {
+  background: rgba(255, 31, 31, 0.18);
+  border-color: rgba(255, 60, 60, 0.55);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+.contact-copy-btn:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+.contact-copy-btn .check-icon {
+  display: none;
+}
+.contact-copy-btn.is-copied {
+  background: rgba(60, 200, 110, 0.16);
+  border-color: rgba(60, 200, 110, 0.5);
+  color: #4ade80;
+}
+.contact-copy-btn.is-copied .copy-icon {
+  display: none;
+}
+.contact-copy-btn.is-copied .check-icon {
+  display: block;
+}
+
+.copy-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: var(--black);
+  border: 1px solid rgba(255, 31, 31, 0.35);
+  color: var(--white);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 4px 9px;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.contact-copy-btn.is-copied .copy-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 @media (max-width: 500px) {
   .contact-modal {
     padding: 26px 20px 22px;
@@ -1247,6 +1319,17 @@ html::-webkit-scrollbar {
   transform: rotate(90deg);
 }
 
+.resume-modal-eyebrow {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 6px;
+  flex-shrink: 0;
+}
+
 .resume-modal-title {
   font-family: "Space Grotesk", sans-serif;
   font-size: 1.6rem;
@@ -1284,6 +1367,30 @@ html::-webkit-scrollbar {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.resume-modal-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: rgba(255, 31, 31, 0.08);
+}
+.resume-modal-divider::before,
+.resume-modal-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 31, 31, 0.3);
+}
+.resume-modal-divider span {
+  font-family: "JetBrains Mono", "Consolas", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--red);
+  opacity: 0.85;
+  white-space: nowrap;
 }
 
 @media (max-width: 640px) {

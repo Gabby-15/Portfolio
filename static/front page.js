@@ -103,6 +103,48 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+// Copy email / phone to clipboard from the contact modal
+const copyButtons = document.querySelectorAll(".contact-copy-btn");
+
+function fallbackCopy(text) {
+  const temp = document.createElement("textarea");
+  temp.value = text;
+  temp.style.position = "fixed";
+  temp.style.opacity = "0";
+  document.body.appendChild(temp);
+  temp.focus();
+  temp.select();
+  try {
+    document.execCommand("copy");
+  } catch (err) {
+    console.error("Copy failed:", err);
+  }
+  document.body.removeChild(temp);
+}
+
+copyButtons.forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    const text = btn.dataset.copyText || "";
+    if (!text) return;
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        fallbackCopy(text);
+      }
+    } catch (err) {
+      fallbackCopy(text);
+    }
+
+    btn.classList.add("is-copied");
+    clearTimeout(btn._copyResetTimer);
+    btn._copyResetTimer = setTimeout(() => {
+      btn.classList.remove("is-copied");
+    }, 1600);
+  });
+});
+
 
 
 

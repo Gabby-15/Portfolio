@@ -22,6 +22,7 @@
        trapped inside that element's stacking context — otherwise later
        sections like #academic, which also create their own stacking
        context, could render on top of it) ----- -->
+
   <header class="navbar">
 
     <div class="MGS-logo">
@@ -66,7 +67,7 @@
         <p class="greeting">Hi, I'm <span class="script">Gabb Salvacion</span></p>
         <h1 class="role">Computer Engineer</h1>
         <p class="description">
-         A Computer Engineering graduate seeking an associate front-end
+        A Computer Engineering graduate seeking an associate front-end
         or network engineer role. Experienced in web application design
         and networking fundamentals.
         Developed a fire safety web application during college, applying
@@ -329,14 +330,28 @@
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>
             Email
           </span>
-          <a href="mailto:gabbsalvacion15@gmail.com" class="contact-modal-value">gabbsalvacion15@gmail.com</a>
+          <div class="contact-modal-value-row">
+            <a href="mailto:gabbsalvacion15@gmail.com" class="contact-modal-value">gabbsalvacion15@gmail.com</a>
+            <button type="button" class="contact-copy-btn" data-copy-text="gabbsalvacion15@gmail.com" aria-label="Copy email address">
+              <svg class="copy-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg>
+              <svg class="check-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+              <span class="copy-tooltip">Copied!</span>
+            </button>
+          </div>
         </div>
         <div class="contact-modal-row">
           <span class="contact-modal-label">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.2c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1L6.6 10.8z"></path></svg>
             Contact
           </span>
-          <a href="tel:+639686546940" class="contact-modal-value">+63 968 654 6940</a>
+          <div class="contact-modal-value-row">
+            <a href="tel:+639686546940" class="contact-modal-value">+63 968 654 6940</a>
+            <button type="button" class="contact-copy-btn" data-copy-text="+639686546940" aria-label="Copy phone number">
+              <svg class="copy-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg>
+              <svg class="check-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+              <span class="copy-tooltip">Copied!</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -346,12 +361,13 @@
   <div class="resume-modal-overlay" id="resumeModalOverlay">
     <div class="resume-modal" role="dialog" aria-modal="true" aria-labelledby="resumeModalTitle">
       <button class="resume-modal-close" id="resumeModalClose" aria-label="Close">&times;</button>
+      <p class="resume-modal-eyebrow">Curriculum Vitae</p>
       <h3 id="resumeModalTitle" class="resume-modal-title">Resume</h3>
 
       <div class="resume-modal-scroll">
         <img src="images/resume.png" alt="Resume — page 1" class="resume-modal-img">
-        
-        <img src="images/resume2.png" alt="Resume — page 2" class="resume-modal-img">
+        <div class="resume-modal-divider"><span>Page 2</span></div>
+        <img src="images/resume1.png" alt="Resume — page 2" class="resume-modal-img">
       </div>
     </div>
   </div>
