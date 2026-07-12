@@ -318,7 +318,7 @@ body.nav-open {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: script-glass-sweep 8s linear infinite;
+  animation: script-glass-sweep 15s linear infinite;
   pointer-events: none;
 }
 
