@@ -361,7 +361,7 @@ body.nav-open {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: script-glass-sweep 15s linear infinite alternate;
+  animation: script-glass-sweep 6s linear infinite alternate;
   pointer-events: none;
 }
 
@@ -402,15 +402,23 @@ body.nav-open {
   }
 }
 
-/* Reflection sweeps left-to-right then right-to-left on a continuous
-   ping-pong loop — mimics a glass surface catching a passing light
-   that swings back, instead of resetting with a hard jump. */
+/* Only 2 stops, and "alternate" above reverses this IN PLACE at each
+   end -- it never jumps back to a repeated 0% frame like a looping
+   animation would. Right -> left (paleft), then that exact same path
+   plays backwards -> right (paright), then forwards again -> left,
+   forever. No restart, no duplicate frame, no stuck moment. */
 @keyframes script-glass-sweep {
   0% {
     background-position: -140% 0;
   }
   100% {
+    background-position: 0 140%;
+  }
+   0% {
     background-position: 140% 0;
+  }
+  100% {
+    background-position: 0 -140%;
   }
 }
 
