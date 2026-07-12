@@ -266,10 +266,6 @@ body {
   animation: float 6s ease-in-out infinite;
   will-change: transform, opacity;
   transition: opacity 1.4s ease-in-out;
-  /* Fade the lower edge into the hero background so the overflow crop
-     reads as an intentional dissolve instead of a hard cut. */
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 45%, rgba(0, 0, 0, 0) 88%);
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 45%, rgba(0, 0, 0, 0) 88%);
 }
 
 /* Default photo sits on top and is fully visible until hovered */
