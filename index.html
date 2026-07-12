@@ -79,12 +79,6 @@
         <div class="cta-row">
 
           <button class="btn btn-primary" id="resumeBtn">Resume</button>
-          <script>
-              document.getElementById("resumeBtn").addEventListener("click", () => {
-                window.open("https://drive.google.com/drive/folders/1Xj8A6G1RZzQUXxS5sB1sRiisXyDc20FA?usp=sharing", target = "_blank");
-              });
-          </script>
-
 
           <div class="social-icons">
             <a href="https://www.facebook.com/gabb.salvacion.15" target="_blank"  aria-label="Facebook">
@@ -344,6 +338,20 @@
           </span>
           <a href="tel:+639686546940" class="contact-modal-value">+63 968 654 6940</a>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Resume preview popup ===== -->
+  <div class="resume-modal-overlay" id="resumeModalOverlay">
+    <div class="resume-modal" role="dialog" aria-modal="true" aria-labelledby="resumeModalTitle">
+      <button class="resume-modal-close" id="resumeModalClose" aria-label="Close">&times;</button>
+      <h3 id="resumeModalTitle" class="resume-modal-title">Resume</h3>
+
+      <div class="resume-modal-scroll">
+        <img src="images/resume.png" alt="Resume — page 1" class="resume-modal-img">
+        
+        <img src="images/resume2.png" alt="Resume — page 2" class="resume-modal-img">
       </div>
     </div>
   </div>

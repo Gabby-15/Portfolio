@@ -78,6 +78,16 @@ body.nav-open {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  opacity: 0;
+  transform: translateY(22px);
+  animation: heroIn 1s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+  animation-delay: 0.1s;
+}
+@keyframes heroIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* =========================================
@@ -607,6 +617,17 @@ body.nav-open {
   .profile-img {
     animation: none !important;
   }
+  .hero-card {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .skills-section,
+  .certs-section {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
 }
 
 /* =========================================
@@ -632,6 +653,17 @@ html::-webkit-scrollbar {
   padding: 120px 5vw 140px;
   overflow: hidden;
   isolation: isolate;
+  opacity: 0;
+  transform: translateY(56px);
+  filter: blur(6px);
+  transition: opacity 0.9s cubic-bezier(0.16, 0.84, 0.44, 1),
+              transform 0.9s cubic-bezier(0.16, 0.84, 0.44, 1),
+              filter 0.9s ease;
+}
+.skills-section.section-in-view {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
 }
 
 .skills-inner {
@@ -805,6 +837,17 @@ html::-webkit-scrollbar {
   padding: 100px 5vw 140px;
   overflow: hidden;
   isolation: isolate;
+  opacity: 0;
+  transform: translateY(56px);
+  filter: blur(6px);
+  transition: opacity 0.9s cubic-bezier(0.16, 0.84, 0.44, 1),
+              transform 0.9s cubic-bezier(0.16, 0.84, 0.44, 1),
+              filter 0.9s ease;
+}
+.certs-section.section-in-view {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
 }
 
 .certs-inner {
@@ -1134,5 +1177,130 @@ html::-webkit-scrollbar {
   }
   .contact-modal-title {
     font-size: 1.35rem;
+  }
+}
+
+/* =========================================
+   11. RESUME PREVIEW MODAL
+========================================= */
+
+.resume-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(5, 0, 0, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.resume-modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.resume-modal {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  max-height: min(88vh, 900px);
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(160deg, var(--red-darker) 0%, var(--black) 65%);
+  border: 1px solid rgba(255, 31, 31, 0.35);
+  border-radius: 18px;
+  padding: 28px 26px 24px;
+  box-shadow: 0 0 44px rgba(255, 31, 31, 0.16), 0 24px 70px rgba(0, 0, 0, 0.65);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.25s ease;
+}
+.resume-modal-overlay.is-open .resume-modal {
+  transform: translateY(0) scale(1);
+}
+
+.resume-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 31, 31, 0.16);
+  color: var(--white);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.resume-modal-close:hover {
+  background: rgba(255, 31, 31, 0.32);
+  transform: rotate(90deg);
+}
+
+.resume-modal-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 18px;
+  flex-shrink: 0;
+}
+
+/* Scrollable frame holding both resume pages, stacked top to bottom so
+   the two-page document reads as one continuous, scrollable sheet. */
+.resume-modal-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 31, 31, 0.2);
+  background: rgba(0, 0, 0, 0.35);
+  scrollbar-width: thin;
+  scrollbar-color: var(--red-dark) transparent;
+}
+.resume-modal-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.resume-modal-scroll::-webkit-scrollbar-thumb {
+  background: var(--red-dark);
+  border-radius: 8px;
+}
+.resume-modal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.resume-modal-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 640px) {
+  .resume-modal {
+    max-height: 92vh;
+    padding: 22px 18px 18px;
+  }
+  .resume-modal-title {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .resume-modal-overlay {
+    padding: 14px;
+  }
+  .resume-modal {
+    padding: 20px 14px 14px;
   }
 }

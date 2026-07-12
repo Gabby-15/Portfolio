@@ -62,6 +62,8 @@ const contactBtn = document.getElementById("contactBtn");
 const resumeBtn = document.getElementById("resumeBtn");
 const contactModalOverlay = document.getElementById("contactModalOverlay");
 const contactModalClose = document.getElementById("contactModalClose");
+const resumeModalOverlay = document.getElementById("resumeModalOverlay");
+const resumeModalClose = document.getElementById("resumeModalClose");
 
 function openContactModal() {
   contactModalOverlay?.classList.add("is-open");
@@ -72,13 +74,33 @@ function closeContactModal() {
   document.body.style.overflow = "";
 }
 
+function openResumeModal() {
+  resumeModalOverlay?.classList.add("is-open");
+  document.body.style.overflow = "hidden";
+}
+function closeResumeModal() {
+  resumeModalOverlay?.classList.remove("is-open");
+  document.body.style.overflow = "";
+}
+
 contactBtn?.addEventListener("click", openContactModal);
 contactModalClose?.addEventListener("click", closeContactModal);
 contactModalOverlay?.addEventListener("click", (e) => {
   if (e.target === contactModalOverlay) closeContactModal();
 });
+
+// Resume button now opens an in-page preview instead of leaving the site
+resumeBtn?.addEventListener("click", openResumeModal);
+resumeModalClose?.addEventListener("click", closeResumeModal);
+resumeModalOverlay?.addEventListener("click", (e) => {
+  if (e.target === resumeModalOverlay) closeResumeModal();
+});
+
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeContactModal();
+  if (e.key === "Escape") {
+    closeContactModal();
+    closeResumeModal();
+  }
 });
 
 
@@ -130,6 +152,30 @@ if (revealCards.length && 'IntersectionObserver' in window) {
   );
 
   revealCards.forEach((card) => cardObserver.observe(card));
+}
+
+// =========================================
+// 5a. WHOLE-SECTION ENTRANCE (the "felt" transition moving between
+// Home -> Skills -> Certifications). This runs on the section itself,
+// slower and larger than the card reveal above, so the page change
+// registers before the individual cards stagger in on top of it.
+// =========================================
+const revealSections = document.querySelectorAll('.skills-section, .certs-section');
+
+if (revealSections.length && 'IntersectionObserver' in window) {
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('section-in-view');
+          sectionObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -80px 0px' }
+  );
+
+  revealSections.forEach((section) => sectionObserver.observe(section));
 }
 
 // =========================================
