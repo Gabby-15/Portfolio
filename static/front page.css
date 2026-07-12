@@ -285,14 +285,96 @@ body.nav-open {
   margin-bottom: 4px;
 }
 .greeting .script {
-  font-family: "Dancing Script", cursive;
-  font-weight: 700;
-  font-size: clamp(2.4rem, 1.4rem + 4.3vw, 5.2rem);
-  background: linear-gradient(120deg, #ffb3b3 0%, #ff5a5a 30%, var(--red) 55%, var(--red-dark) 85%);
+  position: relative;
+  display: inline-block;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 1.2rem + 3.6vw, 4.3rem);
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, #ff9595 0%, #580000 18%, var(--red) 42%, var(--red-dark) 72%, var(--red-darker) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 18px rgba(255, 31, 31, 0.35));
+  animation: script-reveal 0.9s cubic-bezier(0.16, 0.84, 0.44, 1) both;
+}
+
+/* Glass-shard reflection: a bright diagonal glint travels across the
+   text on a slow, continuous loop — like light sliding over a piece
+   of glass — ties into the broken-glass canvas behind it. */
+.greeting .script::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(255, 90, 90, 0.55) 54%,
+    transparent 68%
+  );
+  background-size: 260% 100%;
+  background-position: -140% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: script-glass-sweep 8s linear infinite;
+  pointer-events: none;
+}
+
+/* Cursor-tracked glint: brightens right where the mouse is over the
+   text, following it exactly (same --mx/--my pattern as the cert
+   card shine). Set by JS on mousemove; invisible until hovered. */
+.greeting .script::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 120, 120, 0.5) 35%,
+    transparent 60%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.greeting .script.is-glinting::after {
+  opacity: 1;
+}
+
+@keyframes script-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.94);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Reflection travels left to right on a smooth, continuous loop —
+   no pause, mimics a glass surface catching a slow passing light. */
+@keyframes script-glass-sweep {
+  0% {
+    background-position: -140% 0;
+  }
+  100% {
+    background-position: 140% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .greeting .script,
+  .greeting .script::before {
+    animation: none;
+  }
 }
 .role {
   font-family: "Space Grotesk", sans-serif;
@@ -624,7 +706,9 @@ body.nav-open {
     transform: none !important;
   }
   .skills-section,
-  .certs-section {
+  .certs-section,
+  .projects-section,
+  .aboutme-section {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
@@ -1040,6 +1124,252 @@ html::-webkit-scrollbar {
   }
   .cert-card-media {
     transform: none !important;
+  }
+}
+
+/* =========================================
+   9.5 PROJECTS SECTION (placeholder — swap the
+   sample cards below for your real projects)
+========================================= */
+
+.projects-section {
+  position: relative;
+  background-color: transparent;
+  z-index: 1;
+  padding: 100px 5vw 140px;
+  overflow: hidden;
+  isolation: isolate;
+  opacity: 0;
+  transform: translateY(56px);
+  filter: blur(6px);
+  transition: opacity 0.9s cubic-bezier(0.16, 0.84, 0.44, 1),
+              transform 0.9s cubic-bezier(0.16, 0.84, 0.44, 1),
+              filter 0.9s ease;
+}
+.projects-section.section-in-view {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.projects-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.projects-eyebrow {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+
+.projects-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.7rem, 1.3rem + 2vw, 2.75rem);
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 14px;
+}
+
+.projects-subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 0.98rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 620px;
+  margin-bottom: 44px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(160deg, var(--red-darker) 0%, var(--black) 65%);
+  border: 1px solid rgba(255, 31, 31, 0.22);
+  border-radius: 16px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease,
+              border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.project-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.project-card:hover {
+  border-color: rgba(255, 60, 60, 0.5);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 22px rgba(255, 31, 31, 0.2);
+}
+
+.project-card-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: radial-gradient(circle at 30% 20%, rgba(255, 60, 60, 0.22), transparent 60%),
+              linear-gradient(150deg, rgba(122, 13, 13, 0.55), rgba(5, 0, 0, 0.9));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project-placeholder {
+  width: 56%;
+  height: 56%;
+  fill: none;
+  stroke: rgba(255, 170, 170, 0.55);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  filter: drop-shadow(0 6px 16px rgba(255, 31, 31, 0.3));
+}
+
+.project-card-body {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.project-card-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.35;
+}
+.project-card-desc {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: 4px;
+}
+.project-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.project-card-tags span {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  color: var(--red);
+  border: 1px solid rgba(255, 31, 31, 0.3);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+@media (max-width: 980px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 900px) {
+  .projects-section {
+    padding: 90px 6vw 100px;
+    text-align: left;
+  }
+}
+@media (max-width: 380px) {
+  .projects-section {
+    padding: 70px 6vw 80px;
+  }
+  .project-card-body {
+    padding: 16px 18px 20px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-card {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* =========================================
+   9.6 ABOUT ME SECTION (placeholder — swap the
+   sample text below for your real bio)
+========================================= */
+
+.aboutme-section {
+  position: relative;
+  background-color: transparent;
+  z-index: 1;
+  padding: 100px 5vw 160px;
+  overflow: hidden;
+  isolation: isolate;
+  opacity: 0;
+  transform: translateY(56px);
+  filter: blur(6px);
+  transition: opacity 0.9s cubic-bezier(0.16, 0.84, 0.44, 1),
+              transform 0.9s cubic-bezier(0.16, 0.84, 0.44, 1),
+              filter 0.9s ease;
+}
+.aboutme-section.section-in-view {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.aboutme-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.aboutme-eyebrow {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+
+.aboutme-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.7rem, 1.3rem + 2vw, 2.75rem);
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.aboutme-text {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.aboutme-text strong {
+  color: var(--white);
+}
+
+@media (max-width: 900px) {
+  .aboutme-section {
+    padding: 90px 6vw 110px;
+    text-align: left;
+  }
+}
+@media (max-width: 380px) {
+  .aboutme-section {
+    padding: 70px 6vw 90px;
   }
 }
 

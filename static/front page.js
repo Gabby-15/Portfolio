@@ -62,6 +62,52 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
 });
 
 // =========================================
+// 2b. SCROLL-SPY (keeps the nav link highlighted for whichever
+// section is actually in view, not just right after a click —
+// so scrolling the page by hand also updates the active link)
+// =========================================
+(function scrollSpy() {
+  const navAnchors = Array.from(document.querySelectorAll(".nav-links a"));
+  if (!navAnchors.length) return;
+
+  // Only track links whose target section actually exists on the page
+  const tracked = navAnchors
+    .map((link) => {
+      const id = link.getAttribute("href");
+      if (!id || !id.startsWith("#")) return null;
+      const section = document.querySelector(id);
+      return section ? { link, section } : null;
+    })
+    .filter(Boolean);
+
+  if (!tracked.length || !("IntersectionObserver" in window)) return;
+
+  function setActive(link) {
+    navAnchors.forEach((a) => a.classList.remove("active"));
+    link.classList.add("active");
+  }
+
+  const spy = new IntersectionObserver(
+    (entries) => {
+      // Among sections currently crossing the "active band", pick the one
+      // closest to the top of the viewport as the current section.
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+      if (visible.length) {
+        const match = tracked.find((t) => t.section === visible[0].target);
+        if (match) setActive(match.link);
+      }
+    },
+    // Treat a band in the upper-middle of the viewport as "current section"
+    { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+  );
+
+  tracked.forEach(({ section }) => spy.observe(section));
+})();
+
+// =========================================
 // 3. BUTTON ACTIONS (placeholders to customize)
 // =========================================
 const contactBtn = document.getElementById("contactBtn");
@@ -183,7 +229,7 @@ if (profileWrap) {
 // =========================================
 // 5. SCROLL REVEAL (skill cards + certification cards)
 // =========================================
-const revealCards = document.querySelectorAll('.skill-card, .cert-card');
+const revealCards = document.querySelectorAll('.skill-card, .cert-card, .project-card');
 
 if (revealCards.length && 'IntersectionObserver' in window) {
   const cardObserver = new IntersectionObserver(
@@ -208,7 +254,7 @@ if (revealCards.length && 'IntersectionObserver' in window) {
 // slower and larger than the card reveal above, so the page change
 // registers before the individual cards stagger in on top of it.
 // =========================================
-const revealSections = document.querySelectorAll('.skills-section, .certs-section');
+const revealSections = document.querySelectorAll('.skills-section, .certs-section, .projects-section, .aboutme-section');
 
 if (revealSections.length && 'IntersectionObserver' in window) {
   const sectionObserver = new IntersectionObserver(
@@ -267,8 +313,32 @@ if (certMedias.length && !prefersReducedMotionCerts) {
 
 
 // =========================================
+// 5c. HERO SCRIPT TEXT — CURSOR-TRACKED GLINT
+// =========================================
+// Mirrors the cert-card shine: a bright glint follows the cursor's
+// exact position over the "Gabb Salvacion" text, on top of the
+// slow automatic glass-sweep animation.
+const scriptText = document.querySelector('.greeting .script');
+
+if (scriptText) {
+  scriptText.addEventListener('mousemove', (e) => {
+    const rect = scriptText.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    scriptText.style.setProperty('--mx', `${px * 100}%`);
+    scriptText.style.setProperty('--my', `${py * 100}%`);
+    scriptText.classList.add('is-glinting');
+  });
+
+  scriptText.addEventListener('mouseleave', () => {
+    scriptText.classList.remove('is-glinting');
+  });
+}
+
+// =========================================
 // 6. ANIMATED BACKGROUND — FLOATING GLASS SHARDS
 // =========================================
+
 // Small broken-glass "shard" particles drift freely across the page,
 // tumbling and glinting on their own. While the page is actively
 // scrolling, the shards get a gentle pull/parallax drift; the instant
@@ -288,6 +358,16 @@ if (certMedias.length && !prefersReducedMotionCerts) {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const TWO_PI = Math.PI * 2;
+
+  // A couple of the profile photos, used only as a faint reflection inside
+  // a small handful of the larger shards — subtle mixed-in glints, not a
+  // literal photo collage.
+  const reflectionSources = ['images/Gabb.png', 'images/Gabbgrad.png'];
+  const reflectionImages = reflectionSources.map((src) => {
+    const img = new Image();
+    img.src = src;
+    return img;
+  });
 
   let width, height;
   let shards = [];
@@ -341,9 +421,21 @@ if (certMedias.length && !prefersReducedMotionCerts) {
       size = 14 + Math.random() * 11;
       depth = 0.35 + Math.random() * 0.4;
     } else {
-      // large — rare foreground accents
-      size = 25 + Math.random() * 16;
+      // large — rare foreground accents (bumped up a bit so the biggest
+      // pieces read more clearly as glass, not confetti)
+      size = 30 + Math.random() * 20;
       depth = 0.7 + Math.random() * 0.3;
+    }
+
+    // Only a rare few of the large shards carry a faint photo reflection —
+    // keeps it a subtle accent instead of a collage.
+    let reflection = null;
+    if (size > 34 && reflectionImages.length && Math.random() < 0.22) {
+      reflection = {
+        img: reflectionImages[Math.floor(Math.random() * reflectionImages.length)],
+        cropX: Math.random(),
+        cropY: Math.random() * 0.5,
+      };
     }
 
     const sides = 3 + Math.floor(Math.random() * 3); // 3–5 sided jagged chunk
@@ -362,6 +454,7 @@ if (certMedias.length && !prefersReducedMotionCerts) {
       depth,
       path,
       anchor,
+      reflection,
       rotZ: Math.random() * TWO_PI,
       rotSpeed: (Math.random() - 0.5) * 0.01,
       flip: Math.random() * TWO_PI,
@@ -455,6 +548,24 @@ if (certMedias.length && !prefersReducedMotionCerts) {
       if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
     });
     ctx.closePath();
+
+    // Faint reflection: clip to the shard's jagged silhouette and draw a
+    // cropped slice of the profile photo underneath the usual tint, so it
+    // reads as a glint of the image caught in the glass rather than a sticker.
+    if (s.reflection) {
+      const img = s.reflection.img;
+      if (img.complete && img.naturalWidth) {
+        ctx.save();
+        ctx.clip();
+        const cropSize = Math.min(img.naturalWidth, img.naturalHeight) * 0.4;
+        const sx = s.reflection.cropX * (img.naturalWidth - cropSize);
+        const sy = s.reflection.cropY * (img.naturalHeight - cropSize);
+        ctx.globalAlpha = 0.16 + glint * 0.14;
+        ctx.drawImage(img, sx, sy, cropSize, cropSize, -s.size, -s.size, s.size * 2, s.size * 2);
+        ctx.globalAlpha = 1;
+        ctx.restore();
+      }
+    }
 
     const grad = ctx.createLinearGradient(-s.size, -s.size, s.size, s.size);
     grad.addColorStop(0, `rgba(255,255,255,${(0.28 * glint + 0.04).toFixed(3)})`);
