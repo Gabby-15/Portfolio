@@ -6,14 +6,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gabb Salvacion | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Dancing+Script:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/front page.css" />
 
 </head>
 
 <body>
 
-  <!-- ===== Animated node/pixel network background ===== -->
-  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <!-- ===== Animated floating broken-glass background ===== -->
+  <canvas id="glass-canvas" aria-hidden="true"></canvas>
 
   <!-- ----- Navbar (moved outside .hero-card so its fixed z-index isn't
        trapped inside that element's stacking context — otherwise later
@@ -33,7 +36,12 @@
       <a href="#knowmemore?">Know Me More?</a>
     </nav>
 
-    <button class="btn btn-primary contact-btn" id="contactBtn">Contact</button>
+    <button class="btn btn-primary contact-btn" id="contactBtn" aria-label="Contact">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+        <path d="M3 7l9 6 9-6"></path>
+      </svg>
+    </button>
 
     <!-- Hamburger for mobile -->
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -114,19 +122,6 @@
   <!-- ===== Skills section ===== -->
   <section id="academic" class="skills-section">
 
-    <svg class="skills-traces" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0,90 H260 V220 H520" />
-      <path d="M1200,140 H900 V40" />
-      <path d="M0,520 H180 V400 H460 V520 H700" />
-      <path d="M1200,560 H860 V680" />
-      <circle cx="260" cy="90" r="4"></circle>
-      <circle cx="520" cy="220" r="4"></circle>
-      <circle cx="900" cy="140" r="4"></circle>
-      <circle cx="180" cy="520" r="4"></circle>
-      <circle cx="460" cy="400" r="4"></circle>
-      <circle cx="860" cy="560" r="4"></circle>
-    </svg>
-
     <div class="skills-inner">
 
       <p class="skills-eyebrow">Tech_stack</p>
@@ -190,6 +185,26 @@
     </div>
 
   </section>
+
+  <!-- ===== Contact details popup ===== -->
+  <div class="contact-modal-overlay" id="contactModalOverlay">
+    <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+      <button class="contact-modal-close" id="contactModalClose" aria-label="Close">&times;</button>
+      <p class="contact-modal-eyebrow">// get_in_touch</p>
+      <h3 id="contactModalTitle" class="contact-modal-title">Contact Details</h3>
+
+      <div class="contact-modal-body">
+        <div class="contact-modal-row">
+          <span class="contact-modal-label">Email</span>
+          <a href="mailto:gabbsalvacion15@gmail.com" class="contact-modal-value">gabbsalvacion15@gmail.com</a>
+        </div>
+        <div class="contact-modal-row">
+          <span class="contact-modal-label">Contact</span>
+          <a href="tel:+639686546940" class="contact-modal-value">+63 968 654 6940</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="static/front page.js"></script>
 </body>
