@@ -108,6 +108,29 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
 })();
 
 // =========================================
+// 2c. BACKGROUND GLOW FOLLOWS SCROLL
+// =========================================
+// The maroon glow behind the hero picture is anchored to the picture's
+// spot on the Home section. Once you scroll away to another page it
+// glides toward the center of the screen instead of staying stuck off
+// to the side, so it still looks deliberate on every section.
+(function () {
+  const homeSection = document.getElementById('home');
+  if (!homeSection || !('IntersectionObserver' in window)) return;
+
+  const glowObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        document.body.classList.toggle('away-from-home', !entry.isIntersecting);
+      });
+    },
+    { threshold: 0, rootMargin: '-45% 0px -45% 0px' }
+  );
+
+  glowObserver.observe(homeSection);
+})();
+
+// =========================================
 // 3. BUTTON ACTIONS (placeholders to customize)
 // =========================================
 const contactBtn = document.getElementById("contactBtn");
