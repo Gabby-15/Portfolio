@@ -512,8 +512,8 @@ body.nav-open {
   /* Profile picture: fluid tablet sizing so it no longer stays pinned at
      the fixed 800x800 desktop size and overflows the viewport. */
   .profile-img-wrap {
-    width: clamp(240px, 60vw, 480px);
-    height: clamp(320px, 78vw, 620px);
+    width: clamp(260px, 66vw, 520px);
+    height: clamp(340px, 86vw, 680px);
     margin-right: 0;
     margin-bottom: 0;
   }
@@ -545,8 +545,8 @@ body.nav-open {
   }
 
   .profile-img-wrap {
-    width: clamp(200px, 68vw, 320px);
-    height: clamp(260px, 88vw, 420px);
+    width: clamp(230px, 78vw, 360px);
+    height: clamp(300px, 98vw, 470px);
   }
 
   .social-icons a {
@@ -570,8 +570,8 @@ body.nav-open {
   }
 
   .profile-img-wrap {
-    width: clamp(180px, 72vw, 260px);
-    height: clamp(240px, 92vw, 340px);
+    width: clamp(210px, 84vw, 320px);
+    height: clamp(280px, 106vw, 400px);
   }
 }
 
@@ -592,6 +592,10 @@ body.nav-open {
   }
   .hero-card {
     padding-top: 82px;
+  }
+  .profile-img-wrap {
+    width: clamp(220px, 90vw, 300px);
+    height: clamp(290px, 112vw, 380px);
   }
   .btn {
     padding: 10px 20px;
