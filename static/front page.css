@@ -16,11 +16,19 @@
   --radius-lg: 24px;
   --radius-pill: 50px;
 }
+html {
+  overflow-x: hidden;
+}
 body {
   font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
   background-color: var(--black);
   color: var(--white);
   min-height: 100vh;
+  overflow-x: hidden;
+}
+/* Lock background scroll while the mobile nav drawer is open */
+body.nav-open {
+  overflow: hidden;
 }
 
 /* Animated floating glass-shard background sits fixed behind all content.
@@ -170,16 +178,31 @@ body {
 .hamburger {
   display: none;
   flex-direction: column;
+  justify-content: center;
   gap: 5px;
+  width: 32px;
+  height: 32px;
   background: none;
   border: none;
   cursor: pointer;
+  flex-shrink: 0;
+  z-index: 20;
 }
 .hamburger span {
   width: 26px;
   height: 3px;
   background-color: var(--white);
   border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+.hamburger-open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger-open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 
@@ -204,28 +227,28 @@ body {
 }
 .greeting {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 3rem;
+  font-size: clamp(1.7rem, 1.1rem + 2.6vw, 3rem);
   font-weight: 700;
   margin-bottom: 4px;
 }
 .greeting .script {
   font-family: "Dancing Script", cursive;
   font-weight: 700;
-  font-size: 5.2rem;
+  font-size: clamp(2.4rem, 1.4rem + 4.3vw, 5.2rem);
   color: var(--white);
 }
 .role {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 4rem;
+  font-size: clamp(1.8rem, 1rem + 3.5vw, 4rem);
   font-weight: 800;
   color: var(--red);
-  line-height: 1.1;
+  line-height: 1.15;
   margin-bottom: 16px;
 }
 .description {
   color: var(--text-muted);
   font-family: "Inter", sans-serif;
-  font-size: 1rem;
+  font-size: clamp(0.92rem, 0.82rem + 0.4vw, 1rem);
   line-height: 1.7;
   margin-bottom: 24px;
   text-align: justify;
@@ -297,6 +320,12 @@ body {
   animation: float 6s ease-in-out infinite;
   will-change: transform, opacity;
   transition: opacity 1.4s ease-in-out;
+
+  /* Feather the bottom edge so the photo's straight-cut border dissolves
+     into the page background instead of reading as an obvious rectangular
+     crop. */
+  mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 97%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 97%);
 }
 
 /* Default photo sits on top and is fully visible until hovered */
@@ -344,12 +373,9 @@ body {
   100% { transform: translateY(0px)  translate(var(--alt-x), var(--alt-y)) scale(var(--alt-scale)); }
 }
 
-@media (max-width: 500px) {
+@media (prefers-reduced-motion: reduce) {
   .profile-img-wrap {
-    width: 220px;
-    height: 320px;
-    margin-right: 0;
-    margin-bottom: 0;
+    transition: none;
   }
 }
 
@@ -357,9 +383,14 @@ body {
    7. RESPONSIVE SCREEN
 ========================================= */
 @media (max-width: 900px) {
+  .navbar {
+    padding: 0 5vw;
+  }
+
   .hero-content {
     flex-direction: column-reverse;
     text-align: center;
+    gap: 32px;
   }
   .hero-text {
     max-width: 100%;
@@ -367,26 +398,154 @@ body {
   .social-icons,
   .cta-row {
     justify-content: center;
-  }
-  .nav-links {
-    display: none;
+    flex-wrap: wrap;
   }
   .hamburger {
     display: flex;
+  }
+
+  /* Mobile nav drawer — slides/fades in below the fixed navbar. Kept as a
+     real, usable dropdown instead of the old toggle that had no styling.
+     display stays flex at all times (positioned fixed, off the normal
+     flow) so opacity/transform can transition smoothly on both open and
+     close instead of snapping away via display:none. */
+  .nav-links {
+    position: fixed;
+    top: 90px;
+    left: 0;
+    right: 0;
+    z-index: 15;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+    background: linear-gradient(180deg, rgba(20, 2, 2, 0.98) 0%, rgba(5, 0, 0, 0.98) 100%);
+    border-bottom: 1px solid rgba(255, 31, 31, 0.25);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  }
+  .nav-links.nav-links-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .nav-links a {
+    padding: 16px 6vw;
+    border-bottom: 1px solid rgba(255, 31, 31, 0.12);
+    opacity: 0.9;
+    font-size: 1rem;
+  }
+  .nav-links a:last-child {
+    border-bottom: none;
+  }
+
+  /* Profile picture: fluid tablet sizing so it no longer stays pinned at
+     the fixed 800x800 desktop size and overflows the viewport. */
+  .profile-img-wrap {
+    width: clamp(240px, 60vw, 480px);
+    height: clamp(320px, 78vw, 620px);
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    height: 76px;
+    padding: 0 4vw;
+  }
+  html {
+    scroll-padding-top: 76px;
+  }
+  .nav-links {
+    top: 76px;
+    max-height: calc(100vh - 76px);
+  }
+  .MGS-logo-img {
+    max-height: 130px;
+  }
+  .contact-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .hero-card {
+    padding: 24px 6vw 48px;
+    padding-top: 96px;
+  }
+
+  .profile-img-wrap {
+    width: clamp(200px, 68vw, 320px);
+    height: clamp(260px, 88vw, 420px);
+  }
+
+  .social-icons a {
+    width: 50px;
+    height: 50px;
+  }
+  .social-icons a img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .cta-row {
+    gap: 16px;
   }
 }
 
 @media (max-width: 500px) {
   .hero-card {
-    padding: 24px;
+    padding: 20px 6vw 40px;
+    padding-top: 92px;
   }
 
-  .role {
-    font-size: 2.1rem;
-  }
   .profile-img-wrap {
-    width: 220px;
-    height: 320px;
+    width: clamp(180px, 72vw, 260px);
+    height: clamp(240px, 92vw, 340px);
+  }
+  .description {
+    text-align: left;
+  }
+}
+
+@media (max-width: 380px) {
+  .navbar {
+    height: 66px;
+    gap: 12px;
+  }
+  html {
+    scroll-padding-top: 66px;
+  }
+  .nav-links {
+    top: 66px;
+    max-height: calc(100vh - 66px);
+  }
+  .MGS-logo-img {
+    max-height: 100px;
+  }
+  .hero-card {
+    padding-top: 82px;
+  }
+  .description {
+    text-align: left;
+  }
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.92rem;
+  }
+  .social-icons a {
+    width: 44px;
+    height: 44px;
+  }
+  .social-icons a img {
+    width: 44px !important;
+    height: 44px !important;
   }
 }
 /* Respect reduced motion preference */
@@ -441,7 +600,7 @@ html::-webkit-scrollbar {
 
 .skills-title {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 2.75rem;
+  font-size: clamp(1.7rem, 1.3rem + 2vw, 2.75rem);
   font-weight: 800;
   color: var(--white);
   margin-bottom: 14px;
@@ -552,11 +711,20 @@ html::-webkit-scrollbar {
 }
 
 @media (max-width: 500px) {
-  .skills-title {
-    font-size: 2rem;
-  }
   .skill-card {
     padding: 22px 20px 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .skills-section {
+    padding: 70px 6vw 80px;
+  }
+  .skill-card {
+    padding: 18px 16px 16px;
+  }
+  .skill-list li {
+    font-size: 0.9rem;
   }
 }
 
@@ -690,5 +858,17 @@ html::-webkit-scrollbar {
 @media (max-width: 500px) {
   .contact-modal {
     padding: 26px 20px 22px;
+  }
+}
+
+@media (max-width: 380px) {
+  .contact-modal-overlay {
+    padding: 16px;
+  }
+  .contact-modal {
+    padding: 22px 16px 18px;
+  }
+  .contact-modal-title {
+    font-size: 1.35rem;
   }
 }

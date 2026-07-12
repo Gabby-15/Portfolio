@@ -7,10 +7,33 @@ const navLinks = document.getElementById("navLinks");
 if (hamburger && navLinks) {
 
   hamburger.addEventListener("click", () => {
-    navLinks.classList.toggle("nav-links-open");
-
+    const isOpen = navLinks.classList.toggle("nav-links-open");
+    hamburger.classList.toggle("hamburger-open", isOpen);
+    hamburger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    document.body.classList.toggle("nav-open", isOpen);
   });
-  
+
+  // Close the mobile menu once a link is tapped
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("nav-links-open");
+      hamburger.classList.remove("hamburger-open");
+      hamburger.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("nav-open");
+    });
+  });
+
+  // If the viewport grows back past the mobile breakpoint, make sure the
+  // dropdown doesn't stay stuck open underneath the now-visible desktop nav
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) {
+      navLinks.classList.remove("nav-links-open");
+      hamburger.classList.remove("hamburger-open");
+      hamburger.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("nav-open");
+    }
+  });
+
 }
 
 // =========================================
