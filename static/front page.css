@@ -319,16 +319,6 @@ body.nav-open {
   gap: 10px;
   flex-wrap: wrap;
 }
-/* Small terminal-style accent before "Hi, I'm" — ties into the
-   monospace/circuit motif used elsewhere on the page. */
-.greeting::before {
-  content: "";
-  display: inline-block;
-  width: 26px;
-  height: 1px;
-  background: var(--red);
-  opacity: 0.7;
-}
 .greeting .script {
   position: relative;
   display: inline-block;
@@ -371,7 +361,7 @@ body.nav-open {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: script-glass-sweep 15s linear infinite;
+  animation: script-glass-sweep 15s linear infinite alternate;
   pointer-events: none;
 }
 
@@ -412,8 +402,9 @@ body.nav-open {
   }
 }
 
-/* Reflection travels left to right on a smooth, continuous loop —
-   no pause, mimics a glass surface catching a slow passing light. */
+/* Reflection sweeps left-to-right then right-to-left on a continuous
+   ping-pong loop — mimics a glass surface catching a passing light
+   that swings back, instead of resetting with a hard jump. */
 @keyframes script-glass-sweep {
   0% {
     background-position: -140% 0;

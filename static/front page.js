@@ -1,4 +1,21 @@
 // =========================================
+// 0. ALWAYS LAND ON HOME AFTER A REFRESH
+// =========================================
+// By default the browser remembers your last scroll position and
+// restores it on reload, which made a refresh feel like it "skipped"
+// Home. Take manual control of that and force every fresh page load
+// back to the top.
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+window.scrollTo(0, 0);
+window.addEventListener("pageshow", (e) => {
+  // Also covers back/forward-cache restores (e.g. Safari), not just
+  // a hard refresh.
+  if (e.persisted) window.scrollTo(0, 0);
+});
+
+// =========================================
 // 1. MOBILE NAV TOGGLE
 // =========================================
 const hamburger = document.getElementById("hamburger");
@@ -32,6 +49,21 @@ if (hamburger && navLinks) {
       hamburger.setAttribute("aria-expanded", "false");
       document.body.classList.remove("nav-open");
     }
+  });
+
+  // Tapping anywhere outside the open drawer (or hamburger button) closes
+  // it too — previously the only way to close it was tapping a link or the
+  // hamburger again, so it could get left open with the page's scroll
+  // locked underneath it.
+  document.addEventListener("click", (e) => {
+    const isOpen = navLinks.classList.contains("nav-links-open");
+    if (!isOpen) return;
+    if (navLinks.contains(e.target) || hamburger.contains(e.target)) return;
+
+    navLinks.classList.remove("nav-links-open");
+    hamburger.classList.remove("hamburger-open");
+    hamburger.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("nav-open");
   });
 
 }
@@ -372,25 +404,9 @@ if (scriptText) {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  if (ctx.imageSmoothingEnabled !== undefined) {
-    ctx.imageSmoothingEnabled = true;
-  }
-  if ('imageSmoothingQuality' in ctx) {
-    ctx.imageSmoothingQuality = 'high';
-  }
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const TWO_PI = Math.PI * 2;
-
-  // A couple of the profile photos, used only as a faint reflection inside
-  // a small handful of the larger shards — subtle mixed-in glints, not a
-  // literal photo collage.
-  const reflectionSources = ['images/Gabb.png', 'images/Gabbgrad.png'];
-  const reflectionImages = reflectionSources.map((src) => {
-    const img = new Image();
-    img.src = src;
-    return img;
-  });
 
   let width, height;
   let shards = [];
@@ -450,17 +466,6 @@ if (scriptText) {
       depth = 0.7 + Math.random() * 0.3;
     }
 
-    // Only a rare few of the large shards carry a faint photo reflection —
-    // keeps it a subtle accent instead of a collage.
-    let reflection = null;
-    if (size > 34 && reflectionImages.length && Math.random() < 0.22) {
-      reflection = {
-        img: reflectionImages[Math.floor(Math.random() * reflectionImages.length)],
-        cropX: Math.random(),
-        cropY: Math.random() * 0.5,
-      };
-    }
-
     const sides = 3 + Math.floor(Math.random() * 3); // 3–5 sided jagged chunk
     const path = Array.from({ length: sides }, (_, k) => ({
       angle: (k / sides) * Math.PI * 2 + (Math.random() - 0.5) * 0.5,
@@ -477,7 +482,6 @@ if (scriptText) {
       depth,
       path,
       anchor,
-      reflection,
       rotZ: Math.random() * TWO_PI,
       rotSpeed: (Math.random() - 0.5) * 0.01,
       flip: Math.random() * TWO_PI,
@@ -571,24 +575,6 @@ if (scriptText) {
       if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
     });
     ctx.closePath();
-
-    // Faint reflection: clip to the shard's jagged silhouette and draw a
-    // cropped slice of the profile photo underneath the usual tint, so it
-    // reads as a glint of the image caught in the glass rather than a sticker.
-    if (s.reflection) {
-      const img = s.reflection.img;
-      if (img.complete && img.naturalWidth) {
-        ctx.save();
-        ctx.clip();
-        const cropSize = Math.min(img.naturalWidth, img.naturalHeight) * 0.4;
-        const sx = s.reflection.cropX * (img.naturalWidth - cropSize);
-        const sy = s.reflection.cropY * (img.naturalHeight - cropSize);
-        ctx.globalAlpha = 0.16 + glint * 0.14;
-        ctx.drawImage(img, sx, sy, cropSize, cropSize, -s.size, -s.size, s.size * 2, s.size * 2);
-        ctx.globalAlpha = 1;
-        ctx.restore();
-      }
-    }
 
     const grad = ctx.createLinearGradient(-s.size, -s.size, s.size, s.size);
     grad.addColorStop(0, `rgba(255,255,255,${(0.28 * glint + 0.04).toFixed(3)})`);
