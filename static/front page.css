@@ -1323,16 +1323,6 @@ html::-webkit-scrollbar {
   transform: rotate(90deg);
 }
 
-.resume-modal-eyebrow {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--red);
-  margin-bottom: 6px;
-  flex-shrink: 0;
-}
 
 .resume-modal-title {
   font-family: "Space Grotesk", sans-serif;
@@ -1373,29 +1363,7 @@ html::-webkit-scrollbar {
   height: auto;
 }
 
-.resume-modal-divider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  background: rgba(255, 31, 31, 0.08);
-}
-.resume-modal-divider::before,
-.resume-modal-divider::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: rgba(255, 31, 31, 0.3);
-}
-.resume-modal-divider span {
-  font-family: "JetBrains Mono", "Consolas", monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--red);
-  opacity: 0.85;
-  white-space: nowrap;
-}
+
 
 @media (max-width: 640px) {
   .resume-modal {

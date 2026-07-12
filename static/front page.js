@@ -42,14 +42,20 @@ if (hamburger && navLinks) {
 document.querySelectorAll(".nav-links a").forEach((link) => {
   link.addEventListener("click", (e) => {
     const targetId = link.getAttribute("href");
+    if (!targetId.startsWith("#")) return;
 
-    // Only smooth-scroll if the target section actually exists
-    if (targetId.startsWith("#") && document.querySelector(targetId)) {
-      e.preventDefault();
-      document.querySelector(targetId).scrollIntoView({ behavior: "smooth" });
-    }
+    // Always take over the click so a missing target can never fall back to
+    // the browser's default "jump to top of document" behavior — that
+    // fallback was what made links like Projects/Know Me More look like
+    // they were sending people back to Home.
+    e.preventDefault();
 
-    // Update active link styling
+    const targetEl = document.querySelector(targetId);
+    if (!targetEl) return; // section not built yet — do nothing, stay put
+
+    targetEl.scrollIntoView({ behavior: "smooth" });
+
+    // Update active link styling only once we've actually navigated
     document.querySelectorAll(".nav-links a").forEach((a) => a.classList.remove("active"));
     link.classList.add("active");
   });
