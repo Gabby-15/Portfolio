@@ -111,11 +111,11 @@ if (profileWrap) {
 
 
 // =========================================
-// 5. SKILL CARD SCROLL REVEAL
+// 5. SCROLL REVEAL (skill cards + certification cards)
 // =========================================
-const skillCards = document.querySelectorAll('.skill-card');
+const revealCards = document.querySelectorAll('.skill-card, .cert-card');
 
-if (skillCards.length && 'IntersectionObserver' in window) {
+if (revealCards.length && 'IntersectionObserver' in window) {
   const cardObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry, i) => {
@@ -129,7 +129,39 @@ if (skillCards.length && 'IntersectionObserver' in window) {
     { threshold: 0.2, rootMargin: '0px 0px -60px 0px' }
   );
 
-  skillCards.forEach((card) => cardObserver.observe(card));
+  revealCards.forEach((card) => cardObserver.observe(card));
+}
+
+// =========================================
+// 5b. CERTIFICATION CARD 3D TILT
+// =========================================
+// Same spirit as the profile-photo tilt above, applied to each
+// certificate thumbnail: a light tilt toward the cursor plus a
+// tracked "shine" highlight (driven by the --mx/--my CSS vars).
+const certMedias = document.querySelectorAll('.cert-card-media');
+const prefersReducedMotionCerts = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (certMedias.length && !prefersReducedMotionCerts) {
+  certMedias.forEach((media) => {
+    media.addEventListener('mousemove', (e) => {
+      const rect = media.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+
+      const rotateY = (px - 0.5) * 14;
+      const rotateX = (0.5 - py) * 14;
+
+      media.style.transition = 'transform 0.1s ease';
+      media.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(1.03)`;
+      media.style.setProperty('--mx', `${px * 100}%`);
+      media.style.setProperty('--my', `${py * 100}%`);
+    });
+
+    media.addEventListener('mouseleave', () => {
+      media.style.transition = 'transform 0.4s ease';
+      media.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+    });
+  });
 }
 
 
@@ -153,6 +185,12 @@ if (skillCards.length && 'IntersectionObserver' in window) {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
+  if (ctx.imageSmoothingEnabled !== undefined) {
+    ctx.imageSmoothingEnabled = true;
+  }
+  if ('imageSmoothingQuality' in ctx) {
+    ctx.imageSmoothingQuality = 'high';
+  }
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const TWO_PI = Math.PI * 2;
@@ -169,8 +207,14 @@ if (skillCards.length && 'IntersectionObserver' in window) {
   const RELEASE_FORCE = 1.4;    // outward burst strength the instant scrolling stops
 
   function resize() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     buildShards();
   }
 

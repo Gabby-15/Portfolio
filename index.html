@@ -36,17 +36,22 @@
       <a href="#knowmemore?">Know Me More?</a>
     </nav>
 
-    <button class="btn btn-primary contact-btn" id="contactBtn" aria-label="Contact">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-        <path d="M3 7l9 6 9-6"></path>
-      </svg>
-    </button>
+    <!-- Grouped so contact + hamburger always sit together as one right-hand
+         cluster, even on mobile where .nav-links is pulled out of the flex
+         flow (position: fixed) and would otherwise leave a big empty gap
+         between them. -->
+    <div class="nav-actions">
+      <button class="btn btn-primary contact-btn" id="contactBtn" aria-label="Contact">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.2c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1L6.6 10.8z"></path>
+        </svg>
+      </button>
 
-    <!-- Hamburger for mobile -->
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+      <!-- Hamburger for mobile -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
 
   </header>
 
@@ -76,7 +81,7 @@
           <button class="btn btn-primary" id="resumeBtn">Resume</button>
           <script>
               document.getElementById("resumeBtn").addEventListener("click", () => {
-                window.open("https://drive.google.com/drive/u/0/folders/1Xj8A6G1RZzQUXxS5sB1sRiisXyDc20FA", target = "_blank");
+                window.open("https://drive.google.com/drive/folders/1Xj8A6G1RZzQUXxS5sB1sRiisXyDc20FA?usp=sharing", target = "_blank");
               });
           </script>
 
@@ -124,7 +129,6 @@
 
     <div class="skills-inner">
 
-      <p class="skills-eyebrow">Tech_stack</p>
       <h2 class="skills-title">Skills</h2>
     
 
@@ -132,7 +136,7 @@
 
         <article class="skill-card">
           <header class="skill-card-head">
-            <span class="skill-card-label">// languages_&amp;_web</span>
+            <span class="skill-card-label">Languages &amp; Web</span>
           </header>
           <ul class="skill-list">
             <li><span class="skill-led"></span>C++</li>
@@ -147,7 +151,7 @@
 
         <article class="skill-card">
           <header class="skill-card-head">
-            <span class="skill-card-label">// networking_&amp;_security</span>
+            <span class="skill-card-label">Networking &amp; Security</span>
           </header>
           <ul class="skill-list">
             <li><span class="skill-led"></span>IP Addressing &amp; Subnetting</li>
@@ -158,7 +162,7 @@
 
         <article class="skill-card">
           <header class="skill-card-head">
-            <span class="skill-card-label">// hardware_&amp;_electronics</span>
+            <span class="skill-card-label">Hardware &amp; Electronics</span>
           </header>
           <ul class="skill-list">
             <li><span class="skill-led"></span>Circuit Design &amp; Simulation (Proteus)</li>
@@ -170,7 +174,7 @@
 
         <article class="skill-card">
           <header class="skill-card-head">
-            <span class="skill-card-label">// core_strengths</span>
+            <span class="skill-card-label">Core Strengths</span>
           </header>
           <ul class="skill-list">
             <li><span class="skill-led"></span>Fast Learner</li>
@@ -186,20 +190,158 @@
 
   </section>
 
+  <!-- ===== Certifications section ===== -->
+  <section id="service" class="certs-section">
+
+    <div class="certs-inner">
+
+      <p class="certs-eyebrow">Recognition</p>
+      <h2 class="certs-title">Seminars &amp; Certifications</h2>
+      <p class="certs-subtitle">
+        A running record of the trainings, competitions, and papers behind the work above.
+        <!-- Sample placeholders for now — swap each .cert-card-media block below for
+             <img src="images/certs/your-file.jpg" alt="..."> once you send the real
+             certificate photos and I'll wire them in the same layout. -->
+      </p>
+
+      <div class="certs-grid">
+
+        <article class="cert-card">
+          <div class="cert-card-media">
+            <svg viewBox="0 0 200 150" class="cert-placeholder" aria-hidden="true">
+              <rect x="6" y="6" width="188" height="138" rx="10"></rect>
+              <circle cx="100" cy="58" r="26"></circle>
+              <path d="M84 80 L74 118 L100 104 L126 118 L116 80"></path>
+              <line x1="46" y1="22" x2="154" y2="22"></line>
+            </svg>
+            <span class="cert-card-shine"></span>
+          </div>
+          <div class="cert-card-body">
+            <p class="cert-card-year">2025</p>
+            <h3 class="cert-card-title">CpE InfoCruise 2025</h3>
+            <p class="cert-card-org">PHINMA University of Pangasinan</p>
+            <p class="cert-card-desc">Cybersecurity-focused seminar for Computer Engineering students.</p>
+          </div>
+        </article>
+
+        <article class="cert-card">
+          <div class="cert-card-media">
+            <svg viewBox="0 0 200 150" class="cert-placeholder" aria-hidden="true">
+              <rect x="6" y="6" width="188" height="138" rx="10"></rect>
+              <circle cx="100" cy="58" r="26"></circle>
+              <path d="M84 80 L74 118 L100 104 L126 118 L116 80"></path>
+              <line x1="46" y1="22" x2="154" y2="22"></line>
+            </svg>
+            <span class="cert-card-shine"></span>
+          </div>
+          <div class="cert-card-body">
+            <p class="cert-card-year">2025</p>
+            <h3 class="cert-card-title">Hackathon: Hack the Chain with Viction</h3>
+            <p class="cert-card-org">AI &amp; Cybersecurity Track</p>
+            <p class="cert-card-desc">Competitive hackathon applying AI and blockchain security concepts.</p>
+          </div>
+        </article>
+
+        <article class="cert-card">
+          <div class="cert-card-media">
+            <svg viewBox="0 0 200 150" class="cert-placeholder" aria-hidden="true">
+              <rect x="6" y="6" width="188" height="138" rx="10"></rect>
+              <circle cx="100" cy="58" r="26"></circle>
+              <path d="M84 80 L74 118 L100 104 L126 118 L116 80"></path>
+              <line x1="46" y1="22" x2="154" y2="22"></line>
+            </svg>
+            <span class="cert-card-shine"></span>
+          </div>
+          <div class="cert-card-body">
+            <p class="cert-card-year">On-the-Job Training</p>
+            <h3 class="cert-card-title">PAGASA Baguio Station</h3>
+            <p class="cert-card-org">On-the-Job Training Certification</p>
+            <p class="cert-card-desc">Hands-on OJT covering weather monitoring and station operations.</p>
+          </div>
+        </article>
+
+        <article class="cert-card">
+          <div class="cert-card-media">
+            <svg viewBox="0 0 200 150" class="cert-placeholder" aria-hidden="true">
+              <rect x="6" y="6" width="188" height="138" rx="10"></rect>
+              <circle cx="100" cy="58" r="26"></circle>
+              <path d="M84 80 L74 118 L100 104 L126 118 L116 80"></path>
+              <line x1="46" y1="22" x2="154" y2="22"></line>
+            </svg>
+            <span class="cert-card-shine"></span>
+          </div>
+          <div class="cert-card-body">
+            <p class="cert-card-year">2026</p>
+            <h3 class="cert-card-title">SIRIB Research Colloquium</h3>
+            <p class="cert-card-org">PHINMA University of Pangasinan</p>
+            <p class="cert-card-desc">Presented original research at the university's research colloquium.</p>
+          </div>
+        </article>
+
+        <article class="cert-card cert-card-featured">
+          <div class="cert-card-media">
+            <svg viewBox="0 0 200 150" class="cert-placeholder" aria-hidden="true">
+              <rect x="6" y="6" width="188" height="138" rx="10"></rect>
+              <circle cx="100" cy="58" r="26"></circle>
+              <path d="M84 80 L74 118 L100 104 L126 118 L116 80"></path>
+              <line x1="46" y1="22" x2="154" y2="22"></line>
+            </svg>
+            <span class="cert-card-shine"></span>
+          </div>
+          <div class="cert-card-body">
+            <p class="cert-card-year">SIRIB 2026</p>
+            <h3 class="cert-card-title">SDG 11 &amp; 13 Best Thesis Paper and Abstract Paper</h3>
+            <p class="cert-card-org">Award-winning capstone research</p>
+            <p class="cert-card-desc">
+              A web application and working hardware prototype for fire safety called
+              <strong>F.L.A.M.E.S.</strong> <em>(Fire Location Alert and Monitoring for Emergency Support)</em>.
+            </p>
+          </div>
+        </article>
+
+        <article class="cert-card">
+          <div class="cert-card-media">
+            <svg viewBox="0 0 200 150" class="cert-placeholder" aria-hidden="true">
+              <rect x="6" y="6" width="188" height="138" rx="10"></rect>
+              <circle cx="100" cy="58" r="26"></circle>
+              <path d="M84 80 L74 118 L100 104 L126 118 L116 80"></path>
+              <line x1="46" y1="22" x2="154" y2="22"></line>
+            </svg>
+            <span class="cert-card-shine"></span>
+          </div>
+          <div class="cert-card-body">
+            <p class="cert-card-year">2026</p>
+            <h3 class="cert-card-title">Best Capstone Design</h3>
+            <p class="cert-card-org">College of Engineering Recognition</p>
+            <p class="cert-card-desc">Recognized for outstanding capstone project design and execution.</p>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
   <!-- ===== Contact details popup ===== -->
   <div class="contact-modal-overlay" id="contactModalOverlay">
     <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
       <button class="contact-modal-close" id="contactModalClose" aria-label="Close">&times;</button>
-      <p class="contact-modal-eyebrow">// get_in_touch</p>
+      <p class="contact-modal-eyebrow">Get In Touch</p>
       <h3 id="contactModalTitle" class="contact-modal-title">Contact Details</h3>
 
       <div class="contact-modal-body">
         <div class="contact-modal-row">
-          <span class="contact-modal-label">Email</span>
+          <span class="contact-modal-label">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>
+            Email
+          </span>
           <a href="mailto:gabbsalvacion15@gmail.com" class="contact-modal-value">gabbsalvacion15@gmail.com</a>
         </div>
         <div class="contact-modal-row">
-          <span class="contact-modal-label">Contact</span>
+          <span class="contact-modal-label">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.2c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1.1L6.6 10.8z"></path></svg>
+            Contact
+          </span>
           <a href="tel:+639686546940" class="contact-modal-value">+63 968 654 6940</a>
         </div>
       </div>
