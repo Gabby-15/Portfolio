@@ -284,7 +284,7 @@ if (profileWrap) {
 // =========================================
 // 5. SCROLL REVEAL (skill cards + certification cards)
 // =========================================
-const revealCards = document.querySelectorAll('.skill-card, .cert-card, .project-card');
+const revealCards = document.querySelectorAll('.skill-card, .cert-card, .project-card, .project-spotlight');
 
 if (revealCards.length && 'IntersectionObserver' in window) {
   const cardObserver = new IntersectionObserver(
@@ -631,4 +631,6 @@ if (scriptText) {
   }
 
   init();
-})();
+})
+
+();

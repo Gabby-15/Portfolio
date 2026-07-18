@@ -321,41 +321,54 @@
 
     <div class="projects-inner">
 
-      <p class="projects-eyebrow">Selected Work</p>
+      <p class="projects-eyebrow">Work</p>
       <h2 class="projects-title">Projects</h2>
       <p class="projects-subtitle">
         A mix of software, hardware, and everything in between — from an award-winning capstone to smaller circuit and robotics builds.
       </p>
 
-      <div class="projects-grid">
+      <!-- ===== Spotlight: F.L.A.M.E.S. — pulled out of the grid entirely
+           so it reads as THE headline project, not just a bigger tile. ===== -->
+      <article class="project-spotlight">
+        <span class="project-spotlight-tag">Featured Project</span>
 
-        <!-- Featured project: F.L.A.M.E.S. -->
-        <article class="project-card project-card-featured">
-          <div class="project-card-media project-card-media-img">
-            <span class="project-card-badge">🏆 Best Capstone Design · 2026</span>
-            <img src="images/FLAMES.png" alt="F.L.A.M.E.S. — Fire Location Alert and Monitoring for Emergency Support" class="project-card-img">
-            <span class="project-card-glow" aria-hidden="true"></span>
+        <div class="project-spotlight-media">
+          <img src="images/FLAMES.png" alt="F.L.A.M.E.S. — Fire Location Alert and Monitoring for Emergency Support" class="project-spotlight-img">
+          <span class="project-spotlight-badge">🏆 Best Capstone Design · 2026</span>
+        </div>
+
+        <div class="project-spotlight-body">
+          <h3 class="project-spotlight-title">F.L.A.M.E.S.</h3>
+          <p class="project-spotlight-subtitle">Fire Location Alert and Monitoring for Emergency Support</p>
+          <p class="project-spotlight-desc">
+            AI-enhanced IoT fire safety web app integrating ESP32 / Raspberry Pi 5 hardware with a Random Forest detection model. Features live WebSocket dashboards and TomTom-powered emergency routing to help the BFP and local government units respond faster.
+          </p>
+
+          <div class="project-spotlight-stats">
+            <span>🔥 AI Fire Detection</span>
+            <span>📡 Live IoT Dashboard</span>
+            <span>🥇 SDG 11 &amp; 13 Best Thesis</span>
           </div>
-          <div class="project-card-body">
-            <h3 class="project-card-title">F.L.A.M.E.S.</h3>
-            <p class="project-card-subtitle">Fire Location Alert and Monitoring for Emergency Support</p>
-            <p class="project-card-desc">
-              AI-enhanced IoT fire safety web app integrating ESP32 / Raspberry Pi 5 hardware with a Random Forest detection model. Features live WebSocket dashboards and TomTom-powered emergency routing to help the BFP and local government units respond faster.
-            </p>
-            <div class="project-card-tags">
-              <span>Python</span>
-              <span>FastAPI</span>
-              <span>React</span>
-              <span>ESP32</span>
-              <span>Raspberry Pi 5</span>
-              <span>WebSocket</span>
-            </div>
-            <a href="https://f1ames.vercel.app" target="_blank" rel="noopener" class="project-card-link">
-              View Live Project
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg>
-            </a>
+
+          <div class="project-card-tags">
+            <span>Python</span>
+            <span>FastAPI</span>
+            <span>React</span>
+            <span>ESP32</span>
+            <span>Raspberry Pi 5</span>
+            <span>WebSocket</span>
           </div>
-        </article>
+
+          <a href="https://f1ames.vercel.app" target="_blank" rel="noopener" class="project-card-link project-spotlight-link">
+            View Live Project
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg>
+          </a>
+        </div>
+      </article>
+
+      <p class="projects-more-label">More Projects</p>
+
+      <div class="projects-grid">
 
         <!-- CURELY: Clinic Management System -->
         <article class="project-card">
