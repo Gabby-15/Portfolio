@@ -333,7 +333,7 @@ if (revealSections.length && 'IntersectionObserver' in window) {
 // Same spirit as the profile-photo tilt above, applied to each
 // certificate thumbnail: a light tilt toward the cursor plus a
 // tracked "shine" highlight (driven by the --mx/--my CSS vars).
-const certMedias = document.querySelectorAll('.cert-card-media');
+const certMedias = document.querySelectorAll('.cert-card-media, .project-card-media');
 const prefersReducedMotionCerts = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (certMedias.length && !prefersReducedMotionCerts) {

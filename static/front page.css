@@ -1318,14 +1318,131 @@ html::-webkit-scrollbar {
   padding: 3px 10px;
 }
 
+/* ----- Featured project (F.L.A.M.E.S.) — spans 2 grid columns and gets
+   a wider media panel, a badge, a subtle glow, and a live-project link
+   so it reads as the headline piece rather than another plain tile. ----- */
+.project-card-featured {
+  grid-column: span 2;
+}
+.project-card-featured .project-card-media {
+  aspect-ratio: 21 / 9;
+  background: radial-gradient(circle at 25% 25%, rgba(255, 90, 40, 0.35), transparent 55%),
+              radial-gradient(circle at 75% 70%, rgba(255, 31, 31, 0.28), transparent 55%),
+              linear-gradient(150deg, rgba(122, 13, 13, 0.55), rgba(5, 0, 0, 0.9));
+}
+.project-card-featured .project-placeholder {
+  width: 34%;
+  height: 34%;
+  fill: rgba(255, 130, 60, 0.18);
+  stroke: rgba(255, 175, 130, 0.7);
+  filter: drop-shadow(0 6px 18px rgba(255, 90, 20, 0.45));
+}
+
+/* Real project photo (FLAMES.png) — fills the media panel, sits under
+   the badge/glow overlay, with a slight bottom-fade so the card body
+   below feels connected rather than a hard cut. */
+.project-card-media-img {
+  padding: 0;
+}
+.project-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+.project-card-featured:hover .project-card-img {
+  transform: scale(1.04);
+}
+.project-card-media-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 0, 0, 0) 55%, rgba(10, 0, 0, 0.85) 100%);
+  pointer-events: none;
+}
+.project-card-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 100, 40, 0.25), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.project-card-featured:hover .project-card-glow {
+  opacity: 1;
+}
+.project-card-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  background: rgba(10, 0, 0, 0.55);
+  border: 1px solid rgba(255, 130, 60, 0.5);
+  border-radius: 999px;
+  padding: 5px 12px;
+  backdrop-filter: blur(4px);
+}
+
+.project-card-subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--red);
+  margin-top: -2px;
+}
+
+.project-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  margin-top: 14px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--white);
+  border: 1px solid rgba(255, 31, 31, 0.45);
+  border-radius: 999px;
+  padding: 7px 14px;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+.project-card-link svg {
+  transition: transform 0.25s ease;
+}
+.project-card-link:hover {
+  border-color: rgba(255, 60, 60, 0.8);
+  background: rgba(255, 31, 31, 0.14);
+  transform: translateY(-1px);
+}
+.project-card-link:hover svg {
+  transform: translate(2px, -2px);
+}
+
 @media (max-width: 980px) {
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .project-card-featured {
+    grid-column: span 2;
   }
 }
 @media (max-width: 640px) {
   .projects-grid {
     grid-template-columns: 1fr;
+  }
+  .project-card-featured {
+    grid-column: span 1;
+  }
+  .project-card-featured .project-card-media {
+    aspect-ratio: 4 / 3;
   }
 }
 @media (max-width: 900px) {

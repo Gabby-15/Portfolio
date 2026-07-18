@@ -316,9 +316,7 @@
 
   </section>
 
-  <!-- ===== Projects section (PLACEHOLDER — swap these 3 sample cards
-       for your real projects: title, short description, tech tags,
-       and a link if you have a live demo or repo) ===== -->
+  <!-- ===== Projects section ===== -->
   <section id="projects" class="projects-section">
 
     <div class="projects-inner">
@@ -326,69 +324,122 @@
       <p class="projects-eyebrow">Selected Work</p>
       <h2 class="projects-title">Projects</h2>
       <p class="projects-subtitle">
-        A few things I've built. Send me the real project names, descriptions, and links and I'll swap these in.
+        A mix of software, hardware, and everything in between — from an award-winning capstone to smaller circuit and robotics builds.
       </p>
 
       <div class="projects-grid">
 
+        <!-- Featured project: F.L.A.M.E.S. -->
+        <article class="project-card project-card-featured">
+          <div class="project-card-media project-card-media-img">
+            <span class="project-card-badge">🏆 Best Capstone Design · 2026</span>
+            <img src="images/FLAMES.png" alt="F.L.A.M.E.S. — Fire Location Alert and Monitoring for Emergency Support" class="project-card-img">
+            <span class="project-card-glow" aria-hidden="true"></span>
+          </div>
+          <div class="project-card-body">
+            <h3 class="project-card-title">F.L.A.M.E.S.</h3>
+            <p class="project-card-subtitle">Fire Location Alert and Monitoring for Emergency Support</p>
+            <p class="project-card-desc">
+              AI-enhanced IoT fire safety web app integrating ESP32 / Raspberry Pi 5 hardware with a Random Forest detection model. Features live WebSocket dashboards and TomTom-powered emergency routing to help the BFP and local government units respond faster.
+            </p>
+            <div class="project-card-tags">
+              <span>Python</span>
+              <span>FastAPI</span>
+              <span>React</span>
+              <span>ESP32</span>
+              <span>Raspberry Pi 5</span>
+              <span>WebSocket</span>
+            </div>
+            <a href="https://f1ames.vercel.app" target="_blank" rel="noopener" class="project-card-link">
+              View Live Project
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- CURELY: Clinic Management System -->
         <article class="project-card">
           <div class="project-card-media">
             <svg viewBox="0 0 200 150" class="project-placeholder" aria-hidden="true">
               <rect x="6" y="6" width="188" height="138" rx="10"></rect>
-              <path d="M40 100 L80 60 L110 90 L160 40"></path>
-              <circle cx="40" cy="100" r="6"></circle>
-              <circle cx="160" cy="40" r="6"></circle>
+              <path d="M100 45v60M70 75h60"></path>
+              <path d="M30 100c10-30 20-10 25-40s15-10 20 0 15-10 20 0 15-30 25 0"></path>
             </svg>
           </div>
           <div class="project-card-body">
-            <h3 class="project-card-title">F.L.A.M.E.S.</h3>
+            <h3 class="project-card-title">CURELY</h3>
+            <p class="project-card-subtitle">Clinic Management System</p>
             <p class="project-card-desc">
-              Fire Location Alert and Monitoring for Emergency Support — capstone web app + hardware prototype for fire safety.
+              A desktop system for small clinics that streamlines patient record management, from registration to retrieval.
             </p>
             <div class="project-card-tags">
-              <span>React</span>
-              <span>Arduino</span>
+              <span>C#</span>
               <span>MySQL</span>
             </div>
           </div>
         </article>
 
+        <!-- Power Supply Design -->
         <article class="project-card">
           <div class="project-card-media">
             <svg viewBox="0 0 200 150" class="project-placeholder" aria-hidden="true">
               <rect x="6" y="6" width="188" height="138" rx="10"></rect>
-              <path d="M100 30 L100 120 M50 75 L150 75"></path>
-              <circle cx="100" cy="75" r="40"></circle>
+              <path d="M112 30 60 85h30l-22 45 62-58h-32z"></path>
             </svg>
           </div>
           <div class="project-card-body">
-            <h3 class="project-card-title">Project Name</h3>
+            <h3 class="project-card-title">Power Supply Design</h3>
             <p class="project-card-desc">
-              Placeholder description — replace with a short summary of what this project does and the problem it solves.
+              A variable power supply converting 220V AC input into a regulated 0–30V DC output, built on core electrical circuit concepts.
             </p>
             <div class="project-card-tags">
-              <span>Tech</span>
-              <span>Stack</span>
+              <span>Circuit Design</span>
+              <span>Analog Electronics</span>
             </div>
           </div>
         </article>
 
+        <!-- Line Following Robot -->
         <article class="project-card">
           <div class="project-card-media">
             <svg viewBox="0 0 200 150" class="project-placeholder" aria-hidden="true">
-              <rect x="6" y="6" width="188" height="138" rx="10"></rect>
-              <path d="M50 100 L90 50 L130 90 L150 60"></path>
-              <rect x="40" y="100" width="120" height="10" rx="4"></rect>
+              <rect x="60" y="45" width="80" height="55" rx="10"></rect>
+              <circle cx="78" cy="65" r="6"></circle>
+              <circle cx="122" cy="65" r="6"></circle>
+              <path d="M60 100 40 118M140 100l20 18"></path>
+              <path d="M30 130q70-30 140 0" stroke-dasharray="6 8"></path>
             </svg>
           </div>
           <div class="project-card-body">
-            <h3 class="project-card-title">Project Name</h3>
+            <h3 class="project-card-title">Line Following Robot</h3>
             <p class="project-card-desc">
-              Placeholder description — replace with a short summary of what this project does and the problem it solves.
+              An autonomous robot that follows paths and navigates obstacles using combinational logic gates instead of a microcontroller.
             </p>
             <div class="project-card-tags">
-              <span>Tech</span>
-              <span>Stack</span>
+              <span>Logic Gates</span>
+              <span>Robotics</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Arduino Training Kit -->
+        <article class="project-card">
+          <div class="project-card-media">
+            <svg viewBox="0 0 200 150" class="project-placeholder" aria-hidden="true">
+              <rect x="65" y="40" width="70" height="70" rx="8"></rect>
+              <circle cx="100" cy="75" r="16"></circle>
+              <path d="M78 40v-14M100 40v-14M122 40v-14M78 110v14M100 110v14M122 110v14M65 58h-14M65 75h-14M65 92h-14M135 58h14M135 75h14M135 92h14"></path>
+            </svg>
+          </div>
+          <div class="project-card-body">
+            <h3 class="project-card-title">Arduino Training Kit</h3>
+            <p class="project-card-desc">
+              A microcontroller training kit built around ultrasonic/IR sensors and LED outputs — a hands-on hardware-software integration tool.
+            </p>
+            <div class="project-card-tags">
+              <span>Arduino</span>
+              <span>Sensors</span>
+              <span>Embedded Systems</span>
             </div>
           </div>
         </article>
