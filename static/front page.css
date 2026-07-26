@@ -27,10 +27,10 @@
   --gold: #ffc94a;
   --gold-dark: #8a5a0d;
   --gold-darker: #3d2604;
-  --violet: #a78bfa;
-  --violet-light: #c4b5fd;
-  --violet-dark: #4c1d95;
-  --violet-darker: #1e0a4d;
+  --violet: #a8d94a;
+  --violet-light: #cdea82;
+  --violet-dark: #4a6116;
+  --violet-darker: #1e2a08;
   --white: #ffffff;
   --text-muted: #cfcfcf;
   --radius-lg: 24px;
@@ -1596,6 +1596,7 @@ html::-webkit-scrollbar {
   font-size: 0.88rem;
   font-weight: 600;
   color: var(--text-muted);
+  text-align: justify;
 }
 .cert-card-desc {
   font-family: "Inter", sans-serif;
@@ -1603,6 +1604,7 @@ html::-webkit-scrollbar {
   color: var(--text-muted);
   line-height: 1.6;
   margin-top: 4px;
+  text-align: justify;
 }
 .cert-card-desc strong {
   color: var(--white);
@@ -1647,13 +1649,14 @@ html::-webkit-scrollbar {
 .cert-card--leadership {
   position: relative;
   display: grid;
-  grid-template-columns: 0.9fr 1fr;
+  grid-template-columns: 0.95fr 1fr;
   align-items: stretch;
   text-align: left;
   overflow: hidden;
-  border-radius: 22px;
-  border: 1px solid rgba(167, 139, 250, 0.35);
-  background: linear-gradient(160deg, rgba(76, 29, 149, 0.4) 0%, var(--black) 68%);
+  min-height: 560px;
+  border-radius: 0 22px 22px 0;
+  border: 1px solid rgba(168, 217, 74, 0.35);
+  background: linear-gradient(160deg, rgba(74, 97, 22, 0.4) 0%, var(--black) 68%);
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.6s ease, transform 0.6s ease,
@@ -1664,8 +1667,28 @@ html::-webkit-scrollbar {
   transform: translateY(0);
 }
 .cert-card--leadership:hover {
-  border-color: rgba(196, 181, 253, 0.7);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55), 0 0 30px rgba(167, 139, 250, 0.3);
+  border-color: rgba(205, 234, 130, 0.7);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55), 0 0 30px rgba(168, 217, 74, 0.3);
+}
+
+/* Gold glowing rotating border — this is the flagship leadership
+   award, so it gets the same "on fire" ring treatment as the
+   F.L.A.M.E.S. project spotlight, just in gold instead of red. */
+.cert-card--leadership::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 2px;
+  border-radius: 0 22px 22px 0;
+  background: conic-gradient(from var(--spin, 0deg), var(--gold-darker), var(--gold), #fff3cf, var(--gold), var(--gold-darker));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: spotlight-spin 6s linear infinite;
+  pointer-events: none;
+  box-shadow: 0 0 16px rgba(255, 201, 74, 0.55);
 }
 
 /* The unique motion: a soft diagonal glint travels across the whole
@@ -1688,61 +1711,26 @@ html::-webkit-scrollbar {
 
 .cert-card-media--leadership {
   position: relative;
+  min-width: 0;
+  aspect-ratio: auto;
   overflow: hidden;
-  min-height: 240px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 22px;
-  background: radial-gradient(circle at 30% 20%, rgba(167, 139, 250, 0.25), transparent 60%),
-              linear-gradient(150deg, rgba(76, 29, 149, 0.45), rgba(5, 0, 0, 0.9));
-}
-.cert-card-photo--leadership {
-  width: 90%;
-  max-width: 250px;
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.55))
-          drop-shadow(0 0 10px rgba(167, 139, 250, 0.45));
-  transition: transform 0.5s ease, filter 0.5s ease;
-}
-.cert-card-media--leadership:hover .cert-card-photo--leadership {
-  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.55))
-          drop-shadow(0 0 18px rgba(167, 139, 250, 0.7));
+  background: transparent;
 }
 
-/* Shimmering badge — its own gradient-position animation, distinct
-   from the sweep above and from the gold ribbon's static fill. */
-.cert-card-leadership-badge {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: linear-gradient(120deg, #f3edff 0%, var(--violet) 45%, var(--violet-dark) 100%);
-  background-size: 220% 220%;
-  color: var(--violet-darker);
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-  white-space: nowrap;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45), 0 0 14px rgba(167, 139, 250, 0.45);
-  animation: leadershipBadgeShimmer 3.4s ease-in-out infinite;
-}
-@keyframes leadershipBadgeShimmer {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+.cert-card-photo--leadership {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: fill;
+  object-position: center;
+  filter: none;
 }
 
 .cert-card--leadership .cert-card-body {
   position: relative;
   z-index: 1;
-  padding: 36px 32px 30px 26px;
+  padding: 36px 34px 30px 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1755,21 +1743,26 @@ html::-webkit-scrollbar {
   font-size: 1.2rem;
 }
 .cert-card--leadership .cert-info-btn {
-  border: 1px solid rgba(167, 139, 250, 0.5);
-  background: rgba(167, 139, 250, 0.16);
+  border: 1px solid rgba(168, 217, 74, 0.5);
+  background: rgba(168, 217, 74, 0.16);
   color: var(--violet-light);
 }
 .cert-card--leadership .cert-info-btn:hover {
-  background: rgba(167, 139, 250, 0.32);
-  border-color: rgba(196, 181, 253, 0.8);
+  background: rgba(168, 217, 74, 0.32);
+  border-color: rgba(205, 234, 130, 0.8);
 }
 
 @media (max-width: 720px) {
   .cert-card--leadership {
     grid-template-columns: 1fr;
+    min-height: 0;
+    border-radius: 22px 22px 0 0;
+  }
+  .cert-card--leadership::before {
+    border-radius: 22px 22px 0 0;
   }
   .cert-card-media--leadership {
-    min-height: 260px;
+    min-height: 460px;
   }
   .cert-card--leadership .cert-card-body {
     padding: 26px 22px 28px;
@@ -1847,7 +1840,7 @@ html::-webkit-scrollbar {
     animation: none;
     display: none;
   }
-  .cert-card-leadership-badge {
+  .cert-card--leadership::before {
     animation: none;
   }
 }
