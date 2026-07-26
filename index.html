@@ -197,37 +197,32 @@
              certificate photos and I'll wire them in the same layout. -->
       </p>
 
+      <!-- ===== Mini Seminars section — text-only list, no image
+           placeholders. Pulled out of the certifications grid since
+           seminars aren't certificates. Add more <li class="seminar-item">
+           entries here as they come up. ===== -->
+      <div class="seminars-mini">
+        <h3 class="seminars-mini-title">Seminars Attended</h3>
+        <ul class="seminars-mini-list">
+          <li class="seminar-item">
+            <span class="seminar-item-dot"></span>
+            <span class="seminar-year">2025</span>
+            <div class="seminar-info">
+              <h4 class="seminar-name">CpE InfoCruise 2025</h4>
+              <p class="seminar-org">PHINMA University of Pangasinan — Cybersecurity-focused seminar for Computer Engineering students.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
       <div class="certs-grid">
 
-        <article class="cert-card">
-          <div class="cert-card-media">
-            <svg viewBox="0 0 200 150" class="cert-placeholder" aria-hidden="true">
-              <rect x="6" y="6" width="188" height="138" rx="10"></rect>
-              <circle cx="100" cy="58" r="26"></circle>
-              <path d="M84 80 L74 118 L100 104 L126 118 L116 80"></path>
-              <line x1="46" y1="22" x2="154" y2="22"></line>
-            </svg>
-            <span class="cert-card-shine"></span>
+        <article class="cert-card cert-card--photo">
+          <div class="cert-card-media cert-card-media--photo">
+            <img src="images/hackathoncert.png" alt="Hack the Chain with Viction hackathon certificate" class="cert-card-photo">
           </div>
           <div class="cert-card-body">
-            <p class="cert-card-year">2025</p>
-            <h3 class="cert-card-title">CpE InfoCruise 2025</h3>
-            <p class="cert-card-org">PHINMA University of Pangasinan</p>
-            <p class="cert-card-desc">Cybersecurity-focused seminar for Computer Engineering students.</p>
-          </div>
-        </article>
-
-        <article class="cert-card">
-          <div class="cert-card-media">
-            <svg viewBox="0 0 200 150" class="cert-placeholder" aria-hidden="true">
-              <rect x="6" y="6" width="188" height="138" rx="10"></rect>
-              <circle cx="100" cy="58" r="26"></circle>
-              <path d="M84 80 L74 118 L100 104 L126 118 L116 80"></path>
-              <line x1="46" y1="22" x2="154" y2="22"></line>
-            </svg>
-            <span class="cert-card-shine"></span>
-          </div>
-          <div class="cert-card-body">
+            <button type="button" class="cert-info-btn" aria-label="View Hack the Chain with Viction certificate">i</button>
             <p class="cert-card-year">2025</p>
             <h3 class="cert-card-title">Hackathon: Hack the Chain with Viction</h3>
             <p class="cert-card-org">AI &amp; Cybersecurity Track</p>
@@ -235,17 +230,12 @@
           </div>
         </article>
 
-        <article class="cert-card">
-          <div class="cert-card-media">
-            <svg viewBox="0 0 200 150" class="cert-placeholder" aria-hidden="true">
-              <rect x="6" y="6" width="188" height="138" rx="10"></rect>
-              <circle cx="100" cy="58" r="26"></circle>
-              <path d="M84 80 L74 118 L100 104 L126 118 L116 80"></path>
-              <line x1="46" y1="22" x2="154" y2="22"></line>
-            </svg>
-            <span class="cert-card-shine"></span>
+        <article class="cert-card cert-card--photo">
+          <div class="cert-card-media cert-card-media--photo">
+            <img src="images/OJTcert.png" alt="PAGASA Baguio Station on-the-job training certificate" class="cert-card-photo">
           </div>
           <div class="cert-card-body">
+            <button type="button" class="cert-info-btn" aria-label="View PAGASA Baguio Station certificate">i</button>
             <p class="cert-card-year">On-the-Job Training</p>
             <h3 class="cert-card-title">PAGASA Baguio Station</h3>
             <p class="cert-card-org">On-the-Job Training Certification</p>
@@ -537,6 +527,21 @@
         <img src="images/resume2.png" alt="Resume — page 2" class="resume-modal-img">
       </div>
     </div>
+  </div>
+
+  <!-- ===== Certificate zoom lightbox (gallery view — click any cert
+       photo to open it here, then use the arrows or ←/→ keys to
+       browse the rest) ===== -->
+  <div class="cert-lightbox-overlay" id="certLightboxOverlay">
+    <button class="cert-lightbox-close" id="certLightboxClose" aria-label="Close">&times;</button>
+    <button class="cert-lightbox-nav cert-lightbox-prev" id="certLightboxPrev" aria-label="Previous certificate">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+    </button>
+    <img src="" alt="" class="cert-lightbox-img" id="certLightboxImg">
+    <button class="cert-lightbox-nav cert-lightbox-next" id="certLightboxNext" aria-label="Next certificate">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg>
+    </button>
+    <span class="cert-lightbox-counter" id="certLightboxCounter"></span>
   </div>
 
   <script src="static/front page.js"></script>

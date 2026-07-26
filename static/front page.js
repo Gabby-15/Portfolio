@@ -333,7 +333,7 @@ if (revealSections.length && 'IntersectionObserver' in window) {
 // Same spirit as the profile-photo tilt above, applied to each
 // certificate thumbnail: a light tilt toward the cursor plus a
 // tracked "shine" highlight (driven by the --mx/--my CSS vars).
-const certMedias = document.querySelectorAll('.cert-card-media, .project-card-media');
+const certMedias = document.querySelectorAll('.cert-card-media:not(.cert-card-media--photo), .project-card-media');
 const prefersReducedMotionCerts = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (certMedias.length && !prefersReducedMotionCerts) {
@@ -359,6 +359,126 @@ if (certMedias.length && !prefersReducedMotionCerts) {
   });
 }
 
+// =========================================
+// 5b-ii. REAL CERT PHOTO — PAPER-LIKE CURSOR TILT
+// =========================================
+// Unlike the generic card tilt above, this one has no container
+// behind it and no self-playing animation — the certificate only
+// moves when the cursor is actually over it, tilting + casting its
+// shadow away from the cursor like a loose sheet of paper being
+// nudged, then settling flat again on mouseleave.
+const paperCertWraps = document.querySelectorAll('.cert-card-media--photo');
+
+if (paperCertWraps.length && !prefersReducedMotionCerts) {
+  paperCertWraps.forEach((wrap) => {
+    const img = wrap.querySelector('.cert-card-photo');
+    if (!img) return;
+
+    wrap.addEventListener('mousemove', (e) => {
+      const rect = wrap.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+
+      const rotateY = (px - 0.5) * 28;
+      const rotateX = (0.5 - py) * 28;
+      const shadowX = (px - 0.5) * -24;
+      const shadowY = (0.5 - py) * -24;
+
+      img.style.transition = 'transform 0.08s ease-out, filter 0.08s ease-out';
+      img.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+      img.style.filter = `
+        drop-shadow(${shadowX}px ${shadowY - 4}px 22px rgba(0, 0, 0, 0.55))
+        drop-shadow(0 0 13px rgba(255, 90, 90, 0.5))
+      `;
+    });
+
+    wrap.addEventListener('mouseleave', () => {
+      img.style.transition = 'transform 0.5s ease, filter 0.5s ease';
+      img.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+      img.style.filter = '';
+    });
+  });
+}
+
+// =========================================
+// 5b-iii. CERT PHOTO ZOOM LIGHTBOX (GALLERY VIEW)
+// =========================================
+// Click any real certificate photo to see it big, dimmed backdrop
+// and all, then browse the rest with the arrow buttons or ←/→ keys.
+// Reusable for every .cert-card-photo, current and future.
+const certLightboxOverlay = document.getElementById('certLightboxOverlay');
+const certLightboxClose = document.getElementById('certLightboxClose');
+const certLightboxImg = document.getElementById('certLightboxImg');
+const certLightboxPrev = document.getElementById('certLightboxPrev');
+const certLightboxNext = document.getElementById('certLightboxNext');
+const certLightboxCounter = document.getElementById('certLightboxCounter');
+const certPhotos = Array.from(document.querySelectorAll('.cert-card-photo'));
+
+let certLightboxIndex = 0;
+
+function renderCertLightbox() {
+  const photo = certPhotos[certLightboxIndex];
+  if (!photo || !certLightboxImg) return;
+
+  certLightboxImg.src = photo.src;
+  certLightboxImg.alt = photo.alt || '';
+
+  const hasMultiple = certPhotos.length > 1;
+  certLightboxPrev?.toggleAttribute('hidden', !hasMultiple);
+  certLightboxNext?.toggleAttribute('hidden', !hasMultiple);
+  if (certLightboxCounter) {
+    certLightboxCounter.textContent = hasMultiple
+      ? `${certLightboxIndex + 1} / ${certPhotos.length}`
+      : '';
+  }
+}
+
+function openCertLightbox(index) {
+  if (!certLightboxOverlay || !certPhotos.length) return;
+  certLightboxIndex = (index + certPhotos.length) % certPhotos.length;
+  renderCertLightbox();
+  certLightboxOverlay.classList.add('is-open');
+}
+
+function closeCertLightbox() {
+  certLightboxOverlay?.classList.remove('is-open');
+}
+
+function showNextCert() {
+  openCertLightbox(certLightboxIndex + 1);
+}
+
+function showPrevCert() {
+  openCertLightbox(certLightboxIndex - 1);
+}
+
+certPhotos.forEach((photo, index) => {
+  const card = photo.closest('.cert-card');
+  const infoBtn = card?.querySelector('.cert-info-btn');
+  infoBtn?.addEventListener('click', () => {
+    openCertLightbox(index);
+  });
+});
+
+certLightboxClose?.addEventListener('click', closeCertLightbox);
+certLightboxImg?.addEventListener('click', closeCertLightbox);
+certLightboxNext?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  showNextCert();
+});
+certLightboxPrev?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  showPrevCert();
+});
+certLightboxOverlay?.addEventListener('click', (e) => {
+  if (e.target === certLightboxOverlay) closeCertLightbox();
+});
+document.addEventListener('keydown', (e) => {
+  if (!certLightboxOverlay?.classList.contains('is-open')) return;
+  if (e.key === 'Escape') closeCertLightbox();
+  if (e.key === 'ArrowRight') showNextCert();
+  if (e.key === 'ArrowLeft') showPrevCert();
+});
 
 
 
