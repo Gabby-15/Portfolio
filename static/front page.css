@@ -1121,7 +1121,7 @@ html::-webkit-scrollbar {
 
 /* ----- Mini Seminars list (text-only, sits above the certs grid) ----- */
 .seminars-mini {
-  margin-bottom: 44px;
+  margin-top: 44px;
   padding: 22px 26px;
   background: linear-gradient(160deg, rgba(74, 10, 10, 0.35) 0%, rgba(10, 0, 0, 0.6) 65%);
   border: 1px solid rgba(255, 31, 31, 0.22);
@@ -1203,6 +1203,50 @@ html::-webkit-scrollbar {
   grid-template-columns: repeat(3, 1fr);
   gap: 26px;
   perspective: 1400px;
+}
+
+/* Award podium — Best Capstone Design sits in the center, enlarged,
+   with the two SDG papers flanking it on either side. Aligning the
+   row to the bottom (not stretching to match height) means the
+   capstone card naturally stands a little taller than its flanks
+   instead of being pushed all the way below them. */
+.certs-award-podium {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 26px;
+  margin-bottom: 50px;
+  perspective: 1400px;
+}
+.cert-card--podium-side {
+  width: 100%;
+  max-width: 270px;
+}
+.cert-card--capstone-solo {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Reusable centered pair layout — originally built for the two SDG
+   papers, now used for Viction + OJT so they read as a matched set
+   instead of stretching across the full grid width. */
+.certs-award-pair {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 26px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.certs-award-pair .cert-card {
+  width: 100%;
+  max-width: 300px;
+}
+.certs-award-pair .cert-card-body {
+  flex: 1 1 auto;
 }
 
 .cert-card-featured {
@@ -1389,6 +1433,89 @@ html::-webkit-scrollbar {
   border-color: rgba(255, 217, 130, 0.75);
 }
 
+/* Best Capstone Design — the highest of the three research awards,
+   shown solo and enlarged above the two SDG papers so it reads as
+   the centerpiece of the group. */
+.cert-card-media--capstone {
+  min-height: 300px;
+  padding: 38px 16px 34px;
+}
+.cert-card-award-ribbon--capstone {
+  background: linear-gradient(135deg, #fff3d0 0%, #ffe29a 40%, var(--gold) 75%, var(--gold-dark) 100%);
+  font-size: 0.8rem;
+  padding: 8px 22px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 201, 74, 0.5);
+}
+.cert-card-photo--capstone {
+  max-width: 420px;
+  filter: drop-shadow(0 22px 38px rgba(0, 0, 0, 0.6))
+          drop-shadow(0 0 16px rgba(255, 201, 74, 0.5));
+}
+.cert-card-media--capstone:hover .cert-card-photo--capstone {
+  filter: drop-shadow(0 22px 38px rgba(0, 0, 0, 0.6))
+          drop-shadow(0 0 22px rgba(255, 201, 74, 0.7));
+}
+.cert-card--capstone .cert-card-body {
+  border-color: rgba(255, 201, 74, 0.42);
+  box-shadow: 0 0 0 1px rgba(255, 201, 74, 0.08) inset;
+}
+.cert-card--capstone .cert-card-title {
+  font-size: 1.24rem;
+}
+.cert-card--capstone:hover .cert-card-body {
+  border-color: rgba(255, 217, 130, 0.8);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55), 0 0 28px rgba(255, 201, 74, 0.3);
+}
+
+@media (max-width: 980px) {
+  .cert-card-media--capstone {
+    min-height: 240px;
+    padding: 28px 16px 26px;
+  }
+  .cert-card-photo--capstone {
+    max-width: 320px;
+  }
+}
+
+/* Winner glow — a slow, soft gold pulse breathing around the Best
+   Capstone Design card only, so it reads like a spotlight on the top
+   honor rather than an effect shared across all three award cards. */
+@keyframes certWinnerGlow {
+  0%, 100% {
+    filter: drop-shadow(0 22px 38px rgba(0, 0, 0, 0.6))
+            drop-shadow(0 0 16px rgba(255, 201, 74, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 22px 38px rgba(0, 0, 0, 0.6))
+            drop-shadow(0 0 32px rgba(255, 201, 74, 0.85));
+  }
+}
+@keyframes certWinnerRibbonGlow {
+  0%, 100% {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 201, 74, 0.5);
+  }
+  50% {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 34px rgba(255, 201, 74, 0.9);
+  }
+}
+@keyframes certWinnerBodyGlow {
+  0%, 100% {
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 201, 74, 0.18);
+  }
+  50% {
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 34px rgba(255, 201, 74, 0.4);
+  }
+}
+.cert-card-photo--capstone {
+  animation: certWinnerGlow 3.2s ease-in-out infinite;
+}
+.cert-card-award-ribbon--capstone {
+  animation: certWinnerRibbonGlow 3.2s ease-in-out infinite;
+}
+.cert-card--capstone .cert-card-body {
+  animation: certWinnerBodyGlow 3.2s ease-in-out infinite;
+}
+
 .cert-info-btn {
   position: absolute;
   top: 14px;
@@ -1485,6 +1612,14 @@ html::-webkit-scrollbar {
     padding: 90px 6vw 100px;
     text-align: left;
   }
+  .certs-award-podium {
+    flex-direction: column;
+    align-items: center;
+  }
+  .cert-card--podium-side,
+  .cert-card--capstone-solo {
+    max-width: 380px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -1512,6 +1647,15 @@ html::-webkit-scrollbar {
   }
   .cert-card-media {
     transform: none !important;
+  }
+  .cert-card-photo--capstone {
+    animation: none;
+  }
+  .cert-card-award-ribbon--capstone {
+    animation: none;
+  }
+  .cert-card--capstone .cert-card-body {
+    animation: none;
   }
 }
 
