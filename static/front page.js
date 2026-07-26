@@ -1,19 +1,42 @@
 // =========================================
 // 0. ALWAYS LAND ON HOME AFTER A REFRESH
 // =========================================
-// By default the browser remembers your last scroll position and
-// restores it on reload, which made a refresh feel like it "skipped"
-// Home. Take manual control of that and force every fresh page load
-// back to the top.
+
 if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
-window.scrollTo(0, 0);
+
+window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 window.addEventListener("pageshow", (e) => {
   // Also covers back/forward-cache restores (e.g. Safari), not just
   // a hard refresh.
-  if (e.persisted) window.scrollTo(0, 0);
+  if (e.persisted) {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    forceClearScrollLocks();
+  }
 });
+
+// =========================================
+// 0b. UNIFIED SCROLL-LOCK SYSTEM
+// =========================================
+
+const scrollLockReasons = new Set();
+function setScrollLock(reason, shouldLock) {
+  if (shouldLock) scrollLockReasons.add(reason);
+  else scrollLockReasons.delete(reason);
+  document.body.style.overflow = scrollLockReasons.size ? "hidden" : "";
+}
+function forceClearScrollLocks() {
+  scrollLockReasons.clear();
+  document.body.style.overflow = "";
+  document.body.classList.remove("nav-open");
+  document.getElementById("navLinks")?.classList.remove("nav-links-open");
+  document.getElementById("hamburger")?.classList.remove("hamburger-open");
+  document.getElementById("hamburger")?.setAttribute("aria-expanded", "false");
+  document.getElementById("contactModalOverlay")?.classList.remove("is-open");
+  document.getElementById("resumeModalOverlay")?.classList.remove("is-open");
+  document.getElementById("certLightboxOverlay")?.classList.remove("is-open");
+}
 
 // =========================================
 // 1. MOBILE NAV TOGGLE
@@ -27,7 +50,7 @@ if (hamburger && navLinks) {
     const isOpen = navLinks.classList.toggle("nav-links-open");
     hamburger.classList.toggle("hamburger-open", isOpen);
     hamburger.setAttribute("aria-expanded", isOpen ? "true" : "false");
-    document.body.classList.toggle("nav-open", isOpen);
+    setScrollLock("nav", isOpen);
   });
 
   // Close the mobile menu once a link is tapped
@@ -36,7 +59,7 @@ if (hamburger && navLinks) {
       navLinks.classList.remove("nav-links-open");
       hamburger.classList.remove("hamburger-open");
       hamburger.setAttribute("aria-expanded", "false");
-      document.body.classList.remove("nav-open");
+      setScrollLock("nav", false);
     });
   });
 
@@ -47,7 +70,7 @@ if (hamburger && navLinks) {
       navLinks.classList.remove("nav-links-open");
       hamburger.classList.remove("hamburger-open");
       hamburger.setAttribute("aria-expanded", "false");
-      document.body.classList.remove("nav-open");
+      setScrollLock("nav", false);
     }
   });
 
@@ -63,7 +86,7 @@ if (hamburger && navLinks) {
     navLinks.classList.remove("nav-links-open");
     hamburger.classList.remove("hamburger-open");
     hamburger.setAttribute("aria-expanded", "false");
-    document.body.classList.remove("nav-open");
+    setScrollLock("nav", false);
   });
 
 }
@@ -174,20 +197,20 @@ const resumeModalClose = document.getElementById("resumeModalClose");
 
 function openContactModal() {
   contactModalOverlay?.classList.add("is-open");
-  document.body.style.overflow = "hidden";
+  setScrollLock("contact-modal", true);
 }
 function closeContactModal() {
   contactModalOverlay?.classList.remove("is-open");
-  document.body.style.overflow = "";
+  setScrollLock("contact-modal", false);
 }
 
 function openResumeModal() {
   resumeModalOverlay?.classList.add("is-open");
-  document.body.style.overflow = "hidden";
+  setScrollLock("resume-modal", true);
 }
 function closeResumeModal() {
   resumeModalOverlay?.classList.remove("is-open");
-  document.body.style.overflow = "";
+  setScrollLock("resume-modal", false);
 }
 
 contactBtn?.addEventListener("click", openContactModal);
@@ -207,6 +230,10 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closeContactModal();
     closeResumeModal();
+    navLinks?.classList.remove("nav-links-open");
+    hamburger?.classList.remove("hamburger-open");
+    hamburger?.setAttribute("aria-expanded", "false");
+    setScrollLock("nav", false);
   }
 });
 
@@ -438,10 +465,12 @@ function openCertLightbox(index) {
   certLightboxIndex = (index + certPhotos.length) % certPhotos.length;
   renderCertLightbox();
   certLightboxOverlay.classList.add('is-open');
+  setScrollLock("cert-lightbox", true);
 }
 
 function closeCertLightbox() {
   certLightboxOverlay?.classList.remove('is-open');
+  setScrollLock("cert-lightbox", false);
 }
 
 function showNextCert() {

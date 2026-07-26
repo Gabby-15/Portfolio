@@ -827,8 +827,8 @@ html::-webkit-scrollbar {
 }
 
 /* Each card reads like a chip/IC package: silkscreen label on top,
-   pin ticks along the top and bottom edges. On hover, the border just
-   glows a little — no motion, kept deliberately understated. */
+   pin ticks along the top and bottom edges, icon + part-count badge,
+   and a light-sweep across the top on hover. */
 .skill-card {
   position: relative;
   background: linear-gradient(160deg, var(--red-darker) 0%, var(--black) 65%);
@@ -836,18 +836,40 @@ html::-webkit-scrollbar {
   padding: 28px 30px 24px;
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.6s ease, transform 0.6s ease,
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 0.84, 0.44, 1),
               box-shadow 0.35s ease, border-color 0.35s ease;
   border: 1px solid rgba(255, 31, 31, 0.25);
+  perspective: 800px;
 }
 .skill-card.in-view {
   opacity: 1;
   transform: translateY(0);
 }
 .skill-card:hover {
+  transform: translateY(-6px);
   border-color: rgba(255, 60, 60, 0.55);
-  box-shadow: 0 0 14px rgba(255, 31, 31, 0.22),
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35),
+              0 0 16px rgba(255, 31, 31, 0.25),
               inset 0 0 14px rgba(255, 31, 31, 0.06);
+}
+
+/* Light-sweep: a soft diagonal highlight that slides across the card
+   on hover, like a reflection catching a chip's glossy top coat. */
+.skill-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 90, 90, 0.14) 45%, transparent 60%);
+  background-size: 250% 250%;
+  background-position: 130% 0%;
+  opacity: 0;
+  transition: opacity 0.3s ease, background-position 0.9s ease;
+  pointer-events: none;
+}
+.skill-card:hover::after {
+  opacity: 1;
+  background-position: -30% 100%;
 }
 
 /* Pin ticks — top row via ::before, bottom row layered onto the card's own
@@ -880,50 +902,111 @@ html::-webkit-scrollbar {
 }
 
 .skill-card-head {
-  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
 }
+
+/* Category icon badge — glows in once the card powers on */
+.skill-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(255, 31, 31, 0.1);
+  border: 1px solid rgba(255, 60, 60, 0.35);
+  color: var(--red);
+  box-shadow: 0 0 0 rgba(255, 31, 31, 0);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.5s ease 0.15s, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s,
+              box-shadow 0.35s ease;
+}
+.skill-card-icon svg {
+  width: 18px;
+  height: 18px;
+}
+.skill-card.in-view .skill-card-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+.skill-card:hover .skill-card-icon {
+  box-shadow: 0 0 14px rgba(255, 31, 31, 0.45);
+}
+
 .skill-card-label {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.98rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   color: var(--white);
 }
-.skill-card-label::before {
-  content: "";
-  width: 9px;
-  height: 9px;
-  border-radius: 3px;
-  background: var(--red);
-  box-shadow: 0 0 8px 1px rgba(255, 31, 31, 0.8);
-  flex-shrink: 0;
-}
 
+/* Skills as a wrapping cloud of chips/tags instead of a plain stacked
+   list — each one lifts and lights up on its own hover, and powers on
+   with a short cascading delay after the card itself reveals. */
 .skill-list {
   list-style: none;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 .skill-list li {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 9px;
   color: var(--white);
   font-family: "Inter", sans-serif;
-  font-size: 0.98rem;
+  font-size: 0.9rem;
   font-weight: 600;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 60, 60, 0.2);
+  border-radius: 999px;
+  padding: 7px 14px 7px 11px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.45s ease, transform 0.45s ease,
+              background-color 0.25s ease, border-color 0.25s ease;
+}
+.skill-card.in-view .skill-list li {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Cascading power-on: each chip lights up a beat after the previous one */
+.skill-card.in-view .skill-list li:nth-child(1) { transition-delay: 0.05s; }
+.skill-card.in-view .skill-list li:nth-child(2) { transition-delay: 0.11s; }
+.skill-card.in-view .skill-list li:nth-child(3) { transition-delay: 0.17s; }
+.skill-card.in-view .skill-list li:nth-child(4) { transition-delay: 0.23s; }
+.skill-card.in-view .skill-list li:nth-child(5) { transition-delay: 0.29s; }
+.skill-card.in-view .skill-list li:nth-child(6) { transition-delay: 0.35s; }
+.skill-card.in-view .skill-list li:nth-child(7) { transition-delay: 0.41s; }
+.skill-list li:hover {
+  background-color: rgba(255, 31, 31, 0.12);
+  border-color: rgba(255, 90, 90, 0.6);
+  transform: translateY(-2px);
 }
 .skill-led {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--red);
   box-shadow: 0 0 6px 1px rgba(255, 31, 31, 0.9);
   flex-shrink: 0;
+  animation: skillLedPulse 2.6s ease-in-out infinite;
+}
+/* Stagger the LED pulse so the whole card doesn't blink in unison */
+.skill-list li:nth-child(odd) .skill-led { animation-delay: 0.4s; }
+.skill-list li:nth-child(3n) .skill-led { animation-delay: 0.9s; }
+
+@keyframes skillLedPulse {
+  0%, 100% { box-shadow: 0 0 5px 1px rgba(255, 31, 31, 0.7); opacity: 0.85; }
+  50% { box-shadow: 0 0 9px 2px rgba(255, 31, 31, 1); opacity: 1; }
 }
 
 @media (max-width: 900px) {
@@ -950,7 +1033,8 @@ html::-webkit-scrollbar {
     padding: 18px 16px 16px;
   }
   .skill-list li {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    padding: 6px 12px 6px 10px;
   }
 }
 
@@ -961,6 +1045,18 @@ html::-webkit-scrollbar {
   }
   .skill-card::before {
     animation: none !important;
+  }
+  .skill-card::after {
+    display: none;
+  }
+  .skill-card-icon,
+  .skill-list li {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s !important;
+  }
+  .skill-led {
+    animation: none;
   }
 }
 
