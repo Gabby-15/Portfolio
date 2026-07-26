@@ -1378,7 +1378,7 @@ html::-webkit-scrollbar {
 }
 .cert-card-award-ribbon {
   position: absolute;
-  top: 10px;
+  top: 185px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
@@ -1441,6 +1441,7 @@ html::-webkit-scrollbar {
   padding: 38px 16px 34px;
 }
 .cert-card-award-ribbon--capstone {
+  top: 270px;
   background: linear-gradient(135deg, #fff3d0 0%, #ffe29a 40%, var(--gold) 75%, var(--gold-dark) 100%);
   font-size: 0.8rem;
   padding: 8px 22px;
@@ -1474,6 +1475,12 @@ html::-webkit-scrollbar {
   }
   .cert-card-photo--capstone {
     max-width: 320px;
+  }
+  /* Media box shrinks from 300px to 240px tall here, so the badge's
+     top offset scales down by the same ratio (270px * 0.8 = 216px)
+     to stay anchored on the same spot of the certificate photo. */
+  .cert-card-award-ribbon--capstone {
+    top: 216px;
   }
 }
 
@@ -1616,7 +1623,9 @@ html::-webkit-scrollbar {
     flex-direction: column;
     align-items: center;
   }
-  .cert-card--podium-side,
+  .cert-card--podium-side {
+    max-width: 270px;
+  }
   .cert-card--capstone-solo {
     max-width: 380px;
   }
