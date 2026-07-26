@@ -360,7 +360,7 @@ if (revealSections.length && 'IntersectionObserver' in window) {
 // Same spirit as the profile-photo tilt above, applied to each
 // certificate thumbnail: a light tilt toward the cursor plus a
 // tracked "shine" highlight (driven by the --mx/--my CSS vars).
-const certMedias = document.querySelectorAll('.cert-card-media:not(.cert-card-media--photo), .project-card-media');
+const certMedias = document.querySelectorAll('.cert-card-media:not(.cert-card-media--photo):not(.cert-card-media--award), .project-card-media');
 const prefersReducedMotionCerts = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (certMedias.length && !prefersReducedMotionCerts) {
@@ -394,7 +394,7 @@ if (certMedias.length && !prefersReducedMotionCerts) {
 // moves when the cursor is actually over it, tilting + casting its
 // shadow away from the cursor like a loose sheet of paper being
 // nudged, then settling flat again on mouseleave.
-const paperCertWraps = document.querySelectorAll('.cert-card-media--photo');
+const paperCertWraps = document.querySelectorAll('.cert-card-media--photo, .cert-card-media--award');
 
 if (paperCertWraps.length && !prefersReducedMotionCerts) {
   paperCertWraps.forEach((wrap) => {

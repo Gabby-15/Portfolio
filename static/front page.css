@@ -24,6 +24,9 @@
   --red-dark: #7a0d0d;
   --red-darker: #4a0a0a;
   --black: #0a0000;
+  --gold: #ffc94a;
+  --gold-dark: #8a5a0d;
+  --gold-darker: #3d2604;
   --white: #ffffff;
   --text-muted: #cfcfcf;
   --radius-lg: 24px;
@@ -1303,6 +1306,87 @@ html::-webkit-scrollbar {
 .cert-card--photo:hover .cert-card-body {
   border-color: rgba(255, 60, 60, 0.5);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 22px rgba(255, 31, 31, 0.2);
+}
+
+/* Award-winning research papers (SDG 11 & 13 Best Thesis / Abstract).
+   Same floating-photo + tilt mechanism as .cert-card--photo, but
+   re-skinned in gold so the two award papers read as a distinct,
+   higher-tier moment instead of blending into the regular cert grid. */
+.cert-card--award {
+  overflow: visible;
+  border: none;
+  background: none;
+}
+.cert-card--award:hover {
+  border-color: transparent;
+  box-shadow: none;
+}
+.cert-card-media--award {
+  background: none;
+  overflow: visible;
+  aspect-ratio: auto;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 18px 26px;
+  perspective: 900px;
+}
+.cert-card-award-ribbon {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #ffe29a 0%, var(--gold) 55%, var(--gold-dark) 100%);
+  color: #2a1900;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45), 0 0 14px rgba(255, 201, 74, 0.35);
+}
+.cert-card-photo--award {
+  width: 92%;
+  max-width: 280px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.55))
+          drop-shadow(0 0 10px rgba(255, 201, 74, 0.4));
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+.cert-card-media--award:hover .cert-card-photo--award {
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.55))
+          drop-shadow(0 0 16px rgba(255, 201, 74, 0.6));
+}
+.cert-card--award .cert-card-body {
+  position: relative;
+  background: linear-gradient(160deg, var(--gold-darker) 0%, var(--black) 65%);
+  border: 1px solid rgba(255, 201, 74, 0.3);
+  border-radius: 0 0 16px 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.cert-card--award:hover .cert-card-body {
+  border-color: rgba(255, 201, 74, 0.6);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 22px rgba(255, 201, 74, 0.22);
+}
+.cert-card--award .cert-card-year {
+  color: var(--gold);
+}
+.cert-card--award .cert-info-btn {
+  border: 1px solid rgba(255, 201, 74, 0.45);
+  background: rgba(255, 201, 74, 0.14);
+  color: var(--gold);
+}
+.cert-card--award .cert-info-btn:hover {
+  background: rgba(255, 201, 74, 0.3);
+  border-color: rgba(255, 217, 130, 0.75);
 }
 
 .cert-info-btn {
