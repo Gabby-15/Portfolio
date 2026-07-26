@@ -1620,6 +1620,11 @@ html::-webkit-scrollbar {
   .cert-card--capstone-solo {
     max-width: 380px;
   }
+  /* Best Capstone Design should lead the stack on mobile, ahead of
+     the two SDG paper cards that flank it on desktop. */
+  .cert-card--capstone-solo {
+    order: -1;
+  }
 }
 
 @media (max-width: 640px) {
