@@ -29,7 +29,6 @@ function setScrollLock(reason, shouldLock) {
 function forceClearScrollLocks() {
   scrollLockReasons.clear();
   document.body.style.overflow = "";
-  document.body.classList.remove("nav-open");
   document.getElementById("navLinks")?.classList.remove("nav-links-open");
   document.getElementById("hamburger")?.classList.remove("hamburger-open");
   document.getElementById("hamburger")?.setAttribute("aria-expanded", "false");
@@ -568,8 +567,14 @@ if (scriptText) {
   const PUSH_FORCE = 0.9;       // how hard shards get shoved when disturbed
   const RELEASE_FORCE = 1.4;    // outward burst strength the instant scrolling stops
 
+  // Narrow viewports (phones/small tablets) get weaker CPUs/GPUs, so cap
+  // the device-pixel-ratio scaling harder there — a lower-resolution
+  // backing store means every shadowBlur/gradient draw below costs less
+  // per frame, which is what was making scroll feel like it stutters.
   function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    const isSmallViewport = window.innerWidth <= 900;
+    const dprCap = isSmallViewport ? 1.5 : 2.5;
+    const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
     width = window.innerWidth;
     height = window.innerHeight;
     canvas.width = Math.round(width * dpr);
@@ -581,7 +586,12 @@ if (scriptText) {
   }
 
   function buildShards() {
-    const areaCount = Math.min(70, Math.max(24, Math.floor((width * height) / 22000)));
+    // Fewer shards on small viewports — same reasoning as the DPR cap
+    // above: less to draw every frame means fewer dropped frames while
+    // the user is actively scrolling.
+    const isSmallViewport = window.innerWidth <= 900;
+    const capCount = isSmallViewport ? 36 : 70;
+    const areaCount = Math.min(capCount, Math.max(20, Math.floor((width * height) / 22000)));
 
     shards = Array.from({ length: areaCount }, (_, i) => {
       // simple centered circular cluster spread across the viewport
@@ -732,11 +742,20 @@ if (scriptText) {
     ctx.fillStyle = grad;
     ctx.fill();
 
-    ctx.shadowColor = `rgba(122,13,13,${(0.2 + glint * 0.25).toFixed(3)})`;
-    ctx.shadowBlur = 5 + glint * 8;
+    // ctx.shadowBlur is by far the most expensive operation Canvas 2D
+    // offers — it's a real-time blur recomputed per shape, per frame.
+    // Running it for every one of the ~24-70 shards, 60 times a second,
+    // was what made scrolling stutter site-wide. Only the rare large
+    // foreground shards (depth > 0.7, ~12% of the field) get the glow;
+    // everything else just gets the plain gradient + stroke above.
+    if (s.depth > 0.7) {
+      ctx.shadowColor = `rgba(122,13,13,${(0.2 + glint * 0.25).toFixed(3)})`;
+      ctx.shadowBlur = 5 + glint * 8;
+    }
     ctx.lineWidth = 1;
     ctx.strokeStyle = `rgba(255,150,150,${(0.1 + glint * 0.3).toFixed(3)})`;
     ctx.stroke();
+    ctx.shadowBlur = 0;
     ctx.restore();
   }
 

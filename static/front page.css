@@ -61,11 +61,6 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
-/* Lock background scroll while the mobile nav drawer is open */
-body.nav-open {
-  overflow: hidden;
-}
-
 /* Animated floating glass-shard background sits fixed behind all content.
    A dark-red glow sits behind the hero picture and fades to black as it
    spreads outward, plus a faint tech grid so the black still reads as
@@ -143,6 +138,11 @@ body.nav-open {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   padding: 0px 5vw 0px 2vw;
+  /* Forces its own compositor layer so the fixed, blurred navbar isn't
+     re-blurred against page content on every scroll frame — was
+     compounding jank alongside the canvas animation below. */
+  transform: translateZ(0);
+  will-change: transform;
 }
 .MGS-logo {
   display: flex;
