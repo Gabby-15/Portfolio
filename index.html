@@ -20,10 +20,6 @@
   <!-- ===== Animated floating broken-glass background ===== -->
   <canvas id="glass-canvas" aria-hidden="true"></canvas>
 
-  <!-- ----- Navbar (moved outside .hero-card so its fixed z-index isn't
-       trapped inside that element's stacking context — otherwise later
-       sections like #academic, which also create their own stacking
-       context, could render on top of it) ----- -->
   <header class="navbar">
 
     <div class="MGS-logo">
@@ -38,10 +34,6 @@
       <a href="#aboutme">About Me</a>
     </nav>
 
-    <!-- Grouped so contact + hamburger always sit together as one right-hand
-         cluster, even on mobile where .nav-links is pulled out of the flex
-         flow (position: fixed) and would otherwise leave a big empty gap
-         between them. -->
     <div class="nav-actions">
       <button class="btn btn-primary contact-btn" id="contactBtn" aria-label="Contact">
         <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -49,7 +41,6 @@
         </svg>
       </button>
 
-      <!-- Hamburger for mobile -->
       <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -57,10 +48,9 @@
 
   </header>
 
-  <!-- ===== Main black card / hero section ===== -->
+  <!-- ===== Main hero section ===== -->
   <main class="hero-card" id="home">
 
-    <!-- ----- Hero content ----- -->
     <section class="hero-content">
 
       <div class="hero-text">
@@ -71,8 +61,6 @@
          Computer Engineering graduate from PHINMA University of Pangasinan with background knowledge in web design, networking, and data analysis.
          A hardworking and problem-solver individual, experienced in building practical applications like a fire safety web app.
          Seeking an entry-level role in Front-End Development, Network Engineering, or Data Analysis, eager to learn more, adapt, and contribute to the team.
-
-
         </p>
 
         <p class="find-me">Find Me On:</p>
@@ -82,38 +70,31 @@
           <button class="btn btn-primary" id="resumeBtn">Resume</button>
 
           <div class="social-icons">
-            <a href="https://www.facebook.com/gabb.salvacion.15" target="_blank"  aria-label="Facebook">
+            <a href="https://www.facebook.com/gabb.salvacion.15" target="_blank" aria-label="Facebook">
               <img src="images/facebook.png" alt="Facebook" />
             </a>
 
-            <a href="https://www.tiktok.com/@emzzi15" target="_blank"  aria-label="Tiktok"> 
-              <img src="images/tiktok.png" alt="Facebook" />
+            <a href="https://www.tiktok.com/@emzzi15" target="_blank" aria-label="Tiktok"> 
+              <img src="images/tiktok.png" alt="Tiktok" />
             </a>
 
-            <a href="https://ph.jobstreet.com/profile/me" target="_blank"  aria-label="JobStreet">
+            <a href="https://ph.jobstreet.com/profile/me" target="_blank" aria-label="JobStreet">
                <img src="images/jobstreet.png" alt="JobStreet" />
             </a>
 
-            <a href="https://www.linkedin.com/in/gabb-salvacion-a70097360/" target="_blank"  aria-label="Linkedin">
-               <img src="images/linkedin.png" alt="JobStreet" />
+            <a href="https://www.linkedin.com/in/gabb-salvacion-a70097360/" target="_blank" aria-label="Linkedin">
+               <img src="images/linkedin.png" alt="Linkedin" />
             </a>
-
-            
-            
           </div>
 
         </div>
 
       </div>
 
-    
       <div class="profile-img-wrap">
        <img src="images/Gabb.png" class="profile-img" alt="Gabb Salvacion">
-       <!-- HOVER IMAGE -->
        <img src="images/Gabbgrad.png" class="profile-img profile-img-alt" alt="Gabb Salvacion alternate">
       </div>
-
-      
         
     </section>
 
@@ -125,7 +106,6 @@
     <div class="skills-inner">
 
       <h2 class="skills-title">Skills</h2>
-    
 
       <div class="skills-grid">
 
@@ -197,7 +177,7 @@
 
   </section>
 
-  <!-- ===== Certifications section ===== -->
+  <!-- ===== Certifications & Experiences section ===== -->
   <section id="certifications" class="certs-section">
 
     <div class="certs-inner">
@@ -205,10 +185,7 @@
       <p class="certs-eyebrow">Recognition</p>
       <h2 class="certs-title">Certifications &amp; Experiences</h2>
       <p class="certs-subtitle">
-        A running record of the trainings, competitions, and papers behind the work above.
-        <!-- Sample placeholders for now — swap each .cert-card-media block below for
-             <img src="images/certs/your-file.jpg" alt="..."> once you send the real
-             certificate photos and I'll wire them in the same layout. -->
+        A running record of the honors, leadership service, and professional experiences behind the work above.
       </p>
 
       <div class="certs-award-podium">
@@ -291,17 +268,13 @@
             <p class="cert-card-year">On-the-Job Training</p>
             <h3 class="cert-card-title">PAGASA Baguio Station</h3>
             <p class="cert-card-org">On-the-Job Training Certification</p>
-            <p class="cert-card-desc">Hands-on OJT covering weather monitoring and station operations. Hands-on OJT experience in weather monitoring and 
-              station operations, including data collection and organization
-              using Excel for accurate weather reports.
+            <p class="cert-card-desc">Hands-on OJT covering weather monitoring and station operations, including data collection and organization using Excel for accurate weather reports.</p>
+          </div>
         </article>
 
       </div>
 
-      <!-- ===== Leadership Certificate — the original flagship spotlight,
-           own violet theme and side-by-side layout so it reads as a
-           distinct honor, not just another card in the grid. Sits FIRST,
-           above Chairmanship and the ICPEP Representative certificates. ===== -->
+      <!-- ===== Leadership Spotlight ===== -->
       <div class="certs-leadership">
         <p class="certs-leadership-eyebrow">Leadership</p>
         <h3 class="certs-leadership-heading">Leadership Certificate</h3>
@@ -325,10 +298,7 @@
         </article>
       </div>
 
-      <!-- ===== Chairmanship section — event-chairperson certificates,
-           gold-toned, shown above the ICPEP Representative certificates.
-           Same floating-photo cert-card pattern as the award pairs
-           above, just recolored. ===== -->
+      <!-- ===== Chairmanship Certificates ===== -->
       <div class="certs-leadership certs-leadership--chairmanship">
         <p class="certs-leadership-eyebrow certs-leadership-eyebrow--gold">Chairmanship</p>
         <h3 class="certs-leadership-heading">Event Chairperson</h3>
@@ -347,7 +317,6 @@
               <p class="cert-card-desc">
                 Recognized for outstanding leadership, dedication, and service as the chairperson who
                 guided the entire team behind this event's success.
-
               </p>
             </div>
           </article>
@@ -371,10 +340,7 @@
         </div>
       </div>
 
-      <!-- ===== ICPEP Representative certificates — violet-toned (matches
-           the site's existing leadership accent). Eyebrow reads "Service"
-           rather than "Leadership" so it doesn't repeat the flagship
-           spotlight's label above. ===== -->
+      <!-- ===== ICPEP Representative Certificates ===== -->
       <div class="certs-leadership">
         <p class="certs-leadership-eyebrow">Service</p>
         <h3 class="certs-leadership-heading">Institute of Computer Engineers of the Philippines Representative</h3>
@@ -432,22 +398,92 @@
         </div>
       </div>
 
-      <!-- ===== Mini Seminars section — text-only list, no image
-           placeholders. Pulled out of the certifications grid since
-           seminars aren't certificates. Add more <li class="seminar-item">
-           entries here as they come up. ===== -->
-      <div class="seminars-mini">
-        <h3 class="seminars-mini-title">Seminars Attended</h3>
-        <ul class="seminars-mini-list">
-          <li class="seminar-item">
-            <span class="seminar-item-dot"></span>
-            <span class="seminar-year">2025</span>
-            <div class="seminar-info">
-              <h4 class="seminar-name">CpE InfoCruise 2025</h4>
-              <p class="seminar-org">PHINMA University of Pangasinan — Cybersecurity-focused seminar for Computer Engineering students.</p>
+      <!-- ===== Experiences & Trainings Sub-Section ===== -->
+      <div class="experiences-section-block">
+        <p class="certs-leadership-eyebrow">Career &amp; Learning</p>
+        <h3 class="certs-leadership-heading">Experiences &amp; Professional Trainings</h3>
+
+        <div class="experiences-grid">
+
+          <!-- Container 1: SP Madrid Law Firm -->
+          <article class="exp-card">
+            <div class="exp-card-header">
+              <div class="exp-card-tag-wrap">
+                <span class="exp-card-badge exp-badge-active">Present</span>
+                <span class="exp-card-period">May 2026 &ndash; Present</span>
+              </div>
+              <span class="exp-card-dot" aria-hidden="true"></span>
             </div>
-          </li>
-        </ul>
+            
+            <div class="exp-card-body">
+              <h4 class="exp-card-role">Financial Solutions Officer &ndash; EastWest Bank Account</h4>
+              <p class="exp-card-company">SP Madrid &amp; Associates Law Firm</p>
+              
+              <p class="exp-card-desc">
+                Managing specialized financial accounts and customer-focused solutions under the EastWest Bank portfolio. Coordinates with account holders for resolution strategies, maintains records integrity, and communicates updates systematically.
+              </p>
+
+              <div class="exp-card-highlights">
+                <span>Account Management</span>
+                <span>Financial Solutions</span>
+                <span>Client Communications</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Container 2: DOST PAGASA OJT -->
+          <article class="exp-card">
+            <div class="exp-card-header">
+              <div class="exp-card-tag-wrap">
+                <span class="exp-card-badge">Internship</span>
+                <span class="exp-card-period">2025</span>
+              </div>
+              <span class="exp-card-dot" aria-hidden="true"></span>
+            </div>
+
+            <div class="exp-card-body">
+              <h4 class="exp-card-role">On-the-Job Training &ndash; Engineering &amp; Operations Intern</h4>
+              <p class="exp-card-company">DOST &ndash; PAGASA Baguio Complex Station</p>
+              
+              <p class="exp-card-desc">
+                Underwent intensive hands-on technical training covering synoptic meteorological observation, equipment calibration, and station operations. Handled weather dataset compilation, data integrity checking, and spreadsheet structuring for formal reports.
+              </p>
+
+              <div class="exp-card-highlights">
+                <span>Weather Monitoring</span>
+                <span>Data Analysis</span>
+                <span>Station Operations</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Container 3: Seminars & Trainings -->
+          <article class="exp-card">
+            <div class="exp-card-header">
+              <div class="exp-card-tag-wrap">
+                <span class="exp-card-badge">Training</span>
+                <span class="exp-card-period">2025</span>
+              </div>
+              <span class="exp-card-dot" aria-hidden="true"></span>
+            </div>
+
+            <div class="exp-card-body">
+              <h4 class="exp-card-role">CpE InfoCruise 2025 &amp; Technical Seminars</h4>
+              <p class="exp-card-company">PHINMA University of Pangasinan &ndash; CpE Department</p>
+              
+              <p class="exp-card-desc">
+                Attended specialized symposiums and technical bootcamps focusing on cybersecurity paradigms, modern network vulnerabilities, and computer engineering innovations designed for enterprise applications.
+              </p>
+
+              <div class="exp-card-highlights">
+                <span>Cybersecurity</span>
+                <span>Network Infrastructure</span>
+                <span>Continuous Learning</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
       </div>
 
     </div>
@@ -465,8 +501,6 @@
         A mix of software, hardware, and everything in between — from an award-winning capstone to smaller circuit and robotics builds.
       </p>
 
-      <!-- ===== Spotlight: F.L.A.M.E.S. — pulled out of the grid entirely
-           so it reads as THE headline project, not just a bigger tile. ===== -->
       <article class="project-spotlight">
         <span class="project-spotlight-tag">Featured Project</span>
 
@@ -507,7 +541,6 @@
 
       <div class="projects-grid">
 
-        <!-- CURELY: Clinic Management System -->
         <article class="project-card">
           <div class="project-card-media">
             <svg viewBox="0 0 200 150" class="project-placeholder" aria-hidden="true">
@@ -529,7 +562,6 @@
           </div>
         </article>
 
-        <!-- Power Supply Design -->
         <article class="project-card">
           <div class="project-card-media">
             <svg viewBox="0 0 200 150" class="project-placeholder" aria-hidden="true">
@@ -549,7 +581,6 @@
           </div>
         </article>
 
-        <!-- Line Following Robot -->
         <article class="project-card">
           <div class="project-card-media">
             <svg viewBox="0 0 200 150" class="project-placeholder" aria-hidden="true">
@@ -572,7 +603,6 @@
           </div>
         </article>
 
-        <!-- Arduino Training Kit -->
         <article class="project-card">
           <div class="project-card-media">
             <svg viewBox="0 0 200 150" class="project-placeholder" aria-hidden="true">
@@ -600,8 +630,7 @@
 
   </section>
 
-  <!-- ===== About Me section (PLACEHOLDER — swap the sample bio
-       text below for your real About Me content) ===== -->
+  <!-- ===== About Me section ===== -->
   <section id="aboutme" class="aboutme-section">
 
     <div class="aboutme-inner">
@@ -610,20 +639,17 @@
       <h2 class="aboutme-title">About Me</h2>
 
       <p class="aboutme-text">
-        Placeholder bio — replace this with your real story. For example: <strong>I'm Gabb</strong>,
-        a Computer Engineering graduate from PHINMA University of Pangasinan with a passion for
-        building practical, real-world solutions that blend software and hardware.
+        I'm <strong>Gabb</strong>, a Computer Engineering graduate from PHINMA University of Pangasinan with a passion for building practical, real-world solutions that blend software engineering and hardware integration.
       </p>
       <p class="aboutme-text">
-        Add more paragraphs here about your background, interests outside of tech, and what
-        you're looking for in your next role.
+        With expertise ranging from front-end web development with React to embedded systems and data monitoring, I focus on building reliable tools that create real operational impact.
       </p>
 
     </div>
 
   </section>
 
-  <!-- ===== Contact details popup ===== -->
+  <!-- ===== Contact modal ===== -->
   <div class="contact-modal-overlay" id="contactModalOverlay">
     <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
       <button class="contact-modal-close" id="contactModalClose" aria-label="Close">&times;</button>
@@ -663,7 +689,7 @@
     </div>
   </div>
 
-  <!-- ===== Resume preview popup ===== -->
+  <!-- ===== Resume preview modal ===== -->
   <div class="resume-modal-overlay" id="resumeModalOverlay">
     <div class="resume-modal" role="dialog" aria-modal="true" aria-labelledby="resumeModalTitle">
       <button class="resume-modal-close" id="resumeModalClose" aria-label="Close">&times;</button>
@@ -676,9 +702,7 @@
     </div>
   </div>
 
-  <!-- ===== Certificate zoom lightbox (gallery view — click any cert
-       photo to open it here, then use the arrows or ←/→ keys to
-       browse the rest) ===== -->
+  <!-- ===== Certificate zoom lightbox ===== -->
   <div class="cert-lightbox-overlay" id="certLightboxOverlay">
     <button class="cert-lightbox-close" id="certLightboxClose" aria-label="Close">&times;</button>
     <button class="cert-lightbox-nav cert-lightbox-prev" id="certLightboxPrev" aria-label="Previous certificate">
