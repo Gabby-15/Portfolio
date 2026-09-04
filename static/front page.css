@@ -1393,13 +1393,14 @@ html::-webkit-scrollbar {
 }
 
 /* =========================================
-   NEW EXPERIENCES SUB-SECTION STYLES
+   NEW EXPERIENCES SUB-SECTION & LOGOS
 ========================================= */
 .experiences-section-block {
   margin-top: 70px;
   position: relative;
   text-align: center;
 }
+
 .experiences-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1407,12 +1408,13 @@ html::-webkit-scrollbar {
   margin-top: 30px;
   text-align: left;
 }
+
 .exp-card {
   position: relative;
   background: linear-gradient(165deg, rgba(35, 6, 6, 0.75) 0%, rgba(12, 1, 1, 0.9) 70%);
   border: 1px solid rgba(255, 31, 31, 0.24);
   border-radius: 18px;
-  padding: 26px 24px;
+  padding: 24px 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1422,10 +1424,12 @@ html::-webkit-scrollbar {
   opacity: 0;
   transform: translateY(28px);
 }
+
 .exp-card.in-view {
   opacity: 1;
   transform: translateY(0);
 }
+
 .exp-card::before {
   content: "";
   position: absolute;
@@ -1437,62 +1441,115 @@ html::-webkit-scrollbar {
   opacity: 0.5;
   transition: opacity 0.3s ease;
 }
+
 .exp-card:hover {
   transform: translateY(-5px);
   border-color: rgba(255, 65, 65, 0.55);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 31, 31, 0.2);
 }
+
 .exp-card:hover::before {
   opacity: 1;
 }
+
 .exp-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 18px;
 }
-.exp-card-tag-wrap {
+
+.exp-card-entity {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
-.exp-card-badge {
+
+/* Dedicated Logo Wrapper Box */
+.exp-card-logo-wrap {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 31, 31, 0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45), inset 0 0 8px rgba(255, 31, 31, 0.15);
+  padding: 5px;
+}
+
+.exp-card-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Fallback badge text if the image file isn't uploaded yet */
+.exp-card-logo-fallback {
+  display: none;
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--red);
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.exp-card-tag-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.exp-card-badge {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 3px 9px;
-  border-radius: 6px;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 5px;
   background: rgba(255, 31, 31, 0.15);
   color: var(--red);
   border: 1px solid rgba(255, 31, 31, 0.35);
+  align-self: flex-start;
 }
+
 .exp-card-badge.exp-badge-active {
   background: rgba(74, 222, 128, 0.15);
   color: #4ade80;
   border-color: rgba(74, 222, 128, 0.4);
 }
+
 .exp-card-period {
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
+
 .exp-card-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: var(--red);
   box-shadow: 0 0 8px var(--red);
+  flex-shrink: 0;
 }
+
 .exp-card-role {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--white);
   line-height: 1.35;
   margin-bottom: 6px;
 }
+
 .exp-card-company {
   font-family: "Inter", sans-serif;
   font-size: 0.86rem;
@@ -1500,6 +1557,7 @@ html::-webkit-scrollbar {
   color: #ff9595;
   margin-bottom: 12px;
 }
+
 .exp-card-desc {
   font-family: "Inter", sans-serif;
   font-size: 0.88rem;
@@ -1508,12 +1566,14 @@ html::-webkit-scrollbar {
   margin-bottom: 20px;
   text-align: justify;
 }
+
 .exp-card-highlights {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: auto;
 }
+
 .exp-card-highlights span {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.72rem;

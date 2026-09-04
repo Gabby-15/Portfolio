@@ -266,7 +266,7 @@ if (profileWrap) {
 }
 
 // =========================================
-// 5. SCROLL REVEAL (kasama na ang .exp-card)
+// 5. SCROLL REVEAL (kasama ang .exp-card)
 // =========================================
 const revealCards = document.querySelectorAll('.skill-card, .cert-card, .project-card, .project-spotlight, .exp-card');
 
