@@ -485,7 +485,7 @@ body {
 }
 
 /* =========================================
-   7. RESPONSIVE SCREEN (MOBILE-FIRST GUARDS)
+   7. RESPONSIVE SCREEN (MOBILE OPTIMIZATIONS)
 ========================================= */
 @media (max-width: 900px) {
   :root {
@@ -554,7 +554,7 @@ body {
     margin-bottom: 0;
   }
 
-  /* GUARANTEED MOBILE VISIBILITY FIX */
+  /* GUARANTEED VISIBILITY FIX SA MOBILE */
   .skills-section,
   .certs-section,
   .projects-section,
@@ -566,6 +566,30 @@ body {
   .project-spotlight {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  /* Service (ICPEP Representative) & Honor Rows Mobile Fix */
+  .certs-honor-row,
+  .certs-honor-row--three {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    justify-items: center;
+  }
+  .certs-honor-row .cert-card,
+  .certs-honor-row--three .cert-card {
+    width: 100%;
+    max-width: 360px;
+  }
+  .cert-card--honor .cert-card-media--photo {
+    min-height: 220px;
+    padding: 20px 14px;
+  }
+  .cert-card--honor .cert-card-photo {
+    width: 92%;
+    max-width: 290px;
+  }
+  .cert-card--honor .cert-card-body {
+    padding: 18px 20px 22px;
   }
 }
 
@@ -602,6 +626,17 @@ body {
   }
   .cta-row {
     gap: 16px;
+  }
+
+  .cert-card--honor .cert-card-media--photo {
+    min-height: 200px;
+    padding: 16px 10px;
+  }
+  .cert-card--honor .cert-card-photo {
+    max-width: 260px;
+  }
+  .cert-card--honor .cert-card-body {
+    padding: 16px 18px 20px;
   }
 }
 
@@ -1256,7 +1291,6 @@ html::-webkit-scrollbar {
 
 /* =========================================
    RESTRUCTURED LEADERSHIP CERTIFICATE
-   (Stacked Photo-on-top, Details-below)
 ========================================= */
 .certs-leadership-center {
   display: flex;
@@ -1333,6 +1367,9 @@ html::-webkit-scrollbar {
   color: var(--violet-light);
 }
 
+/* =========================================
+   SERVICE & HONOR CARDS (ICPEP & CHAIRS)
+========================================= */
 .certs-honor-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1342,17 +1379,34 @@ html::-webkit-scrollbar {
 .certs-honor-row--three {
   grid-template-columns: repeat(3, 1fr);
 }
+
 .cert-card--honor {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 .cert-card--honor .cert-card-media--photo {
   min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
 }
+.cert-card--honor .cert-card-photo {
+  width: 95%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+}
+
 .cert-card--honor .cert-card-body {
   position: relative;
+  flex: 1 1 auto;
   background: linear-gradient(160deg, var(--violet-darker) 0%, var(--black) 65%);
   border: 1px solid rgba(168, 217, 74, 0.3);
   border-radius: 0 0 16px 16px;
+  padding: 20px 22px 24px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .cert-card--honor:hover .cert-card-body {
