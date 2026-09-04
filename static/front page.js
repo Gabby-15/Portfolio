@@ -266,7 +266,7 @@ if (profileWrap) {
 }
 
 // =========================================
-// 5. SCROLL REVEAL (kasama ang .exp-card)
+// 5. SCROLL REVEAL (MOBILE-FRIENDLY THRESHOLDS)
 // =========================================
 const revealCards = document.querySelectorAll('.skill-card, .cert-card, .project-card, .project-spotlight, .exp-card');
 
@@ -275,12 +275,12 @@ if (revealCards.length && 'IntersectionObserver' in window) {
     (entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('in-view'), i * 80);
+          setTimeout(() => entry.target.classList.add('in-view'), i * 60);
           cardObserver.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+    { threshold: 0.05, rootMargin: '0px 0px 50px 0px' }
   );
 
   revealCards.forEach((card) => cardObserver.observe(card));
@@ -297,7 +297,7 @@ if (revealSections.length && 'IntersectionObserver' in window) {
         }
       });
     },
-    { threshold: 0.12, rootMargin: '0px 0px -80px 0px' }
+    { threshold: 0.02, rootMargin: '0px 0px 0px 0px' }
   );
 
   revealSections.forEach((section) => sectionObserver.observe(section));

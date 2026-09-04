@@ -357,7 +357,6 @@ body {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
-    filter: blur(0);
   }
 }
 @keyframes script-glass-sweep {
@@ -486,7 +485,7 @@ body {
 }
 
 /* =========================================
-   7. RESPONSIVE SCREEN
+   7. RESPONSIVE SCREEN (MOBILE-FIRST GUARDS)
 ========================================= */
 @media (max-width: 900px) {
   :root {
@@ -553,6 +552,20 @@ body {
     height: clamp(340px, 86vw, 680px);
     margin-right: 0;
     margin-bottom: 0;
+  }
+
+  /* GUARANTEED MOBILE VISIBILITY FIX */
+  .skills-section,
+  .certs-section,
+  .projects-section,
+  .aboutme-section,
+  .skill-card,
+  .cert-card,
+  .exp-card,
+  .project-card,
+  .project-spotlight {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -1393,7 +1406,7 @@ html::-webkit-scrollbar {
 }
 
 /* =========================================
-   NEW EXPERIENCES SUB-SECTION & LOGOS
+   EXPERIENCES SUB-SECTION & LOGOS
 ========================================= */
 .experiences-section-block {
   margin-top: 70px;
@@ -1468,8 +1481,8 @@ html::-webkit-scrollbar {
 
 /* Dedicated Logo Wrapper Box */
 .exp-card-logo-wrap {
-  width: 100px;
-  height: 100px;
+  width: 48px;
+  height: 48px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 31, 31, 0.32);
