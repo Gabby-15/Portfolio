@@ -357,6 +357,7 @@ body {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+    filter: blur(0);
   }
 }
 @keyframes script-glass-sweep {
@@ -554,7 +555,7 @@ body {
     margin-bottom: 0;
   }
 
-  /* GUARANTEED VISIBILITY FIX SA MOBILE */
+  /* Force Mobile Visibility */
   .skills-section,
   .certs-section,
   .projects-section,
@@ -568,10 +569,9 @@ body {
     transform: none !important;
   }
 
-  /* UNIFIED MOBILE STACK FOR ALL CERTIFICATE ROWS (OJT/HACKATHON STYLE) */
+  /* All Certificates Matching OJT/Hackathon Sizing on Mobile */
   .certs-award-pair,
-  .certs-honor-row,
-  .certs-honor-row--three {
+  .certs-honor-row {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -580,28 +580,40 @@ body {
   }
 
   .certs-award-pair .cert-card,
-  .certs-honor-row .cert-card,
-  .certs-honor-row--three .cert-card,
-  .cert-card--leadership {
+  .certs-honor-row .cert-card {
     width: 100%;
-    max-width: 330px;
+    max-width: 320px;
   }
 
-  .cert-card-media--photo,
-  .cert-card-media--leadership {
+  .cert-card-media--photo {
     min-height: 220px;
     padding: 24px 16px;
   }
 
-  .cert-card-photo,
-  .cert-card-photo--leadership {
+  .cert-card-photo {
     width: 95%;
     max-width: 290px;
   }
 
-  .cert-card-body,
-  .cert-card--leadership .cert-card-body {
+  .cert-card-body {
     padding: 20px 22px 24px;
+  }
+}
+
+@media (max-width: 720px) {
+  .cert-card--leadership {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    border-radius: 22px 22px 0 0;
+  }
+  .cert-card--leadership::before {
+    border-radius: 22px 22px 0 0;
+  }
+  .cert-card-media--leadership {
+    min-height: 440px;
+  }
+  .cert-card--leadership .cert-card-body {
+    padding: 26px 22px 28px;
   }
 }
 
@@ -640,18 +652,12 @@ body {
     gap: 16px;
   }
 
-  .cert-card-media--photo,
-  .cert-card-media--leadership {
+  .cert-card-media--photo {
     min-height: 200px;
     padding: 18px 12px;
   }
-  .cert-card-photo,
-  .cert-card-photo--leadership {
+  .cert-card-photo {
     max-width: 260px;
-  }
-  .cert-card-body,
-  .cert-card--leadership .cert-card-body {
-    padding: 18px 20px 22px;
   }
 }
 
@@ -925,7 +931,7 @@ html::-webkit-scrollbar {
 }
 
 /* =========================================
-   9b. CERTIFICATIONS SECTION (UNIFIED OJT/HACKATHON CARD STYLE)
+   9b. CERTIFICATIONS SECTION
 ========================================= */
 .certs-section {
   position: relative;
@@ -1012,8 +1018,8 @@ html::-webkit-scrollbar {
   flex: 1 1 auto;
 }
 
-/* Base Card & Media Floating Treatment (Exact OJT / Hackathon Style) */
-.cert-card {
+/* Shared Floating Photo Pattern for Cards */
+.cert-card--photo {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1025,15 +1031,9 @@ html::-webkit-scrollbar {
   transform: translateY(28px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.cert-card.in-view {
+.cert-card--photo.in-view {
   opacity: 1;
   transform: translateY(0);
-}
-
-.cert-card--photo {
-  overflow: visible;
-  border: none;
-  background: none;
 }
 
 .cert-card-media--photo {
@@ -1072,11 +1072,18 @@ html::-webkit-scrollbar {
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 22px rgba(255, 31, 31, 0.2);
 }
 
-/* Award Podiums */
+/* Awards */
 .cert-card--award {
   overflow: visible;
   border: none;
   background: none;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.cert-card--award.in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
 .cert-card-media--award {
   background: none;
@@ -1264,15 +1271,18 @@ html::-webkit-scrollbar {
   font-style: italic;
 }
 
-/* Headings */
+/* =========================================
+   ORIGINAL HIGHLIGHTED LEADERSHIP CERTIFICATE
+========================================= */
 .certs-leadership {
   position: relative;
-  max-width: 1180px;
+  max-width: 820px;
   margin: 0 auto 54px;
   text-align: center;
 }
 .certs-leadership--chairmanship {
   margin-bottom: 60px;
+  max-width: 1180px;
 }
 .certs-leadership-eyebrow {
   font-family: "Space Grotesk", sans-serif;
@@ -1294,31 +1304,91 @@ html::-webkit-scrollbar {
   margin-bottom: 22px;
 }
 
-/* Leadership Center Frame */
-.certs-leadership-center {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
 .cert-card--leadership {
-  max-width: 380px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.95fr 1fr;
+  align-items: stretch;
+  text-align: left;
+  overflow: hidden;
+  min-height: 560px;
+  border-radius: 0 22px 22px 0;
+  border: 1px solid rgba(168, 217, 74, 0.35);
+  background: linear-gradient(160deg, rgba(74, 97, 22, 0.4) 0%, var(--black) 68%);
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.cert-card--leadership.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.cert-card--leadership:hover {
+  border-color: rgba(205, 234, 130, 0.7);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55), 0 0 30px rgba(168, 217, 74, 0.3);
+}
+
+.cert-card--leadership::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 2px;
+  border-radius: 0 22px 22px 0;
+  background: conic-gradient(from var(--spin, 0deg), var(--gold-darker), var(--gold), #fff3cf, var(--gold), var(--gold-darker));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: spotlight-spin 6s linear infinite;
+  pointer-events: none;
+  box-shadow: 0 0 16px rgba(255, 201, 74, 0.55);
+}
+
+.cert-card--leadership::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.14) 50%, transparent 58%);
+  background-size: 260% 260%;
+  animation: leadershipSweep 5.5s ease-in-out infinite;
+}
+@keyframes leadershipSweep {
+  0% { background-position: 130% -40%; }
+  55%, 100% { background-position: -40% 130%; }
 }
 .cert-card-media--leadership {
-  min-height: 240px;
-  padding: 24px 16px;
+  position: relative;
+  min-width: 0;
+  aspect-ratio: auto;
+  overflow: hidden;
+  background: transparent;
 }
 .cert-card-photo--leadership {
-  width: 95%;
-  max-width: 310px;
-  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 10px rgba(168, 217, 74, 0.35));
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: fill;
+  object-position: center;
+  filter: none;
 }
 .cert-card--leadership .cert-card-body {
-  background: linear-gradient(160deg, rgba(74, 97, 22, 0.35) 0%, var(--black) 65%);
-  border: 1px solid rgba(168, 217, 74, 0.35);
-  border-radius: 0 0 16px 16px;
+  position: relative;
+  z-index: 1;
+  padding: 36px 34px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
 }
 .cert-card--leadership .cert-card-year {
   color: var(--violet-light);
+}
+.cert-card--leadership .cert-card-title {
+  font-size: 1.2rem;
 }
 .cert-card--leadership .cert-info-btn {
   border: 1px solid rgba(168, 217, 74, 0.5);
@@ -1346,9 +1416,6 @@ html::-webkit-scrollbar {
 }
 
 /* Gold Variant for Chairmanship */
-.cert-card--honor-gold .cert-card-media--photo {
-  background: none;
-}
 .cert-card--honor-gold .cert-card-photo {
   filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 9px rgba(255, 201, 74, 0.35));
 }
@@ -1376,9 +1443,6 @@ html::-webkit-scrollbar {
 }
 
 /* Violet Variant for ICPEP Service */
-.cert-card--honor-violet .cert-card-media--photo {
-  background: none;
-}
 .cert-card--honor-violet .cert-card-photo {
   filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 9px rgba(168, 217, 74, 0.35));
 }
