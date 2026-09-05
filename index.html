@@ -474,7 +474,7 @@
             <div class="exp-card-header">
               <div class="exp-card-entity">
                 <div class="exp-card-logo-wrap">
-                  <img src="images/phinmaupang.png" alt="PHINMA University of Pangasinan Logo" class="exp-card-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                  <img src="images/phinmaupang.jpg" alt="PHINMA University of Pangasinan Logo" class="exp-card-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                   <span class="exp-card-logo-fallback" aria-hidden="true">UPANG</span>
                 </div>
                 <div class="exp-card-tag-wrap">
@@ -656,16 +656,59 @@
       <p class="aboutme-eyebrow">Get To Know Me</p>
       <h2 class="aboutme-title">About Me</h2>
 
-      <p class="aboutme-text">
-        I'm <strong>Gabb</strong>, a Computer Engineering graduate from PHINMA University of Pangasinan with a passion for building practical, real-world solutions that blend software engineering and hardware integration.
-      </p>
-      <p class="aboutme-text">
-        With expertise ranging from front-end web development with React to embedded systems and data monitoring, I focus on building reliable tools that create real operational impact.
-      </p>
+      <!-- Spotify-Style Music Showcase Card -->
+      <div class="spotify-track-card" id="spotifyCard">
+        <div class="spotify-album-cover-wrap">
+          <img src="images/MUSIC%20LOGO.png" alt="Angat at Sikat Cover Art" class="spotify-album-cover" id="spotifyCover" onerror="this.src='images/MUSIC LOGO.png';">
+          <div class="spotify-vinyl-disc" aria-hidden="true"></div>
+        </div>
+
+        <div class="spotify-meta">
+          <div class="spotify-badge">
+            <span class="spotify-dot"></span>
+            <span class="spotify-status-text">Now Playing</span>
+          </div>
+          <h3 class="spotify-song-title">ANGAT AT SIKAT</h3>
+          <p class="spotify-artist">by Gabb Salvacion</p>
+
+          <!-- Animated Audio Visualizer Bars -->
+          <div class="spotify-eq-bars" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Story Terminal Container -->
+      <div class="about-story-terminal">
+        <div class="story-terminal-header">
+          <div class="story-terminal-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="story-terminal-tab">my_journey.md</span>
+        </div>
+
+        <div class="story-terminal-content">
+          <p class="aboutme-text">
+            I'm <strong>Gabb</strong>, a Computer Engineering graduate from PHINMA University of Pangasinan with a passion for building practical, real-world solutions that blend software engineering, music, and hardware integration.
+          </p>
+
+          <!-- Dito mo ilalagay ang kwento tungkol sa sarili mo -->
+          <div class="story-custom-placeholder">
+            <p>
+              [ Dito mo ilalagay ang buong kwento mo — ang iyong pinagmulan, mga inspirasyon sa musika at engineering, mga pinagdaanang challenges, at ang mga pangarap na patuloy mong inaabot. ]
+            </p>
+          </div>
+        </div>
+      </div>
 
     </div>
 
   </section>
+
+  <!-- Hidden Audio Element para sa About Me (Walang playback UI) -->
+  <audio id="bgAudio" loop preload="auto">
+    <source src="music/CEASC%20Angat%20at%20Sikat.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- ===== Contact details popup ===== -->
   <div class="contact-modal-overlay" id="contactModalOverlay">

@@ -647,3 +647,92 @@ if (scriptText) {
 
   init();
 })();
+
+// =========================================
+// 7. ABOUT ME AUDIO (IN-VIEW AUTOPLAY ONLY)
+// =========================================
+(function () {
+  const bgAudio = document.getElementById('bgAudio');
+  const aboutSection = document.getElementById('aboutme');
+  const spotifyCard = document.getElementById('spotifyCard');
+
+  if (!bgAudio || !aboutSection) return;
+
+  let fadeInterval = null;
+  const maxVolume = 0.5;
+  let userInteracted = false;
+
+  // Unlock browser audio restrictions upon user's first click or touch
+  function unlockAudio() {
+    if (userInteracted) return;
+    userInteracted = true;
+    bgAudio.volume = 0.01;
+    bgAudio.play().then(() => {
+      bgAudio.pause();
+      bgAudio.currentTime = 0;
+    }).catch(() => {});
+    window.removeEventListener('click', unlockAudio);
+    window.removeEventListener('touchstart', unlockAudio);
+  }
+  window.addEventListener('click', unlockAudio);
+  window.addEventListener('touchstart', unlockAudio);
+
+  function fadeInAudio(duration = 1400) {
+    clearInterval(fadeInterval);
+    bgAudio.volume = 0.02;
+    const playPromise = bgAudio.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          spotifyCard?.classList.add('is-playing');
+          const step = maxVolume / (duration / 50);
+          fadeInterval = setInterval(() => {
+            if (bgAudio.volume + step < maxVolume) {
+              bgAudio.volume += step;
+            } else {
+              bgAudio.volume = maxVolume;
+              clearInterval(fadeInterval);
+            }
+          }, 50);
+        })
+        .catch((err) => {
+          console.warn('Autoplay waiting for user gesture:', err);
+        });
+    }
+  }
+
+  function fadeOutAudio(duration = 900) {
+    clearInterval(fadeInterval);
+    const step = bgAudio.volume / (duration / 50);
+    fadeInterval = setInterval(() => {
+      if (bgAudio.volume - step > 0) {
+        bgAudio.volume -= step;
+      } else {
+        bgAudio.volume = 0;
+        bgAudio.pause();
+        spotifyCard?.classList.remove('is-playing');
+        clearInterval(fadeInterval);
+      }
+    }, 50);
+  }
+
+  // Plays only while in About Me viewport, fades out when leaving
+  if ('IntersectionObserver' in window) {
+    const audioObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            fadeInAudio();
+          } else {
+            if (!bgAudio.paused) {
+              fadeOutAudio();
+            }
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+    audioObserver.observe(aboutSection);
+  }
+})();
