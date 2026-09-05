@@ -488,6 +488,36 @@ body {
 /* =========================================
    7. RESPONSIVE SCREEN
 ========================================= */
+@media (max-width: 1100px) {
+  .cert-card--leadership {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    border-radius: 22px;
+  }
+  .cert-card--leadership::before {
+    border-radius: 22px;
+  }
+  .cert-card-media--leadership {
+    width: 100%;
+    min-height: 0;
+    max-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px 0;
+  }
+  .cert-card-photo--leadership {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: contain;
+  }
+  .cert-card--leadership .cert-card-body {
+    padding: 24px 28px 28px;
+    text-align: left;
+  }
+}
+
 @media (max-width: 900px) {
   :root {
     --glow-x: 50%;
@@ -585,7 +615,7 @@ body {
     max-width: 320px;
   }
 
-  /* Capstone adjustments: alisin ang -53px overlap para pantay ang gap */
+  /* Capstone adjustments */
   .cert-card-media--capstone {
     min-height: 240px;
     padding: 24px 16px 16px;
@@ -891,7 +921,7 @@ html::-webkit-scrollbar {
   flex-shrink: 0;
   width: 34px;
   height: 34px;
-  border-radius: 9px;
+  border-radius: 999px;
   background: rgba(255, 31, 31, 0.1);
   border: 1px solid rgba(255, 60, 60, 0.35);
   color: var(--red);
@@ -1611,7 +1641,7 @@ html::-webkit-scrollbar {
   overflow: hidden;
   flex-shrink: 0;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), inset 0 0 10px rgba(255, 31, 31, 0.15);
-  padding: -2px;
+  padding: 0;
 }
 
 .exp-card-logo {
