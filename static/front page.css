@@ -1587,31 +1587,31 @@ html::-webkit-scrollbar {
 
 .exp-card-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
 .exp-card-entity {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .exp-card-logo-wrap {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
+  width: clamp(54px, 7vw, 70px);
+  height: clamp(54px, 7vw, 70px);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 31, 31, 0.32);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45), inset 0 0 8px rgba(255, 31, 31, 0.15);
-  padding: 5px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), inset 0 0 10px rgba(255, 31, 31, 0.15);
+  padding: 6px;
 }
 
 .exp-card-logo {
@@ -2437,7 +2437,7 @@ html::-webkit-scrollbar {
    MOBILE CERTIFICATE FIXES (Clean, Uniform Spacing)
 ========================================================= */
 
-/* Leadership card: Ibinalik sa original settings mo */
+/* Leadership card: Original exact settings */
 @media (max-width: 720px) {
   .cert-card--leadership {
     grid-template-columns: 1fr;
