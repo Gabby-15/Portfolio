@@ -1148,7 +1148,7 @@ html::-webkit-scrollbar {
 }
 
 .cert-card-media--capstone {
-  min-height: 300px;
+  min-height: 370px;
   padding: 38px 16px 34px;
 }
 .cert-card-award-ribbon--capstone {
@@ -1167,6 +1167,8 @@ html::-webkit-scrollbar {
   border-color: rgba(255, 201, 74, 0.42);
   box-shadow: 0 0 0 1px rgba(255, 201, 74, 0.08) inset;
   animation: certWinnerBodyGlow 3.2s ease-in-out infinite;
+  margin-top: -53px; /* Taasan ito (hal. 30px o 35px) kung gusto mo ng mas malaking agwat */
+  padding-top: 22px;
 }
 .cert-card--capstone .cert-card-title {
   font-size: 1.24rem;
