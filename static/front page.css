@@ -569,13 +569,53 @@ body {
     transform: none !important;
   }
 
-  /* All Certificates Matching OJT/Hackathon Sizing on Mobile */
+  /* Podium layout for Capstone and Thesis */
+  .certs-award-podium {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 28px;
+    width: 100%;
+  }
+
+  .cert-card--podium-side,
+  .cert-card--capstone-solo {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  /* Capstone adjustments: alisin ang -53px overlap para pantay ang gap */
+  .cert-card-media--capstone {
+    min-height: 240px;
+    padding: 24px 16px 16px;
+  }
+
+  .cert-card-photo--capstone {
+    width: 95%;
+    max-width: 290px;
+    height: auto;
+  }
+
+  .cert-card--capstone .cert-card-body {
+    margin-top: 0;
+    padding: 20px 22px 24px;
+  }
+
+  .cert-card-award-ribbon--capstone {
+    top: 195px;
+    font-size: 0.72rem;
+    padding: 6px 16px;
+  }
+
+  /* All other Certificates matching OJT/Hackathon Sizing on Mobile */
   .certs-award-pair,
   .certs-honor-row {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 32px;
+    gap: 28px;
+    margin-bottom: 28px;
     width: 100%;
   }
 
@@ -585,14 +625,17 @@ body {
     max-width: 320px;
   }
 
-  .cert-card-media--photo {
+  .cert-card-media--photo,
+  .cert-card-media--award {
     min-height: 220px;
     padding: 24px 16px;
   }
 
-  .cert-card-photo {
+  .cert-card-photo,
+  .cert-card-photo--award {
     width: 95%;
     max-width: 290px;
+    height: auto;
   }
 
   .cert-card-body {
@@ -652,11 +695,22 @@ body {
     gap: 16px;
   }
 
-  .cert-card-media--photo {
+  .certs-award-podium,
+  .certs-award-pair,
+  .certs-honor-row {
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .cert-card-media--photo,
+  .cert-card-media--award,
+  .cert-card-media--capstone {
     min-height: 200px;
     padding: 18px 12px;
   }
-  .cert-card-photo {
+  .cert-card-photo,
+  .cert-card-photo--award,
+  .cert-card-photo--capstone {
     max-width: 260px;
   }
 }
@@ -1167,7 +1221,7 @@ html::-webkit-scrollbar {
   border-color: rgba(255, 201, 74, 0.42);
   box-shadow: 0 0 0 1px rgba(255, 201, 74, 0.08) inset;
   animation: certWinnerBodyGlow 3.2s ease-in-out infinite;
-  margin-top: -53px; /* Taasan ito (hal. 30px o 35px) kung gusto mo ng mas malaking agwat */
+  margin-top: -53px;
   padding-top: 22px;
 }
 .cert-card--capstone .cert-card-title {
@@ -2380,20 +2434,10 @@ html::-webkit-scrollbar {
 }
 
 /* =========================================================
-   MOBILE CERTIFICATE FIXES (kept at end of file on purpose)
-
-   These same selectors already had mobile overrides earlier
-   in the stylesheet (inside @media max-width: 900px / 640px /
-   720px blocks), but the unconditional ".cert-card--leadership"
-   and ".cert-card-media--photo" / ".cert-card-photo" rules were
-   declared FURTHER DOWN the file with equal specificity, so on
-   mobile the desktop values were winning the cascade — that's
-   why the Leadership card kept its two-column layout (stretched
-   image) and the Hackathon/OJT cards looked uneven. Placing the
-   fix here, after everything else, guarantees it wins.
+   MOBILE CERTIFICATE FIXES (Clean, Uniform Spacing)
 ========================================================= */
 
-/* Leadership card: stack image above details on mobile, no stretch */
+/* Leadership card: Ibinalik sa original settings mo */
 @media (max-width: 720px) {
   .cert-card--leadership {
     grid-template-columns: 1fr;
@@ -2403,14 +2447,14 @@ html::-webkit-scrollbar {
   .cert-card--leadership::before {
     border-radius: 22px 22px 0 0;
   }
- .cert-card-media--leadership {
+  .cert-card-media--leadership {
     min-height: 0 !important;
     max-height: none !important;
     height: auto !important;
     width: 100% !important;
     padding: 0 !important;
   }
-.cert-card-photo--leadership {
+  .cert-card-photo--leadership {
     width: 100% !important;
     height: auto !important;
     max-width: 100% !important;
@@ -2422,35 +2466,69 @@ html::-webkit-scrollbar {
   }
 }
 
-/* Hackathon / OJT (and any .certs-award-pair) cards: keep both
-   cards the same size on mobile instead of stretching to match
-   whichever card has the longer description */
+/* Pantay na pagitan at sukat para sa Capstone, Thesis, OJT, at Hackathon */
 @media (max-width: 900px) {
-  .certs-award-pair {
+  .certs-award-podium,
+  .certs-award-pair,
+  .certs-honor-row {
     align-items: center;
+    gap: 28px;
+    margin-bottom: 28px;
   }
+
+  .cert-card--podium-side,
+  .cert-card--capstone-solo,
   .certs-award-pair .cert-card,
   .certs-honor-row .cert-card {
     width: 100%;
     max-width: 320px;
   }
-  .cert-card-media--photo {
+
+  .cert-card-media--capstone,
+  .cert-card-media--photo,
+  .cert-card-media--award {
     min-height: 220px;
     padding: 24px 16px;
   }
-  .cert-card-photo {
+
+  .cert-card-photo--capstone,
+  .cert-card-photo,
+  .cert-card-photo--award {
     width: 95%;
     max-width: 290px;
     height: auto;
   }
+
+  .cert-card--capstone .cert-card-body {
+    margin-top: 0;
+    padding: 21px 22px 24px;
+  }
+
+  .cert-card-award-ribbon--capstone {
+    top: 185px;
+    font-size: 0.72rem;
+    padding: 6px 16px;
+  }
 }
 
 @media (max-width: 640px) {
-  .cert-card-media--photo {
+  .certs-award-podium,
+  .certs-award-pair,
+  .certs-honor-row {
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+
+  .cert-card-media--capstone,
+  .cert-card-media--photo,
+  .cert-card-media--award {
     min-height: 200px;
     padding: 18px 12px;
   }
-  .cert-card-photo {
+
+  .cert-card-photo--capstone,
+  .cert-card-photo,
+  .cert-card-photo--award {
     width: 95%;
     max-width: 260px;
     height: auto;
