@@ -653,48 +653,85 @@
 
     <div class="aboutme-inner">
 
-      <p class="aboutme-eyebrow">The Man Behind The Craft</p>
+      <p class="aboutme-eyebrow">The Story &bull; The Rhythm &bull; The Lens</p>
       <h2 class="aboutme-title">Know Me More</h2>
 
-      <!-- Comic Book Style Grid Wrapper -->
+      <!-- Centered Highlighted Spotify Track Player Showcase -->
+      <div class="spotify-center-showcase" id="spotifyShowcase">
+        <div class="spotify-highlight-card">
+          <div class="spotify-cover-anchor">
+            <img src="images/MUSIC%20LOGO.png" alt="MUSIC LOGO" class="spotify-album-cover" onerror="this.src='images/MUSIC LOGO.png';">
+            <div class="spotify-vinyl-disc" aria-hidden="true"></div>
+          </div>
+
+          <div class="spotify-player-details">
+            <div class="spotify-status-badge">
+              <span class="spotify-live-led"></span>
+              <span class="spotify-status-txt">Now Featured</span>
+            </div>
+            <h3 class="spotify-track-title">ANGAT AT SIKAT</h3>
+            <p class="spotify-track-by">by Gabb Salvacion</p>
+
+            <div class="spotify-controls-wrap">
+              <button type="button" class="spotify-toggle-btn" id="spotifyToggleBtn" aria-label="Play or Pause Angat at Sikat">
+                <!-- Play Icon -->
+                <svg class="spot-icon spot-icon--play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <!-- Pause Icon -->
+                <svg class="spot-icon spot-icon--pause" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+              </button>
+
+              <!-- Dynamic Animated Audio Visualizer Waves -->
+              <div class="spotify-wave-visualizer" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comic Strip Showcase Layout with Enlarged Visual Panels -->
       <div class="comic-about-container">
 
         <!-- Left Comic Column -->
         <aside class="comic-col comic-col--left">
-          <div class="comic-panel comic-panel--student">
-            <span class="comic-tag">Student Leader &middot; CpE</span>
+          <div class="comic-panel comic-panel--student comic-panel--large">
+            <span class="comic-tag">Leadership &bull; CpE</span>
             <div class="comic-img-box">
-              <img src="images/gabbstudent.png" alt="Mark Gabriel Salvacion as Student Leader" class="comic-photo">
+              <img src="images/gabbstudent.png" alt="Mark Gabriel Salvacion - Student Leader" class="comic-photo">
             </div>
           </div>
 
-          <div class="comic-panel comic-panel--singer">
-            <span class="comic-tag">Singer-Songwriter</span>
+          <div class="comic-panel comic-panel--singer comic-panel--large">
+            <span class="comic-tag">Live Acoustic</span>
             <div class="comic-img-box">
               <img src="images/gabsinger.png" alt="Gabb Salvacion Performing on Stage" class="comic-photo">
             </div>
           </div>
         </aside>
 
-        <!-- Center Comic Story Dispatch (Main Biography) -->
+        <!-- Center Comic Core (Biographical Narrative) -->
         <main class="comic-story-core">
 
           <header class="comic-story-head">
             <div class="comic-status-pill">
               <span class="comic-pulse-dot"></span>
-              <span>Artist &bull; Engineer &bull; Creative</span>
+              <span>Songwriter &bull; Computer Engineer &bull; Visual Artist</span>
             </div>
             <h3 class="comic-story-heading">Mark Gabriel "Gabb" Salvacion</h3>
-            <p class="comic-story-sub">A narrative of passion, frequency, and precision</p>
+            <p class="comic-story-sub">Synthesizing logic, soundwaves, and captured moments</p>
           </header>
 
           <article class="comic-story-body">
             <p>
-              Known widely by his peers and audience as <strong>Gabb Salvacion</strong>, Mark Gabriel is a graduate of <strong>BS Computer Engineering</strong> from <strong>PHINMA University of Pangasinan</strong>. While his days were rooted in code logic, hardware debugging, and architectural diagrams, his evenings have always resonated with melodies, rhythms, and artistic storytelling.
+              Widely recognized across stages and technical circles as <strong>Gabb Salvacion</strong>, Mark Gabriel is a <strong>BS Computer Engineering</strong> graduate from <strong>PHINMA University of Pangasinan</strong>. His journey stands at the crossroads of hard engineering logic and artistic expression—proving that analytical problem solvers can be visionary storytellers.
             </p>
 
             <p>
-              Holding a guitar and penning down verses since the age of 15, Gabb emerged as a beloved local artist from Malasiqui, Pangasinan. He made waves across the regional music scene as the creative mind behind the viral trend <em>"Raining in Dagupan"</em>—an ode inspired by Lola Amour’s hit that struck a chord with Pangasinenses everywhere.
+              Writing melodies and playing guitar since he was 15, Gabb emerged as an active grassroots artist representing Malasiqui, Pangasinan throughout his high school and collegiate days. He gained widespread viral recognition as the mastermind behind <em>"Raining in Dagupan"</em>—an ode inspired by Lola Amour’s hit that captured the heart and humor of Pangasinenses during typhoon seasons.
             </p>
 
             <blockquote class="comic-anthem-quote">
@@ -702,29 +739,29 @@
                 <span class="comic-music-note">&#9835;</span>
                 <div>
                   <strong>Angat at Sikat</strong>
-                  <small>CEASC Official Anthem &middot; Written &amp; Composed by Gabb Salvacion</small>
+                  <small>CEASC Official Anthem &bull; Composed by Gabb Salvacion</small>
                 </div>
               </div>
               <p>
-                During his collegiate journey, Gabb clinched the championship in the <strong>College of Engineering and Architecture (CEA) Songwriting Competition 2024</strong> and earned <strong>2nd Runner-Up at the Lamparaan Songwriting Festival 2024</strong>. Before capping off his academic career, he left an enduring legacy: composing <em>"ANGAT AT SIKAT"</em> alongside his bandmates and supported by the CEASC 2025—an inspiring anthem honoring the grit, camaraderie, and relentless heart of CEA students.
+                A champion of the <strong>College of Engineering and Architecture (CEA) Songwriting Competition 2024</strong> and <strong>2nd Runner-Up at the Lamparaan Songwriting Competition 2024</strong>, Gabb capped his collegiate milestone with an enduring anthem. Collaborating with his bandmates and supported by the CEASC 2025, he produced <em>"ANGAT AT SIKAT"</em>—a tribute immortalizing the teamwork, late nights, and unyielding spirit of every CEA student.
               </p>
             </blockquote>
 
             <p>
-              Beyond sound and software, Gabb possesses an eye for visual emotion. As a dedicated freelance photographer and videographer, he supported his education by immortalizing milestone moments—from weddings and grand debuts to christenings, milestone birthdays, and institutional events.
+              Parallel to music and code, Gabb built a successful venture through visual storytelling. As a freelance photographer and videographer, he supported his education by immortalizing life’s most pivotal celebrations—weddings, debuts, christenings, birthdays, and grand institutional events—turning raw light and moments into lifetime memories.
             </p>
 
             <!-- Gabb Photography Interactive Badge & Link -->
             <div class="photography-showcase-badge">
               <div class="photo-badge-brand">
-                <img src="images/Gabb Photography.png" alt="Gabb Salvacion Photography Signature Logo" class="photo-badge-logo">
+                <img src="images/Gabb%20Photography.png" alt="Gabb Photography Official Signature" class="photo-badge-logo" onerror="this.src='images/Gabb Photography.png';">
                 <div class="photo-badge-info">
-                  <h4 class="photo-badge-title">Gabb Salvacion Photography</h4>
-                  <p class="photo-badge-subtitle">Weddings &bull; Debuts &bull; Live Concerts &bull; Events</p>
+                  <h4 class="photo-badge-title">Gabb Photography</h4>
+                  <p class="photo-badge-subtitle">Weddings &bull; Debuts &bull; Live Concerts &bull; Milestones</p>
                 </div>
               </div>
-              <a href="https://www.facebook.com/profile.php?id=100086357380975" target="_blank" rel="noopener noreferrer" class="photo-badge-btn" aria-label="Visit Gabb Salvacion Photography Facebook Page">
-                <span>Check Page</span>
+              <a href="https://www.facebook.com/profile.php?id=100086357380975" target="_blank" rel="noopener noreferrer" class="photo-badge-btn" aria-label="Visit Gabb Photography on Facebook">
+                <span>Click Me</span>
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
             </div>
@@ -734,10 +771,10 @@
 
         <!-- Right Comic Column -->
         <aside class="comic-col comic-col--right">
-          <div class="comic-panel comic-panel--photographer">
+          <div class="comic-panel comic-panel--photographer comic-panel--large">
             <span class="comic-tag">Behind The Lens</span>
             <div class="comic-img-box">
-              <img src="images/gabbphotographer.png" alt="Gabb Salvacion with his Camera Gear" class="comic-photo">
+              <img src="images/gabbphotographer.png" alt="Gabb Salvacion with Camera Gear" class="comic-photo">
             </div>
           </div>
 
@@ -755,7 +792,7 @@
 
   </section>
 
-  <!-- Hidden Audio Trigger for About Me (Autoplays on view) -->
+  <!-- Autoplay Audio Background when in Know Me More -->
   <audio id="bgAudio" loop preload="auto">
     <source src="music/CEASC Angat at Sikat.mp3" type="audio/mpeg">
   </audio>

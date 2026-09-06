@@ -2098,26 +2098,244 @@ html::-webkit-scrollbar {
 .aboutme-inner {
   position: relative;
   z-index: 1;
-  max-width: 1240px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 .aboutme-eyebrow {
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--red);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   text-align: center;
 }
 .aboutme-title {
   font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(1.7rem, 1.3rem + 2vw, 2.75rem);
+  font-size: clamp(1.9rem, 1.4rem + 2.2vw, 3rem);
   font-weight: 800;
   color: var(--white);
-  margin-bottom: 36px;
+  margin-bottom: 30px;
   text-align: center;
+  letter-spacing: 0.02em;
+}
+
+/* =========================================================
+   CENTER HIGHLIGHTED SPOTIFY ANTHEM PLAYER
+========================================================= */
+.spotify-center-showcase {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  perspective: 1200px;
+}
+
+.spotify-highlight-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 680px;
+  padding: 22px 32px;
+  background: linear-gradient(135deg, rgba(38, 4, 4, 0.94) 0%, rgba(12, 1, 1, 0.98) 70%, rgba(5, 0, 0, 1) 100%);
+  border: 2px solid rgba(255, 31, 31, 0.5);
+  border-radius: 24px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 32px rgba(255, 31, 31, 0.3), inset 0 0 20px rgba(255, 31, 31, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  overflow: visible;
+}
+
+.spotify-highlight-card:hover {
+  border-color: rgba(255, 75, 75, 0.85);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 44px rgba(255, 31, 31, 0.45);
+  transform: translateY(-3px);
+}
+
+.spotify-cover-anchor {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.spotify-album-cover {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 2px solid rgba(255, 50, 50, 0.6);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.8), 0 0 18px rgba(255, 31, 31, 0.4);
+  background: #000;
+  transition: transform 0.3s ease;
+}
+
+.spotify-highlight-card:hover .spotify-album-cover {
+  transform: scale(1.02);
+}
+
+.spotify-vinyl-disc {
+  position: absolute;
+  top: 10px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #2a0000 18%, #111 20%, #000 50%, #1a0202 85%, #0a0a0a 100%);
+  border: 2px solid #4a0808;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.75);
+  z-index: 1;
+  opacity: 0.9;
+  transition: right 0.4s ease;
+}
+
+.spotify-highlight-card.is-playing .spotify-vinyl-disc {
+  animation: vinylSpin 3.6s linear infinite;
+  right: -32px;
+}
+
+@keyframes vinylSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spotify-player-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.spotify-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.spotify-live-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #27c93f;
+  box-shadow: 0 0 10px #27c93f;
+  animation: pulseGreen 1.8s ease-in-out infinite;
+}
+
+@keyframes pulseGreen {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.25); }
+}
+
+.spotify-status-txt {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: #ff9d9d;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.spotify-track-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  line-height: 1.15;
+}
+
+.spotify-track-by {
+  font-family: "Inter", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #ff8585;
+  margin-bottom: 8px;
+}
+
+.spotify-controls-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.spotify-toggle-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 60, 60, 0.7);
+  background: linear-gradient(135deg, #ff3b3b 0%, var(--red) 45%, var(--red-dark) 100%);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 14px rgba(255, 31, 31, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  flex-shrink: 0;
+}
+
+.spotify-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 31, 31, 0.85);
+}
+
+.spot-icon--play {
+  display: block;
+  margin-left: 2px;
+}
+.spot-icon--pause {
+  display: none;
+}
+
+.spotify-highlight-card.is-playing .spot-icon--play {
+  display: none;
+}
+.spotify-highlight-card.is-playing .spot-icon--pause {
+  display: block;
+}
+
+/* Audio Visualizer Waves */
+.spotify-wave-visualizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 22px;
+  flex: 1;
+}
+
+.spotify-wave-visualizer span {
+  width: 4px;
+  height: 5px;
+  background: var(--red);
+  border-radius: 3px;
+  transition: height 0.2s ease;
+}
+
+.spotify-highlight-card.is-playing .spotify-wave-visualizer span {
+  animation: eqWave 1.1s ease-in-out infinite alternate;
+}
+
+.spotify-wave-visualizer span:nth-child(1) { animation-delay: 0.1s; }
+.spotify-wave-visualizer span:nth-child(2) { animation-delay: 0.35s; }
+.spotify-wave-visualizer span:nth-child(3) { animation-delay: 0.18s; }
+.spotify-wave-visualizer span:nth-child(4) { animation-delay: 0.45s; }
+.spotify-wave-visualizer span:nth-child(5) { animation-delay: 0.25s; }
+.spotify-wave-visualizer span:nth-child(6) { animation-delay: 0.5s; }
+.spotify-wave-visualizer span:nth-child(7) { animation-delay: 0.15s; }
+.spotify-wave-visualizer span:nth-child(8) { animation-delay: 0.38s; }
+.spotify-wave-visualizer span:nth-child(9) { animation-delay: 0.2s; }
+.spotify-wave-visualizer span:nth-child(10) { animation-delay: 0.48s; }
+
+@keyframes eqWave {
+  0% { height: 4px; }
+  100% { height: 22px; }
 }
 
 /* =========================================================
@@ -2125,8 +2343,8 @@ html::-webkit-scrollbar {
 ========================================================= */
 .comic-about-container {
   display: grid;
-  grid-template-columns: 240px 1fr 240px;
-  gap: 28px;
+  grid-template-columns: 280px 1fr 280px;
+  gap: 30px;
   align-items: center;
   position: relative;
 }
@@ -2135,40 +2353,53 @@ html::-webkit-scrollbar {
 .comic-col {
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 28px;
   perspective: 1000px;
 }
 
-/* Comic Panel Containers */
+/* Comic Panel Containers with Floating Animation */
 .comic-panel {
   position: relative;
   background: rgba(18, 2, 2, 0.85);
   border: 2px solid rgba(255, 31, 31, 0.45);
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 10px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65), 0 0 16px rgba(255, 31, 31, 0.15);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.65), 0 0 16px rgba(255, 31, 31, 0.15);
   transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
+  animation: comicFloat 5s ease-in-out infinite alternate;
 }
 
-/* Isometric comic tilt angles */
 .comic-panel--student {
-  transform: rotate(-2deg);
+  transform: rotate(-2.5deg);
+  animation-delay: 0s;
 }
 .comic-panel--singer {
   transform: rotate(2.5deg);
+  animation-delay: 0.8s;
 }
 .comic-panel--photographer {
-  transform: rotate(2deg);
+  transform: rotate(2.5deg);
+  animation-delay: 1.4s;
 }
 .comic-panel--graduate {
   transform: rotate(-2.5deg);
+  animation-delay: 2s;
 }
 
+@keyframes comicFloat {
+  0% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
+  100% { transform: translateY(-8px) rotate(var(--rot, 0deg)); }
+}
+.comic-panel--student { --rot: -2.5deg; }
+.comic-panel--singer { --rot: 2.5deg; }
+.comic-panel--photographer { --rot: 2.5deg; }
+.comic-panel--graduate { --rot: -2.5deg; }
+
 .comic-panel:hover {
-  transform: scale(1.04) rotate(0deg);
+  transform: scale(1.04) rotate(0deg) !important;
   border-color: var(--red);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 24px rgba(255, 31, 31, 0.45);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.85), 0 0 28px rgba(255, 31, 31, 0.55);
   z-index: 5;
 }
 
@@ -2178,7 +2409,7 @@ html::-webkit-scrollbar {
   left: 16px;
   z-index: 3;
   font-family: "Space Grotesk", sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2191,11 +2422,19 @@ html::-webkit-scrollbar {
 
 .comic-img-box {
   width: 100%;
-  height: 250px;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
   position: relative;
   background: #000;
+}
+
+/* Enlarged heights for the three prominent photos */
+.comic-panel--large .comic-img-box {
+  height: 310px;
+}
+/* Retain compact height for BSCpE Alumnus */
+.comic-panel--graduate .comic-img-box {
+  height: 230px;
 }
 
 .comic-photo {
@@ -2213,7 +2452,7 @@ html::-webkit-scrollbar {
   filter: contrast(1.1) brightness(1.05);
 }
 
-/* Main Story Card (Center) */
+/* Center Story Dispatch */
 .comic-story-core {
   background: linear-gradient(165deg, rgba(30, 4, 4, 0.88) 0%, rgba(10, 0, 0, 0.96) 100%);
   border: 2px solid rgba(255, 31, 31, 0.35);
@@ -2350,7 +2589,7 @@ html::-webkit-scrollbar {
   font-size: 0.88rem !important;
 }
 
-/* Gabb Photography Badge */
+/* Gabb Photography Showcase Badge */
 .photography-showcase-badge {
   display: flex;
   align-items: center;
@@ -2407,10 +2646,10 @@ html::-webkit-scrollbar {
   background: linear-gradient(135deg, #ff3b3b 0%, var(--red) 50%, var(--red-dark) 100%);
   color: var(--white);
   font-family: "Space Grotesk", sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 700;
   text-decoration: none;
-  padding: 10px 18px;
+  padding: 10px 22px;
   border-radius: 50px;
   white-space: nowrap;
   box-shadow: 0 4px 14px rgba(255, 31, 31, 0.35);
@@ -2422,9 +2661,7 @@ html::-webkit-scrollbar {
   box-shadow: 0 6px 20px rgba(255, 31, 31, 0.55);
 }
 
-/* =========================================================
-   RESPONSIVE LAYOUT FOR MOBILE & TABLETS
-========================================================= */
+/* Responsive Rules for Comics & Center Showcase */
 @media (max-width: 1100px) {
   .comic-about-container {
     grid-template-columns: 1fr;
@@ -2439,14 +2676,32 @@ html::-webkit-scrollbar {
 
   .comic-panel {
     transform: none !important;
+    animation: none !important;
   }
 
-  .comic-img-box {
-    height: 220px;
+  .comic-panel--large .comic-img-box {
+    height: 250px;
+  }
+  .comic-panel--graduate .comic-img-box {
+    height: 250px;
   }
 }
 
 @media (max-width: 680px) {
+  .spotify-highlight-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 20px;
+    gap: 18px;
+  }
+  .spotify-vinyl-disc {
+    display: none;
+  }
+  .spotify-status-badge,
+  .spotify-controls-wrap {
+    justify-content: center;
+  }
+
   .comic-story-core {
     padding: 26px 20px;
   }
@@ -2455,8 +2710,9 @@ html::-webkit-scrollbar {
     grid-template-columns: 1fr;
   }
 
-  .comic-img-box {
-    height: 260px;
+  .comic-panel--large .comic-img-box,
+  .comic-panel--graduate .comic-img-box {
+    height: 270px;
   }
 
   .photography-showcase-badge {
@@ -2809,7 +3065,7 @@ html::-webkit-scrollbar {
 
 /* =========================================================
    MOBILE CERTIFICATE FIXES (Clean, Uniform Spacing)
-========================================================= */
+========================================= */
 
 /* Leadership card: Original exact settings */
 @media (max-width: 720px) {
