@@ -268,7 +268,7 @@ if (profileWrap) {
 // =========================================
 // 5. SCROLL REVEAL (MOBILE-FRIENDLY THRESHOLDS)
 // =========================================
-const revealCards = document.querySelectorAll('.skill-card, .cert-card, .project-card, .project-spotlight, .exp-card, .comic-panel, .comic-story-core, .spotify-center-showcase');
+const revealCards = document.querySelectorAll('.skill-card, .cert-card, .project-card, .project-spotlight, .exp-card, .comic-panel, .comic-story-core, .music-spotlight');
 
 if (revealCards.length && 'IntersectionObserver' in window) {
   const cardObserver = new IntersectionObserver(
@@ -649,12 +649,12 @@ if (scriptText) {
 })();
 
 // =========================================
-// 7. KNOW ME MORE AUDIO & CENTER SHOWCASE CONTROLS
+// 7. KNOW ME MORE AUDIO & SPOTLIGHT INTERACTION
 // =========================================
 (function () {
   const bgAudio = document.getElementById('bgAudio');
   const aboutSection = document.getElementById('aboutme');
-  const spotifyCard = document.getElementById('spotifyShowcase')?.querySelector('.spotify-highlight-card');
+  const musicSpotlight = document.getElementById('musicSpotlight');
   const spotifyToggleBtn = document.getElementById('spotifyToggleBtn');
 
   if (!bgAudio || !aboutSection) return;
@@ -663,7 +663,7 @@ if (scriptText) {
   const maxVolume = 0.5;
   let userInteracted = false;
 
-  // I-unlock ang browser audio policy sa unang click/tap kahit saan sa screen
+  // I-unlock ang browser audio policy sa unang interaction
   function unlockAudio() {
     if (userInteracted) return;
     userInteracted = true;
@@ -686,7 +686,7 @@ if (scriptText) {
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
-          spotifyCard?.classList.add('is-playing');
+          musicSpotlight?.classList.add('is-playing');
           const step = maxVolume / (duration / 50);
           fadeInterval = setInterval(() => {
             if (bgAudio.volume + step < maxVolume) {
@@ -698,7 +698,7 @@ if (scriptText) {
           }, 50);
         })
         .catch((err) => {
-          console.warn('Audio waiting for page interaction:', err);
+          console.warn('Autoplay waiting for touch/click:', err);
         });
     }
   }
@@ -712,7 +712,7 @@ if (scriptText) {
       } else {
         bgAudio.volume = 0;
         bgAudio.pause();
-        spotifyCard?.classList.remove('is-playing');
+        musicSpotlight?.classList.remove('is-playing');
         clearInterval(fadeInterval);
       }
     }, 50);
@@ -737,18 +737,18 @@ if (scriptText) {
     audioObserver.observe(aboutSection);
   }
 
-  // Manual Play/Pause Button sa loob ng Spotify Highlight Card
+  // Play/Pause button toggle sa ilalim ng MUSIC LOGO
   spotifyToggleBtn?.addEventListener('click', (e) => {
     e.stopPropagation();
     clearInterval(fadeInterval);
     if (bgAudio.paused) {
       bgAudio.volume = maxVolume;
       bgAudio.play()
-        .then(() => spotifyCard?.classList.add('is-playing'))
+        .then(() => musicSpotlight?.classList.add('is-playing'))
         .catch(console.warn);
     } else {
       bgAudio.pause();
-      spotifyCard?.classList.remove('is-playing');
+      musicSpotlight?.classList.remove('is-playing');
     }
   });
 })();

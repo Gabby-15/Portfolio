@@ -602,7 +602,7 @@
         <article class="project-card">
           <div class="project-card-media">
             <svg viewBox="0 0 200 150" class="project-placeholder" aria-hidden="true">
-              <rect x="60" y="45" width="80" height="55" rx="10"></rect>
+              <rect x="6" y="45" width="80" height="55" rx="10"></rect>
               <circle cx="78" cy="65" r="6"></circle>
               <circle cx="122" cy="65" r="6"></circle>
               <path d="M60 100 40 118M140 100l20 18"></path>
@@ -656,59 +656,54 @@
       <p class="aboutme-eyebrow">The Story &bull; The Rhythm &bull; The Lens</p>
       <h2 class="aboutme-title">Know Me More</h2>
 
-      <!-- Centered Highlighted Spotify Track Player Showcase -->
-      <div class="spotify-center-showcase" id="spotifyShowcase">
-        <div class="spotify-highlight-card">
-          <div class="spotify-cover-anchor">
-            <img src="images/MUSIC%20LOGO.png" alt="MUSIC LOGO" class="spotify-album-cover" onerror="this.src='images/MUSIC LOGO.png';">
-            <div class="spotify-vinyl-disc" aria-hidden="true"></div>
-          </div>
+      <!-- Centered Highlighted Song Spotlight (No Outer Container Card) -->
+      <div class="music-spotlight" id="musicSpotlight">
+        <div class="music-logo-halo">
+          <img src="images/MUSIC%20LOGO.png" alt="ANGAT AT SIKAT" class="music-logo-img" onerror="this.src='images/MUSIC LOGO.png';">
+          <div class="music-glow-ring" aria-hidden="true"></div>
+        </div>
 
-          <div class="spotify-player-details">
-            <div class="spotify-status-badge">
-              <span class="spotify-live-led"></span>
-              <span class="spotify-status-txt">Now Featured</span>
-            </div>
-            <h3 class="spotify-track-title">ANGAT AT SIKAT</h3>
-            <p class="spotify-track-by">by Gabb Salvacion</p>
+        <div class="music-meta-stack">
+          <span class="music-pill">Official Track &bull; CEASC Anthem</span>
+          <h3 class="music-track-name">ANGAT AT SIKAT</h3>
+          <p class="music-artist-name">by Gabb Salvacion</p>
 
-            <div class="spotify-controls-wrap">
-              <button type="button" class="spotify-toggle-btn" id="spotifyToggleBtn" aria-label="Play or Pause Angat at Sikat">
-                <!-- Play Icon -->
-                <svg class="spot-icon spot-icon--play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
-                <!-- Pause Icon -->
-                <svg class="spot-icon spot-icon--pause" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                </svg>
-              </button>
+          <div class="music-interactive-row">
+            <button type="button" class="music-action-btn" id="spotifyToggleBtn" aria-label="Play or Pause Song">
+              <!-- Play SVG -->
+              <svg class="m-icon m-icon--play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <!-- Pause SVG -->
+              <svg class="m-icon m-icon--pause" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+              </svg>
+            </button>
 
-              <!-- Dynamic Animated Audio Visualizer Waves -->
-              <div class="spotify-wave-visualizer" aria-hidden="true">
-                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-              </div>
+            <!-- Dynamic Equalizer Soundwaves -->
+            <div class="music-equalizer" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Comic Strip Showcase Layout with Enlarged Visual Panels -->
+      <!-- Comic Book Layout with Identical Box Sizing and .png Assets -->
       <div class="comic-about-container">
 
         <!-- Left Comic Column -->
         <aside class="comic-col comic-col--left">
-          <div class="comic-panel comic-panel--student comic-panel--large">
-            <span class="comic-tag">Leadership &bull; CpE</span>
+          <div class="comic-panel comic-panel--student">
+            <span class="comic-tag">Student Leader &bull; CpE</span>
             <div class="comic-img-box">
-              <img src="images/gabbstudent.png" alt="Mark Gabriel Salvacion - Student Leader" class="comic-photo">
+              <img src="images/gabbstudent.png" alt="Gabb Salvacion Student Leader" class="comic-photo" onerror="this.src='images/gabbstudent.jpg';">
             </div>
           </div>
 
-          <div class="comic-panel comic-panel--singer comic-panel--large">
+          <div class="comic-panel comic-panel--singer">
             <span class="comic-tag">Live Acoustic</span>
             <div class="comic-img-box">
-              <img src="images/gabsinger.png" alt="Gabb Salvacion Performing on Stage" class="comic-photo">
+              <img src="images/gabsinger.png" alt="Gabb Salvacion Singer" class="comic-photo" onerror="this.src='images/gabsinger.jpg';">
             </div>
           </div>
         </aside>
@@ -771,17 +766,17 @@
 
         <!-- Right Comic Column -->
         <aside class="comic-col comic-col--right">
-          <div class="comic-panel comic-panel--photographer comic-panel--large">
+          <div class="comic-panel comic-panel--photographer">
             <span class="comic-tag">Behind The Lens</span>
             <div class="comic-img-box">
-              <img src="images/gabbphotographer.png" alt="Gabb Salvacion with Camera Gear" class="comic-photo">
+              <img src="images/gabbphotographer.png" alt="Gabb Salvacion with Camera Gear" class="comic-photo" onerror="this.src='images/gabbphotographer.jpg';">
             </div>
           </div>
 
           <div class="comic-panel comic-panel--graduate">
             <span class="comic-tag">BSCpE Alumnus</span>
             <div class="comic-img-box">
-              <img src="images/gabbarong.png" alt="Mark Gabriel Salvacion in Traditional Barong" class="comic-photo">
+              <img src="images/gabbarong.png" alt="Mark Gabriel Salvacion in Traditional Barong" class="comic-photo" onerror="this.src='images/gabbarong.jpg';">
             </div>
           </div>
         </aside>
