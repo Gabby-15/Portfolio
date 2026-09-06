@@ -594,7 +594,9 @@ body {
   .cert-card,
   .exp-card,
   .project-card,
-  .project-spotlight {
+  .project-spotlight,
+  .comic-panel,
+  .comic-story-core {
     opacity: 1 !important;
     transform: none !important;
   }
@@ -790,6 +792,12 @@ body {
   .social-icons a img {
     width: 44px !important;
     height: 44px !important;
+  }
+
+  /* Below ~380px two-up comic thumbnails get too tiny — stack them so
+     each photo stays legible instead of shrinking further. */
+  .comic-col {
+    grid-template-columns: 1fr !important;
   }
 }
 
@@ -2373,28 +2381,53 @@ html::-webkit-scrollbar {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 }
 
-/* Identical Box Height for All 4 Panels */
+/* Identical Box Ratio for All 4 Panels — aspect-ratio (instead of a fixed
+   pixel height) keeps the same crop proportions no matter how wide the
+   column gets at any breakpoint, so photos stop getting stretched/over-cropped
+   on tablet and mobile. */
 .comic-img-box {
   width: 100%;
-  height: 275px;
+  aspect-ratio: 3 / 5;
+  height: 100%;
   border-radius: 12px;
   overflow: hidden;
   position: relative;
   background: #000;
 }
 
+/* Soft bottom vignette so the tag/edges never feel like a harsh cut,
+   and photos with busy backgrounds still look intentional. */
+.comic-img-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 62%, rgba(10, 0, 0, 0.55) 100%);
+  pointer-events: none;
+}
+
 .comic-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
+  /* Default keeps a little headroom above center — the safest crop for
+     portrait/half-body shots. If a specific photo still looks off, nudge
+     the matching --photo-pos below (e.g. "50% 10%" pans up toward the
+     face, "50% 60%" pans down). */
+  object-position: var(--photo-pos, 50% 25%);
   display: block;
   filter: contrast(1.08) brightness(0.98);
-  transition: transform 0.4s ease, filter 0.4s ease;
+  transition: transform 0.5s ease, filter 0.4s ease;
 }
 
+/* Per-photo crop tuning — adjust these percentages to match each actual
+   image instead of touching the shared rule above. */
+.comic-panel--student .comic-photo { --photo-pos: 50% 15%; }
+.comic-panel--singer .comic-photo { --photo-pos: 50% 20%; }
+.comic-panel--photographer .comic-photo { --photo-pos: 50% 20%; }
+.comic-panel--graduate .comic-photo { --photo-pos: 50% 12%; }
+
 .comic-panel:hover .comic-photo {
-  transform: scale(1.06);
+  transform: scale(1.08);
   filter: contrast(1.15) brightness(1.04);
 }
 
@@ -2417,6 +2450,24 @@ html::-webkit-scrollbar {
   border-radius: inherit;
   background: radial-gradient(circle at 80% 10%, rgba(255, 31, 31, 0.08), transparent 50%);
   pointer-events: none;
+}
+
+/* Scroll-reveal for the comic panels + story core, matching the fade/rise
+   already used by the skills, certs and projects sections. */
+.comic-panel,
+.comic-story-core {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 0.84, 0.44, 1), transform 0.7s cubic-bezier(0.16, 0.84, 0.44, 1);
+}
+.comic-col--left .comic-panel:nth-child(1) { transition-delay: 0.05s; }
+.comic-col--left .comic-panel:nth-child(2) { transition-delay: 0.15s; }
+.comic-col--right .comic-panel:nth-child(1) { transition-delay: 0.1s; }
+.comic-col--right .comic-panel:nth-child(2) { transition-delay: 0.2s; }
+.comic-panel.in-view,
+.comic-story-core.in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .comic-story-head {
@@ -2625,9 +2676,7 @@ html::-webkit-scrollbar {
     animation: none !important;
   }
 
-  .comic-img-box {
-    height: 250px;
-  }
+  /* aspect-ratio on .comic-img-box already scales the crop cleanly here */
 }
 
 @media (max-width: 680px) {
@@ -2636,11 +2685,20 @@ html::-webkit-scrollbar {
   }
 
   .comic-col {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
 
   .comic-img-box {
-    height: 270px;
+    aspect-ratio: 3 / 4;
+  }
+
+  .comic-tag {
+    font-size: 0.56rem;
+    padding: 3px 7px;
+    top: 8px;
+    left: 8px;
+    border-radius: 5px;
   }
 
   .photography-showcase-badge {
