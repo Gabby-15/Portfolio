@@ -268,7 +268,7 @@ if (profileWrap) {
 // =========================================
 // 5. SCROLL REVEAL (MOBILE-FRIENDLY THRESHOLDS)
 // =========================================
-const revealCards = document.querySelectorAll('.skill-card, .cert-card, .project-card, .project-spotlight, .exp-card');
+const revealCards = document.querySelectorAll('.skill-card, .cert-card, .project-card, .project-spotlight, .exp-card, .comic-panel, .comic-story-core');
 
 if (revealCards.length && 'IntersectionObserver' in window) {
   const cardObserver = new IntersectionObserver(
@@ -649,20 +649,19 @@ if (scriptText) {
 })();
 
 // =========================================
-// 7. ABOUT ME AUDIO (IN-VIEW AUTOPLAY ONLY)
+// 7. KNOW ME MORE AUDIO (AUTOPLAY ON SECTION ONLY)
 // =========================================
 (function () {
   const bgAudio = document.getElementById('bgAudio');
   const aboutSection = document.getElementById('aboutme');
-  const spotifyCard = document.getElementById('spotifyCard');
 
   if (!bgAudio || !aboutSection) return;
 
   let fadeInterval = null;
-  const maxVolume = 0.5;
+  const maxVolume = 0.45;
   let userInteracted = false;
 
-  // Unlock browser audio restrictions upon user's first click or touch
+  // I-unlock ang browser audio policy sa unang click/tap kahit saan sa screen
   function unlockAudio() {
     if (userInteracted) return;
     userInteracted = true;
@@ -685,7 +684,6 @@ if (scriptText) {
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
-          spotifyCard?.classList.add('is-playing');
           const step = maxVolume / (duration / 50);
           fadeInterval = setInterval(() => {
             if (bgAudio.volume + step < maxVolume) {
@@ -697,7 +695,7 @@ if (scriptText) {
           }, 50);
         })
         .catch((err) => {
-          console.warn('Autoplay waiting for user gesture:', err);
+          console.warn('Audio waiting for page interaction:', err);
         });
     }
   }
@@ -711,13 +709,12 @@ if (scriptText) {
       } else {
         bgAudio.volume = 0;
         bgAudio.pause();
-        spotifyCard?.classList.remove('is-playing');
         clearInterval(fadeInterval);
       }
     }, 50);
   }
 
-  // Plays only while in About Me viewport, fades out when leaving
+  // Magpe-play lamang habang nakikita ang About Me section
   if ('IntersectionObserver' in window) {
     const audioObserver = new IntersectionObserver(
       (entries) => {
